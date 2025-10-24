@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // Icon react 
 import { MdMenuOpen } from "react-icons/md";
 import { MdOutlineDashboard } from "react-icons/md";
@@ -11,13 +9,11 @@ import { CiSettings } from "react-icons/ci";
 // a supprimer plus tard pour remplacer par PDP
 import { FaUserCircle } from "react-icons/fa";
 
-function NavBar() {
+function NavBar({open,setOpen}) { // Récupération des useStat depuis le parent
 
-    const [open, setOpen] = useState(true)
-
-    return ( 
+    return (
         <>
-            <nav className={`h-screen p-2 flex flex-col duration-500 bg-[#7CA982] text-white ${open ? 'w-60' : 'w-18'}`}>
+            <nav className={`fixed left-0 top-0 h-screen p-2 flex flex-col duration-500 bg-[#7CA982] text-white ${open ? 'w-60' : 'w-18'}`}>
 
                 {/* Menu Burger */}
                 <div className='p-2 h-20 items-center'>

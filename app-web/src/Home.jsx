@@ -1,6 +1,9 @@
 import './css/style.css'
+import { useNavigate } from 'react-router';
 
 function Home() {
+    
+    const navigate = useNavigate()
 
   return (
     <>
@@ -46,13 +49,11 @@ function Home() {
           xl:p-6
           hover:opacity-80 hover:cursor-pointer hover:w-8/12 hover:bg-linear-to-r hover:from-[#a4ebad] hover:to-[#7CA982] hover:duration-300
           "
+          onClick={() => navigate('/formulaireinscription')}
           >
-            <p className="
-            md:text-2xl 
-            lg:text-2xl 
-            xl:text-3xl
-            ">
-              Rejoins-nous !</p>
+            <p className="text-white" id="btn-Home-Inscription">
+                Rejoins-nous !
+            </p>
           </button>
 
         </section>

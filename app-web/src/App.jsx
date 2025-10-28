@@ -1,16 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import '../public/css/style.css'
+import { useState } from "react";
+import Connexion from "./Connexion";
+import "../public/css/style.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLogged, setIsLogged] = useState(false);
 
   return (
     <>
-    <h1 className="bg-red-500">Titre</h1>
+      {isLogged ? (
+        <h1 className="bg-red-500 text-white text-center p-5 text-3xl">
+          Bienvenue sur ton dashboard !
+        </h1>
+      ) : (
+        <Connexion onLogin={setIsLogged} />
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

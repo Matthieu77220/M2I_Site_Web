@@ -7,6 +7,7 @@ function Connexion({ onLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Simuler une vérification des identifiants
 
     if (email === "admin@test.com" && password === "1234") {
       setMessage("Connexion réussie !");

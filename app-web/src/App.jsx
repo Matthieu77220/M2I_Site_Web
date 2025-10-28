@@ -9,7 +9,7 @@ function App() {
     <>
       {isLogged ? (
         <h1 className="bg-red-500 text-white text-center p-5 text-3xl">
-          Bienvenue sur ton dashboard !
+          Bienvenue sur ton dashboard !!
         </h1>
       ) : (
         <Connexion onLogin={setIsLogged} />

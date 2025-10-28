@@ -24,13 +24,7 @@ function Connexion({ onLogin }) {
         <h1 className="text-center text-xl md:text-4xl font-bold m-5 text-white">
           Connexion
         </h1>
-        <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">
-          Pas encore de compte ?{" "}
-          <a href="#" className="text-[#7CA982] underline contrast-200">
-            Créez-en un
-          </a>
-        </h2>
-
+        
         <div className="mt-5 mx-auto w-full max-w-lg">
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="mt-2">
@@ -54,6 +48,14 @@ function Connexion({ onLogin }) {
                 className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
               />
             </div>
+
+            <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">
+          Pas encore de compte ?{" "}
+          <a href="#" className="text-[#7CA982] underline contrast-200">
+            Créez-en un
+          </a>
+        </h2>
+
 
             <div className="flex justify-center">
               <button

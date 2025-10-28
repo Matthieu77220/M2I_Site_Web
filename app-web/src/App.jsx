@@ -1,32 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import '../public/css/style.css'
+import './css/style.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-    <section>
-     <h1 className="text-[#7CA982] text-3xl font-bold">M2I Le five entre amis !</h1>
-    </section>
+    <section className="flex flex-col-reverse">
 
-    <section>
-      <p className="text-[#7CA982] text-5xl font-bold">Un ballon, <br /> des potes, <br />des émotions:<br /> rejoins le match !</p>
-    </section>
+      <section className="flex flex-col">
 
-    <section>
-      <button 
-      type="button"
-      className="bg-linear-to-r from-[#7CA982] to-[#a4ebad] rounded-xl ml-10 text-white p-1"
-      >
-        Rejoins-nous !
-      </button>
-    </section>
+        <section className="flex">
+        <h1 className="text-[#7CA982] text-lg font-bold">
+            M2I Le five entre amis !
+          </h1>
+        </section>
 
-    <section>
-      <img src="../public/img/landing-img.jpeg" alt="football is life" />
+        <section className="flex mt-10">
+          <p className="text-[#7CA982] text-base font-semibold">Un ballon, <br /> des potes, <br />des émotions:<br /> rejoins le match !</p>
+        </section>
+
+        <section className="flex justify-center">
+
+          <button 
+          type="button"
+          className="bg-linear-to-r from-[#7CA982] to-[#a4ebad] rounded-4xl mt-10 text-white p-4 w-7/12"
+          >
+            Rejoins-nous !
+          </button>
+
+        </section>
+
+      </section>
+
+        <section className="flex">
+
+          <img 
+          src="./src/img/landing-img.png" 
+          alt="football is life" 
+          className="mb-5 h-auto"
+          />
+
+        </section>
+      
     </section>
     </>
   )

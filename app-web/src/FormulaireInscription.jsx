@@ -26,21 +26,24 @@ function FormulaireInscription() {
     const [isInputValid, setIsInputValid] = useState(true)
 
     // Vérifie si les inputs sont conforment aux Regex ainsi que les MDP
-    function checkValidInput() {
+    function checkValidInput(event) {
         if (regexPrenom.test(formData.prenom) && regexNom.test(formData.nom) && regexEmail.test(formData.email) && regexTel.test(formData.telephone) && regexMotDePasse.test(formData.motDePasse) && regexMotDePasse.test(formData.confirmMotDePasse)) {
-            setIsInputValid(true) // Attribut True si le résultat lors de la 1er condition etait dans le else 
+            setIsInputValid(true) // Attribut True si le résultat lors de la 1er condition etait dans le else
             if (formData.motDePasse == formData.confirmMotDePasse) {
                 setIsPassWordMatch(true)
+                
             }else {
                 setIsPassWordMatch(false)
+                event.preventDefault() // empêche la réinitilisation du form si MDP != confirme MDP
             }
         }else{
-            setIsInputValid(false)   
+            setIsInputValid(false)
+            event.preventDefault() // empêche la réinitilisation du form si input n'est pas conforme avec les Regex
         }
     }   
 
     return ( 
-        <div className="h-screen flex justify-center items-center py-7 bg-[#5E856B] w-auto ">
+        <div className="flex justify-center items-center bg-[#5E856B] w-auto">
             <div className="md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/2 w-full">
                 <h1 className="text-center text-xl md:text-4xl font-bold m-5 text-white">Créer un nouveau compte</h1>
                 <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Déja inscrit ? <a href="#" className="text-[#7CA982] underline contrast-200">Connectez-vous</a></h2>
@@ -164,7 +167,7 @@ function FormulaireInscription() {
                     </div>
 
                     {/* Bouton s'inscrire */}
-                    <button type="submit" onClick={() => checkValidInput()} className="flex m-auto w-[90%] md:w-full justify-center rounded-md shadow-xs bg-[#8BB78F] px-4 py-2.5 text-sm/6 font-semibold text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Sign in</button>
+                    <button type="submit" onClick={(event) => checkValidInput(event)} className="flex m-auto w-[90%] md:w-full justify-center rounded-md shadow-xs bg-[#8BB78F] px-4 py-2.5 pb-5 text-sm/6 font-semibold text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Sign in</button>
 
                   </form>
                 </div>

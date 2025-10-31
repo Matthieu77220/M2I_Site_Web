@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router';
 
 function FormulaireInscription() {
+
+    const navigate = useNavigate()
 
     // Création des Regex pour chaque Input
     const regexPrenom = new RegExp("^[a-zA-Z]{3,15}$")
@@ -47,19 +50,19 @@ function FormulaireInscription() {
             <div className="flex justify-center items-center bg-[#5E856B] w-auto">
                 <div className="md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/2 w-full">
                     <h1 className="text-center text-xl md:text-4xl font-bold m-5 text-white">Créer un nouveau compte</h1>
-                    <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Déja inscrit ? <a href="#" className="text-[#7CA982] underline contrast-200">Connectez-vous</a></h2>
+                    <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Déja inscrit ? <span className="text-[#7CA982] underline contrast-200 cursor-pointer" onClick={() => navigate('/connexion')} >Connectez-vous</span></h2>
 
                     <div className="mt-5 mx-auto w-full max-w-lg">
                     <form action="#" className="space-y-8">
 
-                        {!isInputValid && <p className="ml-5 md:ml-0 text-center md:text-lg text-base text-red-800 font-semibold">Caractère invalide</p>}
+                        {!isInputValid && <p className="ml-5 md:ml-0 text-center md:text-lg text-base text-red-600 font-semibold">Caractère invalide</p>}
 
                         <div className="md:flex md:gap-7 md:w-full space-y-8 md:space-y-0">
 
                             {/* ---- prénom ---- */}
 
                             <div className="md:w-1/2 mt-2">
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-800 font-semibold" htmlFor="confirmePassword">Majuscules et Minuscules</label>}
+                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Majuscules et Minuscules</label>}
                             <input
                                 type="text"
                                 required
@@ -72,7 +75,7 @@ function FormulaireInscription() {
                             {/* ---- nom ---- */}
                             <div className="md:w-1/2 mt-2">
 
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-800 font-semibold" htmlFor="confirmePassword">Majuscules, Minuscules, "-"," "</label>}
+                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Majuscules, Minuscules, "-"," "</label>}
                                 <input
                                     type="text"
                                     required
@@ -86,7 +89,7 @@ function FormulaireInscription() {
                         {/* ---- email ---- */}
                         <div className="mt-2">
 
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-800 font-semibold" htmlFor="confirmePassword">Minuscules, ".", "@"</label>}
+                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Minuscules, ".", "@"</label>}
                             <input
                                 type="email"
                                 required
@@ -99,7 +102,7 @@ function FormulaireInscription() {
                         {/* ---- Date de naissance ---- */}
                         <div className="mt-2">
 
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-800 font-semibold" htmlFor="confirmePassword">Exemple: 12/03/1978</label>}
+                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Exemple: 12/03/1978</label>}
 
                             <input
                                 name="email"
@@ -115,7 +118,7 @@ function FormulaireInscription() {
 
                         <div className="mt-2">
 
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-800 font-semibold" htmlFor="confirmePassword">Numéro et "+"</label>}
+                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Numéro et "+"</label>}
 
                             <input
                                 name="telephone"
@@ -132,8 +135,8 @@ function FormulaireInscription() {
 
                             <div className="md:w-1/2 mt-2">
 
-                                {!isPassWordMatch && <label className="ml-5 md:ml-0 text-base text-red-800 font-semibold" htmlFor="password">Mot de passe différent</label>}
-                                {!isInputValid && <label className=" ml-5 md:ml-0 text-base text-red-800 font-semibold" htmlFor="confirmePassword">8 caractères: [Majuscules, Minuscules, Caractères spéciaux, Chiffre]</label>}
+                                {!isPassWordMatch && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="password">Mot de passe différent</label>}
+                                {!isInputValid && <label className=" ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">8 caractères: [Majuscules, Minuscules, Caractères spéciaux, Chiffre]</label>}
 
                                 <input
                                 id="password"
@@ -151,8 +154,8 @@ function FormulaireInscription() {
 
                             <div className="md:w-1/2 mt-2">
                             
-                                {!isPassWordMatch && <label className="ml-5 md:ml-0 text-base text-red-800 font-semibold" htmlFor="confirmePassword">Mot de passe différent</label>}
-                                {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-800 font-semibold" htmlFor="confirmePassword">8 caractères: [Majuscules, Minuscules, Caractères spéciaux, Chiffre]</label>}
+                                {!isPassWordMatch && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Mot de passe différent</label>}
+                                {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">8 caractères: [Majuscules, Minuscules, Caractères spéciaux, Chiffre]</label>}
 
                                 <input
                                 id="confirmePassword"

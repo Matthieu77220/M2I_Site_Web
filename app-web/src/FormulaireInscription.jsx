@@ -34,7 +34,7 @@ function FormulaireInscription() {
             setIsInputValid(true) // Attribut True si le résultat lors de la 1er condition etait dans le else
             if (formData.motDePasse == formData.confirmMotDePasse) {
                 setIsPassWordMatch(true)
-                
+                // rajouter plus tard le useEffect pour faire appel API
             }else {
                 setIsPassWordMatch(false)
                 event.preventDefault() // empêche la réinitilisation du form si MDP != confirme MDP
@@ -53,7 +53,7 @@ function FormulaireInscription() {
                     <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Déja inscrit ? <span className="text-[#7CA982] underline contrast-200 cursor-pointer" onClick={() => navigate('/connexion')} >Connectez-vous</span></h2>
 
                     <div className="mt-5 mx-auto w-full max-w-lg">
-                    <form action="#" className="space-y-8">
+                    <form onSubmit={checkValidInput} className="space-y-8">
 
                         {!isInputValid && <p className="ml-5 md:ml-0 text-center md:text-lg text-base text-red-600 font-semibold">Caractère invalide</p>}
 
@@ -171,7 +171,7 @@ function FormulaireInscription() {
                         </div>
 
                         {/* Bouton s'inscrire */}
-                        <button type="submit" onClick={(event) => checkValidInput(event)} className="flex m-auto w-[90%] md:w-full justify-center rounded-md shadow-xs bg-[#8BB78F] px-4 py-2.5 pb-5 text-sm/6 font-semibold text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Inscription</button>
+                        <button type="submit" className="flex m-auto w-[90%] md:w-full justify-center rounded-md shadow-xs bg-[#8BB78F] px-4 py-2.5 pb-5 text-sm/6 font-semibold text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Inscription</button>
 
                     </form>
                     </div>

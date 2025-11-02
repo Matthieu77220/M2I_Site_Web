@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router';
 
 function Connexion() {
+
+    const navigate = useNavigate()
 
     // Création des Regex pour chaque Input
     const regexEmail = new RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+")
@@ -38,7 +41,7 @@ return (
         
         {/* ---- email ---- */}
         {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Minuscules, ".", "@"</label>}
-        
+
         <div className="mt-2">
             <input
             type="email"
@@ -63,7 +66,7 @@ return (
         </div>
 
         <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Pas encore de compte ?{" "}
-        <a href="FormulaireIsncription.jsx" className="text-[#7CA982] underline contrast-200">Créez-en un</a>
+        <a onClick={() => navigate('/FormulaireInscription')} className="text-[#7CA982] underline contrast-200 cursor-pointer">Créez-en un</a>
         </h2>
 
 

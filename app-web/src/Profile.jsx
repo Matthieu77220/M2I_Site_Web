@@ -32,8 +32,8 @@ function Profile() {
                     <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                     <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                         <div className="flex flex-col justify-between items-center space-y-5">
-                            <h1 className="text-xl font-bold m-auto">Modifier le dossier</h1>
-                            <h2 className=''>Etes-vous sur de vouloir supprimer votre compte ?</h2>
+                            <h1 className="text-xl font-bold m-auto">Supprimer le compte</h1>
+                            <h2 className=''>Êtes-vous sur de vouloir supprimer votre compte ?</h2>
                             {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
                             <button
                                 className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"

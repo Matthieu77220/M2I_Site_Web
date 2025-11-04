@@ -7,6 +7,8 @@ import FormulaireInscription from "./FormulaireInscription.jsx"
 import Connexion from "./Connexion.jsx";
 import TestPage from "./TestPage.jsx"
 import PannelAdmin from './PannelAdmin.jsx';
+import Profile from "./Profile.jsx";
+import ModifierProfile from "./ModifierProfile.jsx";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/Connexion" element={<Connexion />} />
           <Route path="/TestPage" element={<TestPage />} />
           <Route path='/PannelAdmin'element={<PannelAdmin />} />
+          <Route path='/Profile'element={<Profile />} />
+          <Route path='/ModifierProfile'element={<ModifierProfile />} />
         </Routes>
       </Router>
     </>

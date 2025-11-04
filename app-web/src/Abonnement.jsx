@@ -1,56 +1,97 @@
-import { HiCheckBadge } from "react-icons/hi2";
+    import { HiCheckBadge } from "react-icons/hi2";
 
-function Abonnement() {
-    return ( 
-        <>
-            <div className="min-h-screen xl:h-screen flex flex-col justify-center items-center gap-5 bg-[#5E856B]">
-                <div className="text-center flex justify-around flex-col gap-5 h-1/6">
-                    <h1 className="text-white text-7xl max-md:text-2xl font-bold">Formule d'abonnement</h1>
-                    <h2 className="text-white text-xl max-md:text-sm m-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae alias</h2>
+    function Abonnement() {
+       const cards = [
+    {
+        title: "Mensuel",
+        price: "19€",
+        period: "mois",
+        features: [
+            "Accès complet aux fonctionnalités de base",
+            "10 matchs par mois incluses",
+            "Support client standard",
+            "Accès aux mises à jour mensuelles",
+        ],
+    },
+    {
+        title: "Annuelle",
+        price: "100€",
+        period: "an",
+        features: [
+            "Accès complet à toutes les fonctionnalités",
+            "120 matchs par an incluses",
+            "Support client prioritaire 24/7",
+            "Accès anticipé aux nouvelles fonctionnalités",
+        ],
+    },
+    {
+        title: "À l’unité",
+        price: "5€",
+        period: "unité",
+        features: [
+            "Accès limité pour un match",
+            "Pas de support client inclus",
+            "Pas de contenu premium",
+            "Idéal pour tester le service avant abonnement",
+        ],
+    },
+];
+
+        return (
+            <div className="min-h-screen flex flex-col justify-center items-center gap-5 bg-[#5E856B]">
+                {/* Titre principal */}
+                <div className="text-center flex flex-col gap-5 mb-10">
+                    <h1 className="text-white text-7xl max-md:text-2xl font-bold">
+                        Formule d'abonnement
+                    </h1>
+                    <h2 className="text-white text-xl max-md:text-sm">
+                        Choisissez la formule qui vous convient
+                    </h2>
                 </div>
-                <div className="flex max-lg:flex-col gap-11 justify-around items-center w-[70%] h-[65%]">
-                    <div className="h-[80%] max-xl:w-auto w-1/3 bg-[#5E856B] border border-white rounded-2xl p-5 space-y-7">
-                        <h1 className="text-white text-2xl font-bold">Mensuel</h1>
-                        <p className="text-gray-300 text-xl font-bold"><span className="text-white text-6xl max-lg:text-4xl">19€ </span>/mois</p>
-                        <button type="button" className="w-[65%] justify-center text-xl max-lg:text-sm mt-5 mb-5 font-bold rounded-md shadow-xs bg-[#8BB78F] px-4 py-3 text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Acheter</button>
-                        <p className="text-white text-xl max-lg:text-lg font-semibold">Lorem ipsum dolor sit amet.</p>
-                        <ul className="text-gray-100 text-xl max-lg:text-sm font-semibold space-y-3">
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem ipsum dolor sit</li>
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem, ipsum dolor sit ammat deus.</li>
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem ipsum dolor sit.</li>
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem, ipsum dolor.</li>
-                        </ul>
-                    </div>
 
-                    <div className="h-[90%] max-xl:w-auto w-1/3 bg-[#5E856B] border-2 border-white rounded-2xl p-5 space-y-7">
-                        <h1 className="text-white text-2xl font-bold">Annuelle</h1>
-                        <p className="text-gray-300 text-xl font-bold"><span className="text-white text-6xl max-lg:text-4xl">100€ </span>/an</p>
-                        <button type="button" className="w-[65%] justify-center text-xl max-lg:text-sm mt-5 mb-5 font-bold rounded-md shadow-xs bg-[#8BB78F] px-4 py-3 text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Acheter</button>
-                        <p className="text-white text-xl max-lg:text-lg font-semibold">Lorem ipsum dolor sit amet.</p>
-                        <ul className="text-gray-100 text-xl max-lg:text-sm font-semibold space-y-3">
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem ipsum dolor sit amet consectetur.</li>
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem ipsum dolor sit.</li>
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem ipsum dolor sit amet consectetur elit. Hic.</li>
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem ipsum dolor sit..</li>
-                        </ul>
-                    </div>
+                {/* Conteneur des cartes */}
+                <div className="flex max-lg:flex-col gap-11 justify-around items-stretch w-[70%]">
+                    {cards.map((card, index) => (
+                        <div
+                            key={index}
+                            className="relative w-80 h-[500px] rounded-3xl cursor-pointer bg-[#52B788] overflow-hidden group"
+                        >
+                            {/* Cercle arrière-plan animé */}
+                            <div className="absolute -top-32 -left-16 w-32 h-44 rounded-full bg-[#95D5B2] transition-all duration-500 group-hover:-top-20 group-hover:-left-16 group-hover:w-[140%] group-hover:h-[140%]"></div>
 
-                    <div className="h-[80%] max-xl:w-auto w-1/3 bg-[#5E856B] border border-white rounded-2xl p-5 space-y-7">
-                        <h1 className="text-white text-2xl font-bold">À l’unité</h1>
-                        <p className="text-gray-300 text-xl max-lg:text-lg font-bold"><span className="text-white text-6xl">5€ </span>/unité</p>
-                        <button type="button" className="w-[65%] justify-center text-xl max-lg:text-sm mt-5 mb-5 font-bold rounded-md shadow-xs bg-[#8BB78F] px-4 py-3 text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Acheter</button>
-                        <p className="text-white text-xl font-semibold">Lorem ipsum dolor sit amet.</p>
-                        <ul className="text-gray-100 text-xl max-lg:text-sm font-semibold space-y-3">
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem ipsum dolor sit</li>
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem, ipsum dolor sit ammat deus.</li>
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem ipsum dolor sit.</li>
-                            <li><HiCheckBadge className="inline text-green-400"/> Lorem, ipsum dolor.</li>
-                        </ul>
-                    </div>
+                            {/* Contenu au hover */}
+                            <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white bg-[#95D5B2] opacity-0 transition-all duration-500 group-hover:opacity-100 p-5">
+                                <p className="text-xl font-semibold mb-3">Lorem ipsum dolor sit amet.</p>
+                                <ul className="text-white font-semibold space-y-2">
+                                    {card.features.map((feature, i) => (
+                                        <li key={i}>
+                                            <HiCheckBadge className="inline text-green-400 mr-1" />
+                                            {feature}
+                                            
+                                        </li>
+                                    ))}
+                                </ul>
+                                    <button className="w-[65%] px-4 py-3  mt-5 bg-[#52B788] rounded-md text-white font-bold hover:bg-[#95D5B2] transition-all">
+                                        Acheter
+                                    </button>
+                                
+                            </div>
+
+                            {/* Contenu visible par défaut */}
+                            <div className="absolute inset-0 flex flex-col justify-center items-center z-10 p-5 transition-opacity duration-500 group-hover:opacity-0">
+                                <h1 className="text-white text-2xl font-bold mb-2">{card.title}</h1>
+                                <p className="text-gray-300 text-lg font-bold mb-5">
+                                    <span className="text-white text-4xl max-lg:text-3xl">{card.price}</span>/{card.period}
+                                </p>
+                                <button className="w-[65%] px-4 py-3  bg-[#95D5B2] rounded-md text-white font-bold hover:bg-[#3A9F7F] transition-all">
+                                    Acheter
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
-        </>
-     );
-}
+        );
+    }
 
-export default Abonnement;
+    export default Abonnement;

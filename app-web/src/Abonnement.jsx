@@ -37,29 +37,28 @@ function Abonnement() {
         },
     ];
 
-    // Fonction pour gérer le clic sur un abonnement
     function onClick(title) {
         console.log(`Abonnement choisi : ${title}`);
     }
 
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center gap-5 bg-[#5E856B]">
+        <div className="min-h-screen flex flex-col justify-center items-center gap-5 bg-[#5E856B] px-4">
             {/* Titre principal */}
             <div className="text-center flex flex-col gap-5 mb-10">
-                <h1 className="text-white text-7xl max-md:text-2xl font-bold">
+                <h1 className="text-white text-7xl md:text-5xl max-md:text-3xl font-bold">
                     Formule d'abonnement
                 </h1>
-                <h2 className="text-white text-xl max-md:text-sm">
+                <h2 className="text-white text-xl md:text-lg max-md:text-sm">
                     Choisissez la formule qui vous convient
                 </h2>
             </div>
 
             {/* Conteneur des cartes */}
-            <div className="flex max-lg:flex-col gap-11 justify-around items-stretch w-[70%]">
+            <div className="flex flex-wrap gap-8 justify-center items-stretch w-full max-w-[1200px]">
                 {cards.map((card, index) => (
                     <div
                         key={index}
-                        className="relative w-80 h-[500px] rounded-3xl cursor-pointer bg-[#52B788] overflow-hidden group"
+                        className="relative w-full sm:w-72 md:w-80 h-[500px] rounded-3xl cursor-pointer bg-[#52B788] overflow-hidden group"
                     >
                         {/* Cercle arrière-plan animé */}
                         <div className="absolute -top-32 -left-16 w-32 h-44 rounded-full bg-[#95D5B2] transition-all duration-500 group-hover:-top-20 group-hover:-left-16 group-hover:w-[140%] group-hover:h-[140%]"></div>
@@ -76,7 +75,7 @@ function Abonnement() {
                             </ul>
                             <button
                                 onClick={() => onClick(card.title)}
-                                className="w-[65%] px-4 py-3 mt-5 bg-[#52B788] rounded-md text-white font-bold hover:bg-[#52B788] transition-all"
+                                className="w-[65%] sm:w-[60%] md:w-[65%] px-4 py-3 mt-5 bg-[#52B788] rounded-md text-white font-bold hover:bg-[#52B788] transition-all"
                             >
                                 Acheter
                             </button>
@@ -86,11 +85,11 @@ function Abonnement() {
                         <div className="absolute inset-0 flex flex-col justify-center items-center z-10 p-5 transition-opacity duration-500 group-hover:opacity-0 pointer-events-auto group-hover:pointer-events-none">
                             <h1 className="text-white text-2xl font-bold mb-2">{card.title}</h1>
                             <p className="text-gray-300 text-lg font-bold mb-5">
-                                <span className="text-white text-4xl max-lg:text-3xl">{card.price}</span>/{card.period}
+                                <span className="text-white text-4xl md:text-3xl max-lg:text-2xl">{card.price}</span>/{card.period}
                             </p>
                             <button
                                 onClick={() => onClick(card.title)}
-                                className="w-[65%] px-4 py-3 bg-[#95D5B2] rounded-md text-white font-bold hover:bg-[#3A9F7F] transition-all"
+                                className="w-[65%] sm:w-[60%] md:w-[65%] px-4 py-3 bg-[#95D5B2] rounded-md text-white font-bold hover:bg-[#3A9F7F] transition-all"
                             >
                                 Acheter
                             </button>

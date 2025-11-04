@@ -1,21 +1,18 @@
-import { useNavigate } from "react-router";
-
-// Icon react 
+import {useNavigate} from 'react-router';
 import { MdMenuOpen } from "react-icons/md";
 import { MdOutlineDashboard } from "react-icons/md";
-import { FaIdCard } from "react-icons/fa";
-import { ImStatsBars } from "react-icons/im";
-import { IoLogIn } from "react-icons/io5";
+import { FaUserCircle } from "react-icons/fa";
+import { CiDumbbell } from "react-icons/ci";
+import { GiSoccerField } from "react-icons/gi";
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineLogout } from "react-icons/md";
 
 
+function NavBarAdmin({open, setOpen}) {
 
-function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
+    const navigate = useNavigate();
 
-  const navigate = useNavigate();
-
-    return (
+    return (  
         <>
             <nav className={`fixed left-0 top-0 h-screen p-2 flex flex-col duration-500 bg-[#7CA982] text-white ${open ? 'w-60' : 'w-18'}`}>
 
@@ -33,18 +30,18 @@ function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
                   </li>
 
                   <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-                    <div><FaIdCard size={30} /></div>
-                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Licence</p>
+                    <div><FaUserCircle size={30} /></div>
+                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Profile</p>
                   </li>
 
                   <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-                    <div><ImStatsBars size={30} /></div>
-                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Statistique</p>
+                    <div><CiDumbbell size={30} /></div>
+                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Equipements</p>
                   </li>
 
                   <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-                    <div><IoLogIn size={30} /></div>
-                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1300  font-semibold `}>Inscription</p>
+                    <div><GiSoccerField size={30} /></div>
+                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1300  font-semibold `}>Terrains</p>
                   </li>
 
                   <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
@@ -61,7 +58,7 @@ function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
                 </div>
             </nav>
         </>
-     );
+    );
 }
 
-export default NavBar;
+export default NavBarAdmin;

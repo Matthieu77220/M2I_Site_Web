@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function MotDePasseOublie() {
+function ModifierMotDePasse() {
 
     // Création des Regex pour chaque Input
     const regexEmail = new RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+")
@@ -93,4 +93,4 @@ function MotDePasseOublie() {
      );
 }
 
-export default MotDePasseOublie;
+export default ModifierMotDePasse;

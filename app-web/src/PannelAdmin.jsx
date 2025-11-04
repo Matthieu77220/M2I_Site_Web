@@ -5,7 +5,7 @@ import NavBarAdmin from './components/NavBarAdmin';
 function PannelAdmin() {
     const [open, setOpen] = useState(true)
     const [currentPage, setCurrentPage] = useState(1);
-    const [formData, setFormData] = useState(false);
+    const [showOptions, setShowOptions] = useState(false);
     const [editData, setEditData] = useState(false);
     const [deleteData, setDeleteData] = useState(false);
     
@@ -28,6 +28,10 @@ function PannelAdmin() {
         if(currentPage > totalOfPages){
             setCurrentPage(currentPage - 1);
         }
+
+    function options(){
+        if()
+    }
     }
     return (  
         <>
@@ -53,6 +57,7 @@ function PannelAdmin() {
                                 <td>{utilisateur.id}</td>
                                 <td>{utilisateur.est_admin}</td>
                                 <td>{utilisateur.identifiant}</td>
+                                <td onClick={() =>{setShowOptions(true)}}>editer/supprimer</td>
                             </tr>
                         ))
                     ) : 

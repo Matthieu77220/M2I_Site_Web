@@ -5,14 +5,52 @@ import { FaPencil } from "react-icons/fa6";
 function Profile() {
     const [open, setOpen] = useState(true)
 
+    //Affiche la page pour supprimer son compte
+    const [pageGestionCompte, setPageGestionCompte] = useState(true)
+
+    //Confirme la supprésion du compte
+    const [confirmerBoutton,setConfirmerBoutton] = useState(false)
+
+    function deleteCompte() {
+        setPageGestionCompte(!pageGestionCompte)
+        // rajouter l'api pour drop la table
+    }
+
     return (
         <>
         <section className='min-h-screen flex flex-col'>
             <div className='flex'>
                 <NavBar open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>
-            <div className= {`duration-500 ${open ? "pl-60 w-[calc(100vw_-_15rem)]" : "pl-[72px] [calc(100vw_-_4.5rem)]"} 
+            <div className= {`duration-500 ${open ? "pl-60 w-[calc(100vw_-_15rem)]" : "pl-[72px] [calc(100vw_-_4.5rem)]"}
                             overflow-hidden flex flex-col justify-center items-center bg-[#f8f9fa] h-full w-full`}>
+
+                {!pageGestionCompte &&
+                    <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
+                        <div className="flex flex-col justify-between items-center space-y-5">
+                            <h1 className="text-xl font-bold m-auto">Modifier le dossier</h1>
+                            <h2 className=''>Etes-vous sur de vouloir supprimer votre compte ?</h2>
+                            {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
+                            <button
+                                className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                                onClick={() => setPageGestionCompte(!pageGestionCompte)}
+                            >
+                                ✕
+                            </button>
+                        </div>
+                        <div className='flex justify-around items-center '>
+                            {confirmerBoutton ? 
+                                <button type="button" onClick={() => deleteCompte()} className='bg-[#bd6868] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                                :
+                                <button type="button" onClick={() => {setConfirmerBoutton(!confirmerBoutton)}} className='bg-[#bd6868] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                            }
+                            <button type="button" className='bg-[#68bd6c] rounded-xl border border-[#68bd6c1a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12' onClick={() => setPageGestionCompte(!pageGestionCompte)}>NON</button>
+                        </div>
+                    </div>
+                    </div>
+                }
+
                 <h1 className='m-5 text-black text-2xl lg:text-4xl font-bold'>Mon compte</h1>
                 <div className='flex flex-col md:p-[25px] p-[40px] gap-10 rounded-md overflow-hidden bg-white min-w-11/12 max-md:h-5/6'>
                 
@@ -74,10 +112,12 @@ function Profile() {
                         </div>
                     </div>
 
-                    <button type="submit" className="flex min-w-[150px] w-1/5 text-center items-center justify-center rounded-md shadow-xs bg-[#8BB78F] p-5 text-sm/6 font-semibold text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">
-                        <p>Sauvegarder</p>
+                    <button
+                        onClick={() => {setPageGestionCompte(!pageGestionCompte)}}
+                        type="button" 
+                        className="flex min-w-[150px] w-1/5 text-center items-center justify-center rounded-md shadow-xs bg-[#bd6868] p-5 text-sm/6 font-semibold text-white hover:bg-[#976b6b] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">
+                        <p>Supprimer le Profile</p>
                     </button>
-
                 </div>
             </div>
         </section>

@@ -8,8 +8,8 @@ import ModifierProfile from './ModifierProfile'
 function App() {
 
   return (
-      // <Profile/>
-      <ModifierProfile/>
+      <Profile/>
+      // <ModifierProfile/>
   )
 }
 

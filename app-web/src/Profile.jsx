@@ -13,13 +13,13 @@ function Profile() {
 
     return (
         <>
-        <section className='flex flex-col'>
+        <section className='min-h-screen flex flex-col'>
             <div className='flex'>
                 <NavBar open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>
             <div className= {`duration-500 ${open ? "pl-60 w-[calc(100vw_-_15rem)]" : "pl-[72px] [calc(100vw_-_4.5rem)]"} overflow-hidden flex flex-col justify-center items-center bg-[#f8f9fa] h-full w-full`}>
                 <h1 className='m-5 text-black text-2xl lg:text-4xl font-bold'>Mon compte</h1>
-                <form className='flex flex-col md:p-10 p-3 gap-10 rounded-md overflow-hidden bg-white min-w-11/12 max-md:h-5/6'>
+                <form className='flex flex-col md:p-[25px] p-[40px] gap-10 rounded-md overflow-hidden bg-white min-w-11/12 max-md:h-5/6'>
                 
                     <div className='flex flex-col justify-between gap-3 items-center border-[1px] border-gray-950 rounded-md p-5'>
                         <h1 className='text-sm lg:text-xl font-bold'>Information personnelles :</h1>
@@ -90,7 +90,9 @@ function Profile() {
                         </div>
                     </div>
 
-                    <button type="submit" className="flex w-1/5 text-center justify-center rounded-md shadow-xs bg-[#8BB78F] px-4 py-2.5 pb-5 text-sm/6 font-semibold text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Sauvegarder</button>
+                    <button type="submit" className="flex min-w-[150px] w-1/5 text-center items-center justify-center rounded-md shadow-xs bg-[#8BB78F] p-5 text-sm/6 font-semibold text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">
+                        <p>Sauvegarder</p>
+                    </button>
 
                 </form>
             </div>

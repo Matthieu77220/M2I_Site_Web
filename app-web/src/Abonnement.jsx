@@ -61,7 +61,6 @@
 
                             {/* Contenu au hover */}
                             <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white bg-[#95D5B2] opacity-0 transition-all duration-500 group-hover:opacity-100 p-5">
-                                <p className="text-xl font-semibold mb-3">Lorem ipsum dolor sit amet.</p>
                                 <ul className="text-white font-semibold space-y-2">
                                     {card.features.map((feature, i) => (
                                         <li key={i}>

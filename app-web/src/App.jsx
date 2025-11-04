@@ -6,6 +6,7 @@ import './css/style.css'
 import Home from "./Home.jsx"
 import FormulaireInscription from "./FormulaireInscription.jsx"
 import Connexion from "./Connexion.jsx";
+import TestPage from "./TestPage.jsx"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/FormulaireInscription" element={<FormulaireInscription />} />
           <Route path="/Connexion" element={<Connexion />} />
+          <Route path="/TestPage" element={<TestPage />} />
         </Routes>
       </Router>
     </>

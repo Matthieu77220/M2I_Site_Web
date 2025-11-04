@@ -1,4 +1,6 @@
 import {useNavigate} from 'react-router';
+
+
 import { MdMenuOpen } from "react-icons/md";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
@@ -14,6 +16,8 @@ function NavBarAdmin({open, setOpen}) {
 
     return (  
         <>
+
+            {/*Navbar*/}
             <nav className={`fixed left-0 top-0 h-screen p-2 flex flex-col duration-500 bg-[#7CA982] text-white ${open ? 'w-60' : 'w-18'}`}>
 
                 {/* Menu Burger */}
@@ -57,6 +61,10 @@ function NavBarAdmin({open, setOpen}) {
                   </div>
                 </div>
             </nav>
+
+            {/*PannelAdmin*/}
+
+
         </>
     );
 }

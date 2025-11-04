@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import NavBar from './components/navBar'
 import { FaPencil } from "react-icons/fa6";
+import { useNavigate } from 'react-router';
 
 function Profile() {
     const [open, setOpen] = useState(true)
@@ -10,6 +11,8 @@ function Profile() {
 
     //Confirme la supprésion du compte
     const [confirmerBoutton,setConfirmerBoutton] = useState(false)
+
+    const navigate = useNavigate()
 
     function deleteCompte() {
         setPageGestionCompte(!pageGestionCompte)
@@ -62,7 +65,7 @@ function Profile() {
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Nom</h1>
                                 <h1 className='text-sm font-semibold'>Dubois</h1>
-                                <label htmlFor="nom" className='p-2 h-10 items-center'>
+                                <label htmlFor="nom" onClick={() => navigate('../ModifierProfile')} className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer'} />
                                 </label>
                             </div>
@@ -71,7 +74,7 @@ function Profile() {
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Prénom</h1>
                                 <h1 className='text-sm font-semibold'>Martin</h1>
-                                <label htmlFor="nom" className='p-2 h-10 items-center'>
+                                <label htmlFor="nom" onClick={() => navigate('../ModifierProfile')} className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer'} />
                                 </label>
                             </div>
@@ -80,8 +83,7 @@ function Profile() {
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Naissance</h1>
                                 <h1 className='text-sm font-semibold'>20/12/2001</h1> 
-                                <label htmlFor="date" 
-                                    className='p-2 h-10 items-center'>
+                                <label htmlFor="date" onClick={() => navigate('../ModifierProfile')} className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer'} />
                                 </label>
                             </div>
@@ -96,7 +98,7 @@ function Profile() {
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Email</h1>
                                 <h1 className='text-sm font-semibold'>martin.dumas@test.com</h1> 
-                                <label htmlFor="email" className='p-2 h-10 items-center'>
+                                <label htmlFor="email" onClick={() => navigate('../ModifierProfile')} className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer'} />
                                 </label>
                             </div>
@@ -105,7 +107,7 @@ function Profile() {
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Téléphone</h1>
                                 <h1 className='text-sm font-semibold'>0123455678</h1>
-                                <label htmlFor="telephone" className='p-2 h-10 items-center'>
+                                <label htmlFor="telephone" onClick={() => navigate('../ModifierProfile')} className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer text-lg'} />
                                 </label>
                             </div>

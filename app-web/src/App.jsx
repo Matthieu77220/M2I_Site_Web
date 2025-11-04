@@ -9,6 +9,7 @@ import TestPage from "./TestPage.jsx"
 import PannelAdmin from './PannelAdmin.jsx';
 import Profile from "./Profile.jsx";
 import ModifierProfile from "./ModifierProfile.jsx";
+import Dashboard from './Dashboard.jsx';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/PannelAdmin'element={<PannelAdmin />} />
           <Route path='/Profile'element={<Profile />} />
           <Route path='/ModifierProfile'element={<ModifierProfile />} />
+          <Route path='/Dashboard'element={<Dashboard />} />
         </Routes>
       </Router>
     </>

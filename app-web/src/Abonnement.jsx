@@ -1,6 +1,12 @@
+import { useNavigate } from 'react-router';
+
+// Import des icons
 import { HiCheckBadge } from "react-icons/hi2";
 
 function Abonnement() {
+
+    const navigate = useNavigate()
+
     const cards = [
         {
             title: "Mensuel",

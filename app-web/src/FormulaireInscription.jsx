@@ -38,6 +38,7 @@ function FormulaireInscription() {
             if (formData.motDePasse == formData.confirmMotDePasse) {
                 setIsPassWordMatch(true)
                 // rajouter plus tard le useEffect pour faire appel API
+                navigate("../Abonnement")
             }else {
                 setIsPassWordMatch(false)
                 event.preventDefault() // empêche la réinitilisation du form si MDP != confirme MDP

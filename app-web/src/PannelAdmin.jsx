@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useViewTransitionState } from 'react-router';
 import NavBarAdmin from './components/NavBarAdmin';
 
 function PannelAdmin() {
@@ -8,6 +8,7 @@ function PannelAdmin() {
     const [showOptions, setShowOptions] = useState(false);
     const [editData, setEditData] = useState(false);
     const [deleteData, setDeleteData] = useState(false);
+    const [confirmerBoutton, setConfirmerBoutton] = useState()
     
     const usersPerPages = 10;
     const users = []; //plus tard on mettra avec les users de la bdd
@@ -29,12 +30,37 @@ function PannelAdmin() {
             setCurrentPage(currentPage - 1);
         }
 
-    function options(){
-        if()
+   
     }
-    }
+    
     return (  
         <>
+            {!showOptions &&
+                    <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
+                        <div className="flex flex-col justify-between items-center space-y-5">
+                            <h1 className="text-xl font-bold m-auto">Modifier le dossier</h1>
+                            <h2 className=''>Etes-vous sur de vouloir supprimer votre compte ?</h2>
+                            {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
+                            <button
+                                className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                                onClick={() => setShowOptions(!showOptions)}
+                            >
+                                ✕
+                            </button>
+                        </div>
+                        <div className='flex justify-around items-center '>
+                            {confirmerBoutton ? 
+                                <button type="button" onClick={() => deleteCompte()} className='bg-[#bd6868] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                                :
+                                <button type="button" onClick={() => {setConfirmerBoutton(!confirmerBoutton)}} className='bg-[#bd6868] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                            }
+                            <button type="button" className='bg-[#68bd6c] rounded-xl border border-[#68bd6c1a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12' onClick={() => setPageGestionCompte(!pageGestionCompte)}>NON</button>
+                        </div>
+                    </div>
+                    </div>
+                }
+
             <div className='flex'>
                 <NavBarAdmin open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>

@@ -23,6 +23,9 @@ function FormulaireInscription() {
         confirmMotDePasse : ""
     })
 
+    // Initialise le type l'input dateNaissance à "text"
+    const [inputDateType, setInputDateType] = useState("text")
+
     // Indique ou non si les mots de passe correspondent
     const [isPassWordMatch, setIsPassWordMatch] = useState(true)
     // Indique ou non si les inputs respectent les Regex
@@ -104,14 +107,16 @@ function FormulaireInscription() {
 
                             {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Exemple: 12/03/1978</label>}
 
-                            <input
-                                name="email"
-                                type="date"
-                                required
-                                placeholder="Date de naissance"
-                                className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold text-[#aaa] font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
-                                onChange={(e) => setFormData({ ... formData, dateDeNaissance : e.target.value })}
-                            />
+                        <input
+                            name="email"
+                            onFocus={() => setInputDateType("date")} // simule un type = "date" lorsque l'on click dessus
+                            onBlur={() => setInputDateType("text")}
+                            type={inputDateType}
+                            required
+                            placeholder="Date de naissance"
+                            className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold text-[#aaa] font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none" 
+                            onChange={(e) => setFormData({ ... formData, dateDeNaissance : e.target.value })}
+                        />
                         </div>
 
                         {/* ---- Téléphone ---- */}

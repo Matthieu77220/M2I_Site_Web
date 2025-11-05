@@ -11,6 +11,7 @@ import Profile from "./Profile.jsx";
 import ModifierProfile from "./ModifierProfile.jsx";
 import ModifierMotDePasse from "./ModifierMotDePasse.jsx";
 import Abonnement from "./Abonnement.jsx"
+import Dashboard from './Dashboard.jsx';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path='/ModifierProfile'element={<ModifierProfile />} />
           <Route path='/ModifierMotDePasse'element={<ModifierMotDePasse />} />
           <Route path='/Abonnement'element={<Abonnement />} />
+          <Route path='/Dashboard'element={<Dashboard />} />
         </Routes>
       </Router>
     </>

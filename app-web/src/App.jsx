@@ -6,7 +6,8 @@ import Home from "./Home.jsx"
 import FormulaireInscription from "./FormulaireInscription.jsx"
 import Connexion from "./Connexion.jsx";
 import TestPage from "./TestPage.jsx"
-import PannelAdmin from './PannelAdmin.jsx';
+import PannelAdmin from './admin/PannelAdmin.jsx';
+import AdminTerrains from './admin/AdminTerrains.jsx';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/Connexion" element={<Connexion />} />
           <Route path="/TestPage" element={<TestPage />} />
           <Route path='/PannelAdmin'element={<PannelAdmin />} />
+          <Route path='/AdminTerrains' element={<AdminTerrains />} />
         </Routes>
       </Router>
     </>

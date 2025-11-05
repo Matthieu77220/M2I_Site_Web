@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import { useNavigate} from 'react-router';
-import NavBarAdmin from './components/NavBarAdmin';
+import NavBarAdmin from '../components/NavBarAdmin';
 
 function PannelAdmin() {
     const [open, setOpen] = useState(true)
@@ -12,7 +12,7 @@ function PannelAdmin() {
     const [deleteData, setDeleteData] = useState(false);
     const [confirmerBoutton, setConfirmerBoutton] = useState(false);
     
-    const usersPerPages = 10;
+    const usersPerPages = 15;
     const users = []; //plus tard on mettra avec les users de la bdd
 
     const indexOfLastUser = currentPage * usersPerPages;
@@ -130,14 +130,14 @@ function PannelAdmin() {
             </div>
 
             <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
-                <h1>Gestion Utilisateur</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>est Admin ?</th>
-                            <th>identifiant</th>
-                            <th onClick={() =>{setShowOptions(true)}}>Editer/Supprimer</th> 
+                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Utilisateur</h1>
+                <table className="flex flex-col justify-center border-2 border-black rounded-lg mx-5">
+                    <thead className=" bg-[#7CA982] py-5">
+                        <tr className="flex space-x-70 py-2 mx-10">
+                            <th className='text-white font-roboto text-md'>ID</th>
+                            <th className="text-white font-roboto text-md">est Admin ?</th>
+                            <th className="text-white font-roboto text-md">identifiant</th>
+                            <th onClick={() =>{setShowOptions(true)}} className="text-white font-roboto text-md">Editer/Supprimer</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -151,8 +151,8 @@ function PannelAdmin() {
                             </tr>
                         ))
                     ) : 
-                        <tr>
-                            <td>
+                        <tr classname="">
+                            <td className="text-red-600">
                                 Aucun utilisateur à afficher.
                             </td>
                         </tr>

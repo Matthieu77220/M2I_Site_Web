@@ -19,7 +19,7 @@ function Dashboard() {
                     <div className="h-screen w-full flex flex-col min-md:flex-row items-center justify-center gap-16">
                         <button
                             onClick={() => setActiveTab('licence')}
-                            className={`w-lg h-80 max-w-1/2 max-h-2/5 rounded-2xl m-5 font-bold text-2xl shadow-lg transition-transform ${activeTab === 'licence'
+                            className={`w-lg h-80 max-w-1/2 max-h-2/5 rounded-2xl m-5 font-bold text-2xl cursor-pointer shadow-lg transition-transform ${activeTab === 'licence'
                                     ? 'bg-[#7bd0a0] text-white scale-105'
                                     : 'bg-gray-200 hover:scale-105'
                                 }`}
@@ -28,13 +28,13 @@ function Dashboard() {
                         </button>
 
                         <button
-                            onClick={() => setActiveTab('frais')}
-                            className={`w-lg h-80 max-w-1/2 max-h-2/5 rounded-2xl m-5 font-bold text-2xl shadow-lg transition-transform ${activeTab === 'frais'
+                            onClick={() => setActiveTab('abonnement')}
+                            className={`w-lg h-80 max-w-1/2 max-h-2/5 rounded-2xl m-5 font-bold text-2xl cursor-pointer shadow-lg transition-transform ${activeTab === 'abonnement'
                                     ? 'bg-[#7bd0a0] text-white scale-105'
                                     : 'bg-gray-200 hover:scale-105'
                                 }`}
                         >
-                            Frais
+                            Abonnement
                         </button>
                     </div>
                 </div>

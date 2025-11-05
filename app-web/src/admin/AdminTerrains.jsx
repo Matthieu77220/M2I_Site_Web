@@ -1,6 +1,185 @@
+import {useState} from 'react';
+import { useNavigate} from 'react-router';
+import NavBarAdmin from '../components/NavBarAdmin';
+
 function AdminTerrains() {
-    return ( <>
-    </> );
+    const [open, setOpen] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [showOptions, setShowOptions] = useState(false);
+    const [editMessage, setEditMessage] = useState(false)
+    const [editData, setEditData] = useState(false);
+    const [deleteMessage, setDeleteMessage] = useState(false);
+    const [deleteData, setDeleteData] = useState(false);
+    const [confirmerBoutton, setConfirmerBoutton] = useState(false);
+    
+    const pitchsPerPages = 15;
+    const pitchs = []; //plus tard on mettra avec les users de la bdd
+
+    const indexOfLastPitch = currentPage * pitchsPerPages;
+    const indexOfFirstPitch = indexOfLastPitch - currentPage;
+
+    const currentPitchs = pitchs.slice(indexOfFirstPitch, indexOfLastPitch);
+    const totalOfPages = Math.max(1, Math.ceil(pitchs.length / pitchsPerPages));
+
+    function nextPage(){
+        if(currentPage < totalOfPages){
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
+    function prevPage(){
+        if(currentPage > totalOfPages){
+            setCurrentPage(currentPage - 1);
+        }
+
+   
+    }
+    
+    return (  
+        <>
+            
+            {showOptions &&
+                <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
+                    <div className="flex flex-col justify-between items-center space-y-5">
+                        <h1 className="text-xl font-bold m-auto">Voulez-vous supprimer ou modifier ce terrain ?</h1>
+                        <h2 className=''>double cliquez pour valider</h2>
+        
+                        <button
+                            className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                            onClick={() => setShowOptions(false)}
+                        >
+                            ✕
+                        </button>
+                    </div>
+                    <div className='flex justify-around items-center '>
+                        <button
+                        type="button"
+                        onClick={() => {setEditMessage(!editMessage)}}
+                        className="bg-amber-400 rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md"
+                        >
+                            Editer
+                        </button>
+                        <button 
+                        type="button"
+                        onClick={() => {setDeleteMessage(!deleteMessage)}}
+                        className="bg-red-600 rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md"
+                        >
+                            Supprimer
+                        </button>
+                            
+                    </div>
+                </div>
+                </div>
+            }        
+            
+            {deleteMessage &&
+                <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
+                    <div className="flex flex-col justify-between items-center space-y-5">
+                        <h1 className="text-xl font-bold m-auto">Supprimer ce terrain</h1>
+                        <h2 className=''>Etes-vous sur de vouloir supprimer ce terrain ?</h2>
+                        {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
+                        <button
+                            className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                            onClick={() => setDeleteMessage(!deleteMessage)}
+                        >
+                            ✕
+                        </button>
+                    </div>
+                    <div className='flex justify-around items-center '>
+                        {confirmerBoutton ? 
+                            <button type="button" onClick={() => setDeleteData(!deleteData)} className='bg-[#68bd6c] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                            :
+                            <button type="button" onClick={() => {setConfirmerBoutton(!confirmerBoutton)}} className='bg-[#68bd6c] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                        }
+                        <button type="button" className='bg-red-600 rounded-xl border border-[#68bd6c1a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12' onClick={() => setDeleteMessage(!deleteMessage)}>NON</button>
+                    </div>
+                </div>
+                </div>
+            }
+    
+            {editMessage &&
+                <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
+                    <div className="flex flex-col justify-between items-center space-y-5">
+                        <h1 className="text-xl font-bold m-auto">Modifier ce terrain</h1>
+                        <h2 className=''>Etes-vous sur de vouloir modifier ce terrain </h2>
+                        {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
+                        <button
+                            className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                            onClick={() => setEditMessage(!editMessage)}
+                        >
+                            ✕
+                        </button>
+                    </div>
+                    <div className='flex justify-around items-center '>
+                        {confirmerBoutton ? 
+                            <button type="button" onClick={() => setEditData(!editData)} className='bg-[#68bd6c] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                            :
+                            <button type="button" onClick={() => {setConfirmerBoutton(!confirmerBoutton)}} className='bg-[#68bd6c] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                        }
+                        <button type="button" className='bg-red-600 rounded-xl border border-[#68bd6c1a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12' onClick={() => setEditMessage(!editMessage)}>NON</button>
+                    </div>
+                </div>
+                </div>
+            }
+
+            <div className='flex'>
+                <NavBarAdmin open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
+            </div>
+
+            <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
+                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Terrains</h1>
+                <table className="flex flex-col justify-center border-2 border-black rounded-lg mx-5">
+                    <thead className=" bg-[#7CA982] py-5">
+                        <tr className="flex space-x-75 py-2 mx-70">
+                            <th className='text-white font-roboto text-md'>ID</th>
+                            <th className="text-white font-roboto text-md">Adresse Terrain</th>
+                            <th onClick={() =>{setShowOptions(true)}} className="text-white font-roboto text-md">Editer/Supprimer</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {currentPitchs.lenght > 0 ?(
+                        currentPitchs.map(() =>(
+                            <tr>{/*A modifier lors de la mise en place du back*/}
+                                <td><input type="number" name="ID" placeholder='ID'/></td>
+                                <td><input type="text" name="identifiant" placeholder='Adresse Terrain'/></td>
+                                <td><button type="button" onClick={() => {setShowOptions(true)}}>Editer/Supprimer</button></td> 
+                            </tr>
+                        ))
+                    ) : 
+                        <tr classname="">
+                            <td className="text-red-600">
+                                Aucun terrains à afficher.
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>      
+            </section>
+
+            <section className="flex items-center">
+                <button 
+                type="button"
+                onClick={() =>{prevPage}}
+                className="border-2"
+                >
+                    &lt;
+                </button>
+
+                <p className="border-2">{currentPage}</p>
+
+                <button 
+                type="button"
+                onClick={() => {nextPage}} 
+                className="border-2"
+                >
+                    &gt;
+                </button>
+            </section>
+        </>
+    );
 }
 
 export default AdminTerrains;

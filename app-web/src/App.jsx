@@ -8,6 +8,8 @@ import Connexion from "./Connexion.jsx";
 import TestPage from "./TestPage.jsx"
 import PannelAdmin from './admin/PannelAdmin.jsx';
 import AdminTerrains from './admin/AdminTerrains.jsx';
+import AdminUsers from './admin/AdminUsers.jsx';
+
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route path="/TestPage" element={<TestPage />} />
           <Route path='/PannelAdmin'element={<PannelAdmin />} />
           <Route path='/AdminTerrains' element={<AdminTerrains />} />
+          <Route path='/AdminUsers' element={<AdminUsers />} />
         </Routes>
       </Router>
     </>

@@ -21,18 +21,18 @@ function test() {
                     </div>
 
                     <div className='flex flex-col items-center justify-center text-center h-full'>
-                        <h1 className='text-3xl font-bold text-white hover:text-yellow-500 duration-200 ease-in'>7</h1>
-                        <h2 className='text-sm font-semibold text-slate-200 hover:text-yellow-500 duration-200 ease-in'>Victoire</h2>
+                        <h1 className='text-3xl font-bold text-white hover:text-green-500 duration-200 ease-in'>7</h1>
+                        <h2 className='text-sm font-semibold text-slate-200 hover:text-green-500 duration-200 ease-in'>Victoire</h2>
                     </div>
 
                     <div className='flex flex-col items-center justify-center text-center h-full'>
-                        <h1 className='text-3xl font-bold text-white hover:text-[#ef5350] duration-200 ease-in'>6</h1>
-                        <h2 className='text-sm font-semibold text-slate-200 hover:text-[#ef5350] duration-200 ease-in'>Défaite</h2>
+                        <h1 className='text-3xl font-bold text-white hover:text-red-500 duration-200 ease-in'>6</h1>
+                        <h2 className='text-sm font-semibold text-slate-200 hover:text-red-500 duration-200 ease-in'>Défaite</h2>
                     </div>
 
                     <div className='flex flex-col items-center justify-center text-center h-full'>
-                        <h1 className='text-3xl font-bold text-white hover:text-blue-600 duration-200 ease-in'>0</h1>
-                        <h2 className='text-sm font-semibold text-slate-200 hover:text-blue-600 duration-200 ease-in'>Match nul</h2>
+                        <h1 className='text-3xl font-bold text-white hover:text-yellow-500 duration-200 ease-in'>0</h1>
+                        <h2 className='text-sm font-semibold text-slate-200 hover:text-yellow-500 duration-200 ease-in'>Match nul</h2>
                     </div>
                 </div>
 

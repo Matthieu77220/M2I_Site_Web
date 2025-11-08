@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import NavBar from './components/navBar'
 
+import dataMatch from '../src/data/match'
+
 function test() {
     const [open, setOpen] = useState(true)
 
@@ -56,39 +58,29 @@ function test() {
                                     </tr>
                                 </thead>
 
-                                {/* Exemple à remplacer par les valeurs de la BDD */}
-                                <tr className='border-b border-white/10 hover:bg-white/5 last:border-b-0'>
-                                    <td className='px-6 py-4 font-bold text-lg text-white'>12/03/2025</td>
-                                    <td className='px-6 py-4 font-bold text-lg text-white'>0 - 2</td>
-                                    <td className='px-6 py-4 font-bold text-lg text-white'>
-                                        <div className='flex gap-2 items-center'>
-                                            <span className='h-3 w-3 rounded-full bg-red-500'></span>
-                                            <span>Défaite</span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr className='border-b border-white/10 hover:bg-white/5 last:border-b-0'>
-                                    <td className='px-6 py-4 font-bold text-lg text-white'>12/03/2025</td>
-                                    <td className='px-6 py-4 font-bold text-lg text-white'>2 - 0</td>
-                                    <td className='px-6 py-4 font-bold text-lg text-white'>
-                                        <div className='flex gap-2 items-center'>
-                                            <span className='h-3 w-3 rounded-full bg-green-500'></span>
-                                            <span>Victoire</span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr className='border-b border-white/10 hover:bg-white/5 last:border-b-0'>
-                                    <td className='px-6 py-4 font-bold text-lg text-white'>12/03/2025</td>
-                                    <td className='px-6 py-4 font-bold text-lg text-white'>2 - 0</td>
-                                    <td className='px-6 py-4 font-bold text-lg text-white'>
-                                        <div className='flex gap-2 items-center'>
-                                            <span className='h-3 w-3 rounded-full bg-green-500'></span>
-                                            <span>Victoire</span>
-                                        </div>
-                                    </td>
-                                </tr>
+                                {/* Exemple grace aux tableau match (à remplacer par les valeurs de la BDD) */}
+                                <tbody>
+                                    {dataMatch.map((element) => (
+                                        <tr key={element.id} className='border-b border-white/10 hover:bg-white/5 last:border-b-0'>
+                                            <td className='px-6 py-4 font-bold text-lg text-white'>{element.date}</td>
+                                            <td className='px-6 py-4 font-bold text-lg text-white'>{element.resultat}</td>
+                                            <td className='px-6 py-4 font-bold text-lg text-white'>
+                                                <div className='flex gap-2 items-center'>
+                                                    <span className={`h-3 w-3 rounded-full 
+                                                            ${element.status == "victoire"
+                                                                ? "bg-green-500"
+                                                                : element.status === "défaite"
+                                                                    ? "bg-red-500"
+                                                                : "bg-yellow-500"
+                                                            }`}
+                                                    >
+                                                    </span>
+                                                    <span>{element.status}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
 
                             </table>
                         </div>

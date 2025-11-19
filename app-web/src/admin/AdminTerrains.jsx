@@ -13,10 +13,91 @@ function AdminTerrains() {
     const [confirmerBoutton, setConfirmerBoutton] = useState(false);
     
     const pitchsPerPages = 15;
-    const pitchs = []; //plus tard on mettra avec les users de la bdd
+    const pitchs = [
+        {
+            id:1,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:2,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:3,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:4,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:5,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:6,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:7,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:8,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:9,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:10,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:11,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:12,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:13,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:14,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:15,
+            identifiant:"12345",
+            adresse:"34 cours du Danube SERRIS",
+        },
+        {
+            id:16,
+            identifiant:"1234",
+            adresse:"34 cours du Danube SERRIS",
+        },
+    ]; //plus tard on mettra avec les users de la bdd
 
     const indexOfLastPitch = currentPage * pitchsPerPages;
-    const indexOfFirstPitch = indexOfLastPitch - currentPage;
+    const indexOfFirstPitch = (currentPage - 1) * pitchsPerPages;
 
     const currentPitchs = pitchs.slice(indexOfFirstPitch, indexOfLastPitch);
     const totalOfPages = Math.max(1, Math.ceil(pitchs.length / pitchsPerPages));
@@ -133,18 +214,18 @@ function AdminTerrains() {
                 <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Terrains</h1>
                 <table className="flex flex-col justify-center border-2 border-black rounded-lg mx-5">
                     <thead className=" bg-[#7CA982] py-5">
-                        <tr className="flex space-x-75 py-2 mx-70">
+                        <tr className="flex items-center justify-evenly space-x-75 py-2 mx-70">
                             <th className='text-white font-roboto text-md'>ID</th>
                             <th className="text-white font-roboto text-md">Adresse Terrain</th>
                             <th onClick={() =>{setShowOptions(true)}} className="text-white font-roboto text-md">Editer/Supprimer</th> 
                         </tr>
                     </thead>
                     <tbody>
-                       {currentPitchs.lenght > 0 ?(
-                        currentPitchs.map(() =>(
-                            <tr>{/*A modifier lors de la mise en place du back*/}
-                                <td><input type="number" name="ID" placeholder='ID'/></td>
-                                <td><input type="text" name="identifiant" placeholder='Adresse Terrain'/></td>
+                       {currentPitchs.length > 0 ?(
+                        currentPitchs.map((pitch) =>(
+                            <tr className='flex items-center justify-evenly' key={pitch.id}>{/*A modifier lors de la mise en place du back*/}
+                                <td><input type="number" name="ID" placeholder='ID'/>{pitch.identifiant}</td>
+                                <td><input type="text" name="identifiant" placeholder='Adresse Terrain'/>{pitch.adresse}</td>
                                 <td><button type="button" onClick={() => {setShowOptions(true)}}>Editer/Supprimer</button></td> 
                             </tr>
                         ))

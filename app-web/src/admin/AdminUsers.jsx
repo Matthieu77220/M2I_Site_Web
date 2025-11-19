@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import { useNavigate} from 'react-router';
 import NavBarAdmin from '../components/NavBarAdmin';
 
 function AdminUsers() {
@@ -11,12 +10,98 @@ function AdminUsers() {
     const [deleteMessage, setDeleteMessage] = useState(false);
     const [deleteData, setDeleteData] = useState(false);
     const [confirmerBoutton, setConfirmerBoutton] = useState(false);
-    
+
     const usersPerPages = 15;
-    const users = []; //plus tard on mettra avec les users de la bdd
+    const users = [
+        {
+            "id": 0,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 1,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 2,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 4,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 5,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 6,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 7,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 8,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 9,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 10,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 11,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 12,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 13,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 14,
+            "admin": 1,
+            "identifiant": "1234",
+        },
+        {
+            "id": 15,
+            "admin": 1,
+            "identifiant": "15",
+        },
+        {
+            "id": 16,
+            "admin": 1,
+            "identifiant": "16",
+        },
+        {
+            "id": 17,
+            "admin": 1,
+            "identifiant": "1234",
+        }
+    ]; //plus tard on mettra avec les users de la bdd
 
     const indexOfLastUser = currentPage * usersPerPages;
-    const indexOfFirstUser = indexOfLastUser - currentPage;
+    const indexOfFirstUser = (currentPage - 1) * usersPerPages;
 
     const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
     const totalOfPages = Math.max(1, Math.ceil(users.length / usersPerPages));
@@ -31,8 +116,6 @@ function AdminUsers() {
         if(currentPage > totalOfPages){
             setCurrentPage(currentPage - 1);
         }
-
-   
     }
     
     return (  
@@ -133,7 +216,7 @@ function AdminUsers() {
                 <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Utilisateur</h1>
                 <table className="flex flex-col justify-center border-2 border-black rounded-lg mx-5">
                     <thead className=" bg-[#7CA982] py-5">
-                        <tr className="flex space-x-70 py-2 mx-10">
+                        <tr className="flex items-center justify-evenly space-x-70 py-2 mx-10">
                             <th className='text-white font-roboto text-md'>ID</th>
                             <th className="text-white font-roboto text-md">est Admin ?</th>
                             <th className="text-white font-roboto text-md">identifiant</th>
@@ -141,12 +224,12 @@ function AdminUsers() {
                         </tr>
                     </thead>
                     <tbody>
-                       {currentUsers.lenght > 0 ?(
-                        currentUsers.map(() =>(
-                            <tr>{/*A modifier lors de la mise en place du back*/}
-                                <td><input type="number" name="ID" placeholder='ID'/></td>
-                                <td><input type="text" name="est_admin?" value={Boolean} placeholder='Vrai/Faux'/></td>
-                                <td><input type="text" name="identifiant" placeholder='Identifiant'/></td>
+                       {currentUsers.length > 0 ?(
+                        currentUsers.map((currentUser) =>(
+                            <tr className="flex justify-evenly items-center" key={currentUser.id}>{/*A modifier lors de la mise en place du back*/}
+                                <td><input type="number" name="ID" placeholder='ID'/>{currentUser.id}</td>
+                                <td><input type="text" name="est_admin?" placeholder='Vrai/Faux'/>{currentUser.admin}</td>
+                                <td><input type="text" name="identifiant" placeholder='Identifiant'/>{currentUser.identifiant}</td>
                                 <td><button type="button" onClick={() => {setShowOptions(true)}}>Editer/Supprimer</button></td> 
                             </tr>
                         ))

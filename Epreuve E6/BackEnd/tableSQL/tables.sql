@@ -1,27 +1,27 @@
 CREATE TABLE CLUB (
     id_club INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(100),
-    adresse VARCHAR(255),
-    telephone VARCHAR(20),
-    email VARCHAR(100)
+    nom VARCHAR(100) NOT NULL,
+    adresse VARCHAR(255) NOT NULL,
+    telephone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE UTILISATEUR (
     id_utilisateur INT PRIMARY KEY AUTO_INCREMENT,
     identifiant VARCHAR(50) UNIQUE,
-    mot_de_passe VARCHAR(255),
+    mot_de_passe VARCHAR(255) NOT NULL,
     est_admin BOOLEAN
 );
 
 CREATE TABLE ADHERENT (
     id_adherent INT PRIMARY KEY AUTO_INCREMENT,
-    prenom VARCHAR(50),
-    nom VARCHAR(50),
-    email VARCHAR(100) UNIQUE,
-    telephone VARCHAR(20),
-    date_naissance VARCHAR(8),
+    prenom VARCHAR(50) NOT NULL,
+    nom VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telephone VARCHAR(20) NOT NULL,
+    date_naissance VARCHAR(8) NOT NULL,
     montant_cotisation DECIMAL(10,2),
-    mot_de_passe VARCHAR(255),
+    mot_de_passe VARCHAR(255) NOT NULL,
     est_adherent BOOLEAN,
     debut_adhesion DATE,
     fin_adhesion DATE,
@@ -33,7 +33,7 @@ CREATE TABLE ADHERENT (
 
 CREATE TABLE TERRAIN (
     id_terrain INT PRIMARY KEY AUTO_INCREMENT,
-    adresse VARCHAR(255),
+    adresse VARCHAR(255) NOT NULL,
     id_club INT
     FOREIGN KEY (id_club) REFERENCES CLUB(id_club)
 );
@@ -61,10 +61,10 @@ CREATE TABLE RESERVATION (
 CREATE TABLE MATCH (
     id_match INT PRIMARY KEY AUTO_INCREMENT,
     id_reservation INT,
-    score VARCHAR(20),
-    nb_buts INT,
-    nb_victoires INT,
-    nb_egalites INT,
-    nb_defaites INT,
+    score VARCHAR(20) NOT NULL,
+    nb_buts INT NOT NULL,
+    nb_victoires INT NOT NULL,
+    nb_egalites INT NOT NULL,
+    nb_defaites INT NOT NULL,
     FOREIGN KEY (id_reservation) REFERENCES RESERVATION(id_reservation)
 );

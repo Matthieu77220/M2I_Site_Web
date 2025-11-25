@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import NavBar from './components/navBar'
 
+import photoTest from '../../Epreuve E6/Docs AP2/wireframes/adherent_licence.png'
+
 
 function AdherentLicence() {
     const [open, setOpen] = useState(true)
@@ -13,7 +15,8 @@ function AdherentLicence() {
             dateNaissance : "12/01/2001",
             numeroLicence : "X2395283",
             dateDebutLicence : "14/10/2025",
-            finDebutLicence: "14/10/2028"
+            finDebutLicence: "14/10/2028",
+            forfait: "1 mois"
         }
     ]
     
@@ -35,14 +38,15 @@ function AdherentLicence() {
                             <div className='flex gap-6 mb-6'>
                             
                                 <div className='w-48 h-64 bg-sky-100 rounded-lg overflow-hidden flex flex-col shadow-md'>
-                                    <image className='w-full h-full object-cover'></image>
+                                    <img className='w-full h-full object-cover' src={photoTest} />
                                 </div>
 
                                 {user.map((element) => (
                                    <div key={element.id} className='flex-1 bg-white rounded-lg p-6 shadow-md'>
                                         <h3 className='font-bold text-xl mb-4 text-gray-800'> {element.nom}</h3>
                                         <p className='mb-2 text-gray-700'><strong>Né le :</strong> {element.dateNaissance}</p>
-                                        <p className='text-gray-700'><strong>Numéro :</strong> {element.numeroLicence}</p>
+                                        <p className='mb-2 text-gray-700'><strong>Numéro :</strong> {element.numeroLicence}</p>
+                                        <p className='text-gray-700'><strong>Type de forfait :</strong> {element.forfait}</p>
                                     </div>
                                     ))
                                 }

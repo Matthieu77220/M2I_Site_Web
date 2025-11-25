@@ -16,6 +16,18 @@ function Profile() {
         // rajouter l'api pour drop la table
     }
 
+    // Adherent fictive en vue de l'api
+    const adherent = [
+        {
+            id : 3,
+            nom : "Dubois",
+            prenom : "Martin",
+            dateNaissance : "20/12/2001",
+            email : "martin.dumas@test.com",
+            telephone : "0123455678"
+        }
+    ]
+
     return (
         <>
         <section className='min-h-screen flex flex-col'>
@@ -23,7 +35,7 @@ function Profile() {
                 <NavBar open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>
             <div className= {`duration-500 ${open ? "pl-60 w-[calc(100vw_-_15rem)]" : "pl-[72px] [calc(100vw_-_4.5rem)]"}
-                            overflow-hidden flex flex-col justify-center items-center bg-[#f8f9fa] h-full w-full`}>
+                            overflow-hidden flex flex-col justify-center items-center bg-[#f8f9fa] h-screen w-full`}>
 
                 {!pageGestionCompte &&
                     <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
@@ -52,7 +64,10 @@ function Profile() {
                 }
 
                 <h1 className='m-5 text-black text-2xl lg:text-4xl font-bold'>Mon compte</h1>
-                <div className='flex flex-col md:p-[25px] p-[40px] gap-10 rounded-md overflow-hidden bg-white min-w-11/12 max-md:h-5/6'>
+
+                {/* Faire le map ici  */}
+                {adherent.map((element, index) => (
+                <div key={index} className='flex flex-col md:p-[25px] p-[40px] gap-10 rounded-md overflow-hidden bg-white min-w-11/12 max-md:h-5/6'>
                 
                     <div className='flex flex-col justify-between gap-3 items-center border-[1px] border-gray-950 rounded-md p-5'>
                         <h1 className='text-sm lg:text-xl font-bold'>Information personnelles :</h1>
@@ -61,7 +76,7 @@ function Profile() {
                             {/* ----- Section Nom ------ */}
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Nom</h1>
-                                <h1 className='text-sm font-semibold'>Dubois</h1>
+                                <h1 className='text-sm font-semibold'>{element.nom}</h1>
                                 <label htmlFor="nom" className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer'} />
                                 </label>
@@ -70,7 +85,7 @@ function Profile() {
                             {/* ------ Section Prénom ------ */}
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Prénom</h1>
-                                <h1 className='text-sm font-semibold'>Martin</h1>
+                                <h1 className='text-sm font-semibold'>{element.prenom}</h1>
                                 <label htmlFor="nom" className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer'} />
                                 </label>
@@ -79,7 +94,7 @@ function Profile() {
                             {/* ------ Section Naissance ------ */}
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Naissance</h1>
-                                <h1 className='text-sm font-semibold'>20/12/2001</h1> 
+                                <h1 className='text-sm font-semibold'>{element.dateNaissance}</h1> 
                                 <label htmlFor="date" 
                                     className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer'} />
@@ -95,7 +110,7 @@ function Profile() {
 
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Email</h1>
-                                <h1 className='text-sm font-semibold'>martin.dumas@test.com</h1> 
+                                <h1 className='text-sm font-semibold'>{element.email}</h1> 
                                 <label htmlFor="email" className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer'} />
                                 </label>
@@ -104,7 +119,7 @@ function Profile() {
                             {/* ------ Section Téléphone ------ */}
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Téléphone</h1>
-                                <h1 className='text-sm font-semibold'>0123455678</h1>
+                                <h1 className='text-sm font-semibold'>{element.telephone}</h1>
                                 <label htmlFor="telephone" className='p-2 h-10 items-center'>
                                     <FaPencil className={'cursor-pointer text-lg'} />
                                 </label>
@@ -119,6 +134,9 @@ function Profile() {
                         <p>Supprimer le Profile</p>
                     </button>
                 </div>
+                ))
+
+                }
             </div>
         </section>
         </>

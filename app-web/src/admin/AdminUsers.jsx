@@ -214,34 +214,51 @@ function AdminUsers() {
 
             <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
                 <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Utilisateur</h1>
-                <table className="flex flex-col justify-center border-2 border-black rounded-lg mx-5">
-                    <thead className=" bg-[#7CA982] py-5">
-                        <tr className="flex items-center justify-evenly space-x-70 py-2 mx-10">
-                            <th className='text-white font-roboto text-md'>ID</th>
-                            <th className="text-white font-roboto text-md">est Admin ?</th>
-                            <th className="text-white font-roboto text-md">identifiant</th>
-                            <th onClick={() =>{setShowOptions(true)}} className="text-white font-roboto text-md">Editer/Supprimer</th> 
+                <table className="table-auto w-9/10 border-collapse border-2 border-black rounded-lg mx-15">
+                    <thead className="bg-[#7CA982]">
+                        <tr>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
+                        <th className="px-20 py-2 text-white font-roboto text-md text-left">est Admin ?</th>
+                        <th className="px-40 py-2 text-white font-roboto text-md text-left">Identifiant</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Editer/Supprimer</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                       {currentUsers.length > 0 ?(
-                        currentUsers.map((currentUser) =>(
-                            <tr className="flex justify-evenly items-center" key={currentUser.id}>{/*A modifier lors de la mise en place du back*/}
-                                <td><input type="number" name="ID" placeholder='ID'/>{currentUser.id}</td>
-                                <td><input type="text" name="est_admin?" placeholder='Vrai/Faux'/>{currentUser.admin}</td>
-                                <td><input type="text" name="identifiant" placeholder='Identifiant'/>{currentUser.identifiant}</td>
-                                <td><button type="button" onClick={() => {setShowOptions(true)}}>Editer/Supprimer</button></td> 
+                        {currentUsers.length > 0 ? (
+                        currentUsers.map((currentUser) => (
+                            <tr key={currentUser.id} className="border-b">
+                                <td className="px-4 py-2">{currentUser.id}</td>
+                                <td className="px-20 py-2">{currentUser.admin ? "Oui" : "Non"}</td>
+                                <td className="px-40 py-2">{currentUser.identifiant}</td>
+                                <td className="px-4 py-2 flex gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowOptions(true)}
+                                        className=" bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                    >
+                                        Editer
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowOptions(true)}
+                                        className=" bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                    >
+                                        Supprimer
+                                    </button>
+                                </td>
                             </tr>
                         ))
-                    ) : 
-                        <tr classname="">
-                            <td className="text-red-600">
+                        ) : (
+                        <tr>
+                            <td className="px-4 py-2 text-red-600" colSpan={4}>
                                 Aucun utilisateur à afficher.
                             </td>
                         </tr>
-                    }
+                        )}
                     </tbody>
-                </table>      
+                </table>
+      
             </section>
             <section className="flex">
                 <button 

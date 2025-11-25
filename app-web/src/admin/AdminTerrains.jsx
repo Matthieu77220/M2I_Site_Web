@@ -212,32 +212,49 @@ function AdminTerrains() {
 
             <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
                 <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Terrains</h1>
-                <table className="flex flex-col justify-center border-2 border-black rounded-lg mx-5">
-                    <thead className=" bg-[#7CA982] py-5">
-                        <tr className="flex items-center justify-evenly space-x-75 py-2 mx-70">
-                            <th className='text-white font-roboto text-md'>ID</th>
-                            <th className="text-white font-roboto text-md">Adresse Terrain</th>
-                            <th onClick={() =>{setShowOptions(true)}} className="text-white font-roboto text-md">Editer/Supprimer</th> 
+                <table className="table-auto w-9/10 border-collapse border-2 border-black rounded-lg mx-15">
+                    <thead className="bg-[#7CA982]">
+                        <tr>
+                        <th className="text-white font-roboto text-md px-4 py-2 text-left">ID</th>
+                        <th className="text-white font-roboto text-md px-50 py-2 text-left">Adresse Terrain</th>
+                        <th className="text-white font-roboto text-md px-4 py-2 text-left">Editer/Supprimer</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                       {currentPitchs.length > 0 ?(
-                        currentPitchs.map((pitch) =>(
-                            <tr className='flex items-center justify-evenly' key={pitch.id}>{/*A modifier lors de la mise en place du back*/}
-                                <td><input type="number" name="ID" placeholder='ID'/>{pitch.identifiant}</td>
-                                <td><input type="text" name="identifiant" placeholder='Adresse Terrain'/>{pitch.adresse}</td>
-                                <td><button type="button" onClick={() => {setShowOptions(true)}}>Editer/Supprimer</button></td> 
-                            </tr>
+                        {currentPitchs.length > 0 ? (
+                        currentPitchs.map((pitch) => (
+                        <tr key={pitch.id} className="border-b">
+                            <td className="px-4 py-2">{pitch.identifiant}</td>
+                            <td className="px-50 py-2">{pitch.adresse}</td>
+                            <td className="px-4 py-2 flex gap-3">
+                                <button
+                                type="button"
+                                onClick={() => setShowOptions(true)}
+                                className=" bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                >
+                                    Editer
+                                </button>
+                                <button
+                                type="button"
+                                onClick={() => setShowOptions(true)}
+                                className=" bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                >
+                                    Supprimer
+                                </button>
+                            </td>
+                        </tr>
                         ))
-                    ) : 
-                        <tr classname="">
-                            <td className="text-red-600">
+                        ) : (
+                        <tr>
+                            <td className="px-4 py-2 text-red-600" colSpan={3}>
                                 Aucun terrains à afficher.
                             </td>
                         </tr>
-                    }
+                        )}
                     </tbody>
-                </table>      
+                </table>
+    
             </section>
 
             <section className="flex items-center">

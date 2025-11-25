@@ -14,6 +14,12 @@ import Abonnement from "./Abonnement.jsx"
 import Dashboard from './Dashboard.jsx';
 import AdherentLicence from './AdherentLicence.jsx'
 import Statistique from './Statistique.jsx'
+import PannelAdmin from './admin/PannelAdmin.jsx';
+import AdminTerrains from './admin/AdminTerrains.jsx';
+import AdminUsers from './admin/AdminUsers.jsx';
+import ProfileAdmin from './admin/ProfileAdmin.jsx';
+import Equipements from './admin/Equipements.jsx';
+
 
 function App() {
   return (
@@ -32,6 +38,10 @@ function App() {
           <Route path='/Dashboard'element={<Dashboard />} />
           <Route path='/AdherentLicence'element={<AdherentLicence />} />
           <Route path='/Statistique'element={<Statistique />} />
+          <Route path='/AdminTerrains' element={<AdminTerrains />} />
+          <Route path='/AdminUsers' element={<AdminUsers />} />
+          <Route path='/ProfileAdmin' element={<ProfileAdmin />} />
+          <Route path='/Equipements' element={<Equipements />} />
         </Routes>
       </Router>
     </>

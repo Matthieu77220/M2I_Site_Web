@@ -1,10 +1,12 @@
 import {useNavigate} from 'react-router';
+
+
 import { MdMenuOpen } from "react-icons/md";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { CiDumbbell } from "react-icons/ci";
 import { GiSoccerField } from "react-icons/gi";
-import { CiSettings } from "react-icons/ci";
+import { FaUsersCog } from "react-icons/fa";;
 import { MdOutlineLogout } from "react-icons/md";
 
 
@@ -14,6 +16,8 @@ function NavBarAdmin({open, setOpen}) {
 
     return (  
         <>
+
+            {/*Navbar*/}
             <nav className={`fixed left-0 top-0 h-screen p-2 flex flex-col duration-500 bg-[#7CA982] text-white ${open ? 'w-60' : 'w-18'}`}>
 
                 {/* Menu Burger */}
@@ -24,7 +28,7 @@ function NavBarAdmin({open, setOpen}) {
                 {/* Icon */}
                 <ul className='flex flex-col'>
 
-                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li onClick={() =>{ navigate("/PannelAdmin")}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
                     <div><MdOutlineDashboard size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-700 font-semibold `}>Dashboard</p>
                   </li>
@@ -39,14 +43,14 @@ function NavBarAdmin({open, setOpen}) {
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Equipements</p>
                   </li>
 
-                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li onClick={() =>{navigate('/AdminTerrains')}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
                     <div><GiSoccerField size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1300  font-semibold `}>Terrains</p>
                   </li>
 
-                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-                    <div><CiSettings size={30} /></div>
-                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Paramètre</p>
+                  <li onClick={() =>{navigate("/AdminUsers")}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                    <div><FaUsersCog size={30} /></div>
+                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Utilisateurs</p>
                   </li>
                 </ul>
 
@@ -57,6 +61,10 @@ function NavBarAdmin({open, setOpen}) {
                   </div>
                 </div>
             </nav>
+
+            {/*PannelAdmin*/}
+
+
         </>
     );
 }

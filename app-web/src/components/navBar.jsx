@@ -5,7 +5,6 @@ import { MdMenuOpen } from "react-icons/md";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaIdCard } from "react-icons/fa";
 import { ImStatsBars } from "react-icons/im";
-import { IoLogIn } from "react-icons/io5";
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineLogout } from "react-icons/md";
 
@@ -33,7 +32,8 @@ function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-700 font-semibold `}>Dashboard</p>
                   </li>
 
-                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'
+                      onClick={() => navigate('/AdherentLicence')}>
                     <div><FaIdCard size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Licence</p>
                   </li>
@@ -42,11 +42,6 @@ function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
                       onClick={() => navigate('/Statistique')}>
                     <div><ImStatsBars size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Statistique</p>
-                  </li>
-
-                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-                    <div><IoLogIn size={30} /></div>
-                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1300  font-semibold `}>Inscription</p>
                   </li>
 
                   <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'

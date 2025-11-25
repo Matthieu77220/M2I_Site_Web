@@ -6,7 +6,7 @@ import Home from "./Home.jsx"
 import FormulaireInscription from "./FormulaireInscription.jsx"
 import Connexion from "./Connexion.jsx";
 import TestPage from "./TestPage.jsx"
-import PannelAdmin from './PannelAdmin.jsx';
+import PannelAdmin from './admin/PannelAdmin.jsx';
 import Profile from "./Profile.jsx";
 import ModifierProfile from "./ModifierProfile.jsx";
 import ModifierMotDePasse from "./ModifierMotDePasse.jsx";
@@ -14,7 +14,6 @@ import Abonnement from "./Abonnement.jsx"
 import Dashboard from './Dashboard.jsx';
 import AdherentLicence from './AdherentLicence.jsx'
 import Statistique from './Statistique.jsx'
-import PannelAdmin from './admin/PannelAdmin.jsx';
 import AdminTerrains from './admin/AdminTerrains.jsx';
 import AdminUsers from './admin/AdminUsers.jsx';
 import ProfileAdmin from './admin/ProfileAdmin.jsx';

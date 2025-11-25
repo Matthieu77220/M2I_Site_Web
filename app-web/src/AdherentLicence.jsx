@@ -10,7 +10,6 @@ function AdherentLicence() {
         {
             id: 1,
             nom: "Dupont Antoine",
-            club: "FC Esbly",
             dateNaissance : "12/01/2001",
             numeroLicence : "X2395283",
             dateDebutLicence : "14/10/2025",
@@ -42,7 +41,6 @@ function AdherentLicence() {
                                 {user.map((element) => (
                                    <div key={element.id} className='flex-1 bg-white rounded-lg p-6 shadow-md'>
                                         <h3 className='font-bold text-xl mb-4 text-gray-800'> {element.nom}</h3>
-                                        <p className='mb-2 text-gray-700'><strong>Club :</strong> {element.club}</p>
                                         <p className='mb-2 text-gray-700'><strong>Né le :</strong> {element.dateNaissance}</p>
                                         <p className='text-gray-700'><strong>Numéro :</strong> {element.numeroLicence}</p>
                                     </div>
@@ -59,12 +57,6 @@ function AdherentLicence() {
 
                             }
 
-                        
-                            <div className='flex justify-center'>
-                                <button className='bg-green-900 hover:bg-green-900/40 cursor-pointer text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-200 transform hover:scale-105'>
-                                    Sauvegarder
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </section>

@@ -10,7 +10,7 @@ import PannelAdmin from './PannelAdmin.jsx';
 import Profile from "./Profile.jsx";
 import ModifierProfile from "./ModifierProfile.jsx";
 import ModifierMotDePasse from "./ModifierMotDePasse.jsx";
-
+import AdherentLicence from './AdherentLicence.jsx';
 function App() {
   return (
     <>
@@ -24,6 +24,7 @@ function App() {
           <Route path='/Profile'element={<Profile />} />
           <Route path='/ModifierProfile'element={<ModifierProfile />} />
           <Route path='/ModifierMotDePasse'element={<ModifierMotDePasse />} />
+          <Route path='/AdherentLicence' element={<AdherentLicence/>} />
         </Routes>
       </Router>
     </>

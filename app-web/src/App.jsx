@@ -13,6 +13,7 @@ import ModifierMotDePasse from "./ModifierMotDePasse.jsx";
 import Abonnement from "./Abonnement.jsx"
 import Dashboard from './Dashboard.jsx';
 import AdherentLicence from './AdherentLicence.jsx'
+import Statistique from './Statistique.jsx'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path='/Abonnement'element={<Abonnement />} />
           <Route path='/Dashboard'element={<Dashboard />} />
           <Route path='/AdherentLicence'element={<AdherentLicence />} />
+          <Route path='/Statistique'element={<Statistique />} />
         </Routes>
       </Router>
     </>

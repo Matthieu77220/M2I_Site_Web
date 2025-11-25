@@ -26,8 +26,9 @@ function Profile() {
                 <NavBar open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>
             <div className= {`duration-500 ${open ? "pl-60 w-[calc(100vw_-_15rem)]" : "pl-[72px] w-[calc(100vw_-_4.5rem)]"}
-                            overflow-hidden flex flex-col justify-center items-center bg-[#f8f9fa] h-full w-full`}>
+                            overflow-hidden flex flex-col justify-center items-center bg-[#f8f9fa] h-screen w-full`}>
 
+                {/* Page pour supprimer le compte */}
                 {!pageGestionCompte &&
                     <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                     <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
@@ -55,7 +56,7 @@ function Profile() {
                 }
 
                 <h1 className='m-5 text-black text-2xl lg:text-4xl font-bold'>Mon compte</h1>
-                <div className='flex flex-col md:p-[25px] p-[40px] gap-10 rounded-md overflow-hidden bg-white min-w-11/12 max-md:h-5/6'>
+                <div className='flex flex-col p-[25px] md:p-[40px] gap-10 rounded-md overflow-hidden bg-white w-full max-w-7xl mx-auto h-auto md:h-auto max-md:h-5/6'>
                 
                     <div className='flex flex-col justify-between gap-3 items-center border-[1px] border-gray-950 rounded-md p-5'>
                         <h1 className='text-sm lg:text-xl font-bold'>Information personnelles :</h1>

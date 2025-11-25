@@ -28,7 +28,7 @@ function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
                 <ul className='flex flex-col'>
 
                   <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'
-                       onClick={() =>{navigate('/Dashboard')}}>
+                       onClick={() => navigate('/Dashboard')}>
                     <div><MdOutlineDashboard size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-700 font-semibold `}>Dashboard</p>
                   </li>
@@ -38,7 +38,8 @@ function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Licence</p>
                   </li>
 
-                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'
+                      onClick={() => navigate('/Statistique')}>
                     <div><ImStatsBars size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Statistique</p>
                   </li>
@@ -49,7 +50,7 @@ function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
                   </li>
 
                   <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'
-                       onClick={() =>{navigate('/profile')}}>
+                       onClick={() => navigate('/profile')}>
                     <div><CiSettings size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Paramètre</p>
                   </li>

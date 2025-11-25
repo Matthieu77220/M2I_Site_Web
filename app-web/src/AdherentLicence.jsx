@@ -28,7 +28,7 @@ function AdherentLicence() {
             <div className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
               
         
-                <section className=' min-h-screen flex justify-center bg-gray-100 p-4'>
+                <section className=' min-h-screen flex items-center justify-center bg-gray-100 p-4'>
                     <div className='w-full max-w-4xl'>
                         <div className='bg-[#7CA982] rounded-xl shadow-lg p-8'>
                             

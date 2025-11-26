@@ -55,7 +55,7 @@ function NavBarAdmin({open, setOpen}) {
                 </ul>
 
                 {/* footer */}
-                <div className='flex absolute bottom-0 items-center mt-5 mb-5 gap-5 w-55 p-2 hover:bg-green-800 hover:rounded-md' onClick={() =>{navigate('/Connexion')}}>
+                <div className='flex absolute bottom-0 items-center mt-5 mb-5 gap-5 w-55 p-2 cursor-pointer hover:bg-green-800 hover:[max-width:calc(100%-1rem)] hover:rounded-md' onClick={() =>{navigate('/Connexion')}}>
                   <div className="flex gap-5"><MdOutlineLogout size={30} />
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Déconnexion</p>
                   </div>

@@ -49,7 +49,7 @@ function Home() {
           xl:p-6
           hover:opacity-80 hover:cursor-pointer hover:w-8/12 hover:bg-linear-to-r hover:from-[#a4ebad] hover:to-[#7CA982] hover:duration-300
           "
-          onClick={() => navigate('/formulaireinscription')}
+          onClick={() => navigate('/inscription')}
           >
             <p className="text-white" id="btn-Home-Inscription">
                 Rejoins-nous !

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ModifierProfile() {
+function ModifierProfile() { 
 
     // Création des Regex pour chaque Input
     const regexPrenom = new RegExp("^[a-zA-Z]{3,15}$")

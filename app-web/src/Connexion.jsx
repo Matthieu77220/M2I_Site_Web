@@ -66,7 +66,7 @@ return (
         </div>
 
         <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Pas encore de compte ?{" "}
-        <a onClick={() => navigate('/FormulaireInscription')} className="text-[#7CA982] underline contrast-200 cursor-pointer">Créez-en un</a>
+        <a onClick={() => navigate('/Inscription')} className="text-[#7CA982] underline contrast-200 cursor-pointer">Créez-en un</a>
         </h2>
 
 

@@ -113,8 +113,9 @@ function AdminUsers() {
     }
 
     function prevPage(){
-        if(currentPage > totalOfPages){
+        if(currentPage >= totalOfPages){
             setCurrentPage(currentPage - 1);
+            console.log("bonjout")
         }
     }
     
@@ -213,9 +214,9 @@ function AdminUsers() {
             </div>
 
             <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
-                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Utilisateur</h1>
-                <table className="table-auto w-9/10 border-collapse border-2 border-black rounded-lg mx-15">
-                    <thead className="bg-[#7CA982]">
+                <h1 className="font-spartan text-[#7cca98] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Utilisateur</h1>
+                <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7cca98]">
+                    <thead className="rounded-xl">
                         <tr>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
                         <th className="px-20 py-2 text-white font-roboto text-md text-left">est Admin ?</th>
@@ -258,27 +259,30 @@ function AdminUsers() {
                         )}
                     </tbody>
                 </table>
+
+
+                <section className="flex justify-center p-2">
+                    <button 
+                        type="button"
+                        onClick={() =>{prevPage()}}
+                        className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                    >
+                        &lt;
+                    </button>
+
+                    <p className="border-2 border-white bg-[#7cca98] border-solid p-3 text-white font-bold rounded-xl">{currentPage}</p>
+
+                    <button 
+                        type="button"
+                        onClick={() => {nextPage()}} 
+                        className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                    >
+                        &gt;
+                    </button>
+                </section>        
       
             </section>
-            <section className="flex">
-                <button 
-                type="button"
-                onClick={() =>{prevPage}}
-                className="border-2"
-                >
-                    &lt;
-                </button>
-
-                <p className="border-2">{currentPage}</p>
-
-                <button 
-                type="button"
-                onClick={() => {nextPage}} 
-                className="border-2"
-                >
-                    &gt;
-                </button>
-            </section>
+            
         </>
     );
 }

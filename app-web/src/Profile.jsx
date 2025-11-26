@@ -82,7 +82,7 @@ function Profile() {
                                 <h1 className='text-sm font-semibold'>Nom</h1>
                                 <h1 className='text-sm font-semibold'>{element.nom}</h1>
                                 <label htmlFor="nom" className='p-2 h-10 items-center'>
-                                    <FaPencil className={'cursor-pointer'} />
+                                    <FaPencil onClick={() => {navigate('../ModifierProfile')}} className={'cursor-pointer'} />
                                 </label>
                             </div>
                             
@@ -91,7 +91,7 @@ function Profile() {
                                 <h1 className='text-sm font-semibold'>Prénom</h1>
                                 <h1 className='text-sm font-semibold'>{element.prenom}</h1>
                                 <label htmlFor="nom" className='p-2 h-10 items-center'>
-                                    <FaPencil className={'cursor-pointer'} />
+                                    <FaPencil onClick={() => {navigate('../ModifierProfile')}} className={'cursor-pointer'} />
                                 </label>
                             </div>
                             
@@ -101,7 +101,7 @@ function Profile() {
                                 <h1 className='text-sm font-semibold'>{element.dateNaissance}</h1> 
                                 <label htmlFor="date" 
                                     className='p-2 h-10 items-center'>
-                                    <FaPencil className={'cursor-pointer'} />
+                                    <FaPencil onClick={() => {navigate('../ModifierProfile')}} className={'cursor-pointer'} />
                                 </label>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ function Profile() {
                                 <h1 className='text-sm font-semibold'>Email</h1>
                                 <h1 className='text-sm font-semibold'>{element.email}</h1> 
                                 <label htmlFor="email" className='p-2 h-10 items-center'>
-                                    <FaPencil className={'cursor-pointer'} />
+                                    <FaPencil onClick={() => {navigate('../ModifierProfile')}} className={'cursor-pointer'} />
                                 </label>
                             </div>
                             
@@ -125,7 +125,7 @@ function Profile() {
                                 <h1 className='text-sm font-semibold'>Téléphone</h1>
                                 <h1 className='text-sm font-semibold'>{element.telephone}</h1>
                                 <label htmlFor="telephone" className='p-2 h-10 items-center'>
-                                    <FaPencil className={'cursor-pointer text-lg'} />
+                                    <FaPencil onClick={() => {navigate('../ModifierProfile')}} className={'cursor-pointer text-lg'} />
                                 </label>
                             </div>
                         </div>

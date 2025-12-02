@@ -3,7 +3,7 @@ import NavBar from './components/navBar'
 
 import dataMatch from '../src/data/match'
 
-function test() {
+function Statistique() {
     const [open, setOpen] = useState(true)
 
     // ----- Préapration du code en vue de l'api -----
@@ -124,4 +124,4 @@ function test() {
     );
 }
 
-export default test;
+export default Statistique;

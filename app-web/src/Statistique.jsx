@@ -104,7 +104,7 @@ function Statistique() {
                                     
                                     {/* -- Préapration du code en vue de l'api -- */}
                                     {/* :
-                                    <h1>Aucun match</h1>
+                                    <h1>Aucun match n'a été trouvé.</h1>
                                 } */}
 
                             </table>

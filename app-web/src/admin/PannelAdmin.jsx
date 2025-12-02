@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { Navigate, useNavigate } from 'react-router';
+import {useNavigate } from 'react-router';
 import NavBarAdmin from '../components/NavBarAdmin';
 
 function PannelAdmin() {

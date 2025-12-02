@@ -38,7 +38,7 @@ function NavBarAdmin({open, setOpen}) {
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Profile</p>
                   </li>
 
-                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li onClick={() =>{navigate('/Equipements')}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
                     <div><CiDumbbell size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Equipements</p>
                   </li>

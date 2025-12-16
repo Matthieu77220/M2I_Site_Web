@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 // Import des icons
@@ -6,45 +7,78 @@ import { HiCheckBadge } from "react-icons/hi2";
 function Abonnement() {
 
     const navigate = useNavigate()
+    const [cards, setCards] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const cards = [
-        {
-            title: "Mensuel",
-            price: "19€",
-            period: "mois",
-            features: [
-                "Accès complet aux fonctionnalités de base",
-                "10 matchs par mois incluses",
-                "Support client standard",
-                "Accès aux mises à jour mensuelles",
-            ],
-        },
-        {
-            title: "Annuelle",
-            price: "100€",
-            period: "an",
-            features: [
-                "Accès complet à toutes les fonctionnalités",
-                "120 matchs par an incluses",
-                "Support client prioritaire 24/7",
-                "Accès anticipé aux nouvelles fonctionnalités",
-            ],
-        },
-        {
-            title: "À l’unité",
-            price: "5€",
-            period: "unité",
-            features: [
-                "Accès limité pour un match",
-                "Pas de support client inclus",
-                "Pas de contenu premium",
-                "Idéal pour tester le service avant abonnement",
-            ],
-        },
-    ];
+    useEffect(() => {
+        const fetchAbonnements = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/abonnements');
+                if (!response.ok) {
+                    throw new Error('Erreur lors du chargement des abonnements');
+                }
+                const data = await response.json();
+                // On adapte les champs venant de l'API à ceux utilisés dans le composant
+                const mapped = data.map((abo) => ({
+                    id: abo.id,
+                    title: abo.nom,
+                    price: `${abo.prix}€`,
+                    period: abo.periode,
+                    // Pour l'instant, on utilise la description ou un tableau vide pour features
+                    features: abo.description
+                        ? abo.description.split('\n')
+                        : ["Accès aux terrains", "Support standard"],
+                }));
+                setCards(mapped);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    function onClick(title) {
-        console.log(`Abonnement choisi : ${title}`);
+        fetchAbonnements();
+    }, []);
+
+    async function onClick(card) {
+        console.log(`Abonnement choisi : ${card.title}`);
+
+        // Ici on suppose que l'id de l'utilisateur connecté est stocké dans le localStorage.
+        // Adapte cette partie selon la façon dont tu gères l'authentification.
+        const id_adherent = localStorage.getItem('userId');
+
+        if (!id_adherent) {
+            alert("Utilisateur non connecté : impossible d'acheter un abonnement.");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/api/abonnements/acheter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id_adherent: Number(id_adherent),
+                    id_abonnement: card.id,
+                }),
+            });
+
+            if (!response.ok) {
+                const errData = await response.json();
+                console.error("Erreur lors de l'achat :", errData);
+                alert("Erreur lors de l'achat de l'abonnement.");
+                return;
+            }
+
+            alert("Abonnement acheté avec succès !");
+            // Redirection vers le Dashboard lors du clic sur "Acheter"
+            navigate('/Dashboard');
+        } catch (err) {
+            console.error(err);
+            alert("Erreur réseau lors de l'achat.");
+        }
     }
 
     return (
@@ -58,6 +92,10 @@ function Abonnement() {
                     Choisissez la formule qui vous convient
                 </h2>
             </div>
+
+            {/* État de chargement / erreur */}
+            {loading && <p className="text-white">Chargement des abonnements...</p>}
+            {error && !loading && <p className="text-red-200">{error}</p>}
 
             {/* Conteneur des cartes */}
             <div className="flex flex-wrap gap-8 justify-center items-stretch w-full max-w-[1200px]">
@@ -80,7 +118,7 @@ function Abonnement() {
                                 ))}
                             </ul>
                             <button
-                                onClick={() => onClick(card.title)}
+                                onClick={() => onClick(card)}
                                 className="w-[65%] sm:w-[60%] md:w-[65%] px-4 py-3 mt-5 bg-[#52B788] rounded-md text-white font-bold hover:bg-[#52B788] transition-all"
                             >
                                 Acheter
@@ -94,7 +132,7 @@ function Abonnement() {
                                 <span className="text-white text-4xl md:text-3xl max-lg:text-2xl">{card.price}</span>/{card.period}
                             </p>
                             <button
-                                onClick={() => onClick(card.title)}
+                            onClick={() => onClick(card)}
                                 className="w-[65%] sm:w-[60%] md:w-[65%] px-4 py-3 bg-[#95D5B2] rounded-md text-white font-bold hover:bg-[#3A9F7F] transition-all"
                             >
                                 Acheter

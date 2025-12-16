@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router';
 
-function ModifierProfile() { 
+function ModifierProfile() {
+
+    const navigate = useNavigate()
+
+    // ---------------------------- Enregistrement Input dans le formData ----------------------------//
 
     // Création des Regex pour chaque Input
     const regexPrenom = new RegExp("^[a-zA-Z]{3,15}$")
@@ -23,10 +28,33 @@ function ModifierProfile() {
     // Indique ou non si les inputs respectent les Regex
     const [isInputValid, setIsInputValid] = useState(true)
 
+
+    // ---------------------------- Enregistrement de formData dans le formFinal => envoie vers l'api ----------------------------//
+
+    const { formFinal, setFormFinal } = useState()
+
     // Vérifie si les inputs sont conforment aux Regex ainsi que les MDP
-    function checkValidInput(event) {
+    async function checkValidInput(event) {
+        event.preventDefault()
+
         if (regexPrenom.test(formData.prenom) && regexNom.test(formData.nom) && regexEmail.test(formData.email) && regexTel.test(formData.telephone) && regexMotDePasse.test(formData.motDePasse) && regexMotDePasse.test(formData.confirmMotDePasse)) {
             setIsInputValid(true) // Attribut True si le résultat lors de la 1er condition etait dans le else
+            const formFinal = {
+                prenom: formData.prenom,
+                nom: formData.nom,
+                email: formData.email,
+                dateDeNaissance: formData.dateDeNaissance,
+                telephone: formData.telephone
+            }
+
+            try {
+                await axios.put("http://localhost:3000/api/modifProfil/modificationProfile", formFinal)
+                navigate("../profile")
+            } catch (err) {
+                console.log(err);
+                // Ajouter des useState pour afficher au front les erreurs
+            }
+            
         }else{
             setIsInputValid(false)
             event.preventDefault() // empêche la réinitilisation du form si input n'est pas conforme avec les Regex

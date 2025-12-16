@@ -18,7 +18,7 @@ function NavBarAdmin({open, setOpen}) {
         <>
 
             {/*Navbar*/}
-            <nav className={`fixed left-0 top-0 h-screen p-2 flex flex-col duration-500 bg-[#7CA982] text-white ${open ? 'w-60' : 'w-18'}`}>
+            <nav className={`fixed left-0 top-0 h-screen p-2 flex flex-col duration-500 bg-[#7cca98] text-white ${open ? 'w-60' : 'w-18'}`}>
 
                 {/* Menu Burger */}
                 <div className='p-2 h-20 items-center'>
@@ -38,7 +38,7 @@ function NavBarAdmin({open, setOpen}) {
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Statistiques</p>
                   </li>
 
-                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li onClick={() =>{navigate('/Equipements')}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
                     <div><CiDumbbell size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Equipements</p>
                   </li>
@@ -55,7 +55,7 @@ function NavBarAdmin({open, setOpen}) {
                 </ul>
 
                 {/* footer */}
-                <div className='flex absolute bottom-0 items-center gap-5 w-55 p-2 hover:bg-green-800 hover:rounded-md' onClick={() =>{navigate('/Connexion')}}>
+                <div className='flex absolute bottom-0 items-center mt-5 mb-5 gap-5 w-55 p-2 cursor-pointer hover:bg-green-800 hover:[max-width:calc(100%-1rem)] hover:rounded-md' onClick={() =>{navigate('/Connexion')}}>
                   <div className="flex gap-5"><MdOutlineLogout size={30} />
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Déconnexion</p>
                   </div>

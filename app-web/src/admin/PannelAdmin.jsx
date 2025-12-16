@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { Navigate, useNavigate } from 'react-router';
+
 import NavBarAdmin from '../components/NavBarAdmin';
 
 function PannelAdmin() {
@@ -21,11 +22,11 @@ function PannelAdmin() {
                   
                     <section className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-8 lg:gap-12 w-full max-w-5xl">
                         <button 
-                            onClick={() => navigate("../StatsAdmin")}
+                            onClick={() => navigate("../AdminStats")}
                             className="bg-[#7CA982] border-2 border-gray-300 w-full md:w-80 lg:w-96 h-48 md:h-56 lg:h-64 rounded-2xl shadow-lg 
                                        transition-all duration-300 hover:scale-105 hover:-translate-y-2 
                                        active:scale-95 cursor-pointer hover:shadow-2xl flex items-center justify-center">
-                            <h2 className="text-2xl md:text-3xl font-bold text-white">Stats</h2>
+                            <h2 className="text-2xl md:text-3xl font-bold text-white">Statistiques</h2>
                         </button>
                         
                         <button 

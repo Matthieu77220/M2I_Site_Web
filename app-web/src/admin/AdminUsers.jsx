@@ -16,87 +16,87 @@ function AdminUsers() {
         {
             id: 0,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 1,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 2,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 4,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 5,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 6,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 7,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 8,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 9,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 10,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 11,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 12,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 13,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 14,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         },
         {
             id: 15,
             admin: 1,
-            "identifiant": "15",
+            "email": "...@123.com",
         },
         {
             id: 16,
             admin: 1,
-            "identifiant": "16",
+            "email": "...@123.com",
         },
         {
             id: 17,
             admin: 1,
-            "identifiant": "1234",
+            "email": "...@123.com",
         }
     ]; //plus tard on mettra avec les users de la bdd
 
@@ -231,7 +231,7 @@ function AdminUsers() {
                             <tr key={currentUser.id} className="border-b">
                                 <td className="px-4 py-2">{currentUser.id}</td>
                                 <td className="px-20 py-2">{currentUser.admin ? "Oui" : "Non"}</td>
-                                <td className="px-40 py-2">{currentUser.identifiant}</td>
+                                <td className="px-40 py-2">{currentUser.email}</td>
                                 <td className="px-4 py-2 flex gap-3">
                                     <button
                                         type="button"

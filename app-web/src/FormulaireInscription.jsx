@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router';
+import axios from "axios";
 
 function FormulaireInscription() {
 
     const navigate = useNavigate()
+
+    // ---------------------------- Enregistrement Input dans le formData ----------------------------//
 
     // Création des Regex pour chaque Input
     const regexPrenom = new RegExp("^[a-zA-Z]{3,15}$")
@@ -31,25 +34,48 @@ function FormulaireInscription() {
     // Indique ou non si les inputs respectent les Regex
     const [isInputValid, setIsInputValid] = useState(true)
 
+
+    // ---------------------------- Enregistrement de formData dans le formFinal => envoie vers l'api ----------------------------//
+
+    const [formFinal, setForFinal] = useState()
+
     // Vérifie si les inputs sont conforment aux Regex ainsi que les MDP
-    function checkValidInput(event) {
+
+    async function checkValidInput(event) {
+        event.preventDefault() // empêche la réinitilisation du form si il y a une erreur
+
         if (regexPrenom.test(formData.prenom) && regexNom.test(formData.nom) && regexEmail.test(formData.email) && regexTel.test(formData.telephone) && regexMotDePasse.test(formData.motDePasse) && regexMotDePasse.test(formData.confirmMotDePasse)) {
             setIsInputValid(true) // Attribut True si le résultat lors de la 1er condition etait dans le else
-            if (formData.motDePasse == formData.confirmMotDePasse) {
-                setIsPassWordMatch(true)
-                // rajouter plus tard le useEffect pour faire appel API
-                navigate("../Abonnement")
-            }else {
-                setIsPassWordMatch(false)
-                event.preventDefault() // empêche la réinitilisation du form si MDP != confirme MDP
-            }
-        }else{
-            setIsInputValid(false)
-            event.preventDefault() // empêche la réinitilisation du form si input n'est pas conforme avec les Regex
-        }
-    }   
 
-    return (       
+            if (formData.motDePasse == formData.confirmMotDePasse) {
+                setIsPassWordMatch(true);
+
+                const formFinal = {
+                    prenom: formData.prenom,
+                    nom: formData.nom,
+                    email: formData.email,
+                    dateDeNaissance: formData.dateDeNaissance,
+                    telephone: formData.telephone,
+                    motDePasse: formData.motDePasse
+                };
+
+                try {
+                    await axios.post("http://localhost:3000/api/auth/inscription", formFinal)
+                    navigate("../Abonnement");
+                } catch (err) {
+                    console.log(err);
+                    // Ajouter des useState pour afficher au front les erreurs
+                }
+
+            } else {
+                setIsPassWordMatch(false);
+            }
+        } else {
+            setIsInputValid(false);
+        }
+    }
+
+    return (
         <div className='flex flex-col justify-center lg:h-screen bg-[#5E856B]'>
             <div className="flex justify-center items-center bg-[#5E856B] w-auto">
                 <div className="md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/2 w-full">
@@ -57,134 +83,134 @@ function FormulaireInscription() {
                     <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Déja inscrit ? <span className="text-[#7CA982] underline contrast-200 cursor-pointer" onClick={() => navigate('/connexion')} >Connectez-vous</span></h2>
 
                     <div className="mt-5 mx-auto w-full max-w-lg">
-                    <form onSubmit={checkValidInput} className="space-y-8">
+                        <form onSubmit={checkValidInput} className="space-y-8">
 
-                        {!isInputValid && <p className="ml-5 md:ml-0 text-center md:text-lg text-base text-red-600 font-semibold">Caractère invalide</p>}
+                            {!isInputValid && <p className="ml-5 md:ml-0 text-center md:text-lg text-base text-red-600 font-semibold">Caractère invalide</p>}
 
-                        <div className="md:flex md:gap-7 md:w-full space-y-8 md:space-y-0">
+                            <div className="md:flex md:gap-7 md:w-full space-y-8 md:space-y-0">
 
-                            {/* ---- prénom ---- */}
+                                {/* ---- prénom ---- */}
 
-                            <div className="md:w-1/2 mt-2">
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Majuscules et Minuscules</label>}
-                            <input
-                                type="text"
-                                required
-                                placeholder="Prenom"
-                                className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
-                                onChange={(e) => setFormData({ ... formData, prenom : e.target.value })}
-                            />
+                                <div className="md:w-1/2 mt-2">
+                                    {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Majuscules et Minuscules</label>}
+                                    <input
+                                        type="text"
+                                        required
+                                        placeholder="Prenom"
+                                        className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
+                                        onChange={(e) => setFormData({ ... formData, prenom : e.target.value })}
+                                    />
+                                </div>
+
+                                {/* ---- nom ---- */}
+                                <div className="md:w-1/2 mt-2">
+
+                                    {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Majuscules, Minuscules, "-"," "</label>}
+                                    <input
+                                        type="text"
+                                        required
+                                        placeholder="Nom"
+                                        className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
+                                        onChange={(e) => setFormData({ ... formData, nom : e.target.value })}
+                                    />
+                                </div>
                             </div>
 
-                            {/* ---- nom ---- */}
-                            <div className="md:w-1/2 mt-2">
+                            {/* ---- email ---- */}
+                            <div className="mt-2">
 
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Majuscules, Minuscules, "-"," "</label>}
+                                {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Minuscules, ".", "@"</label>}
                                 <input
-                                    type="text"
+                                    type="email"
                                     required
-                                    placeholder="Nom"
+                                    placeholder="Email"
                                     className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
-                                    onChange={(e) => setFormData({ ... formData, nom : e.target.value })}
+                                    onChange={(e) => setFormData({ ... formData, email : e.target.value })}
                                 />
                             </div>
-                        </div>
 
-                        {/* ---- email ---- */}
-                        <div className="mt-2">
+                            {/* ---- Date de naissance ---- */}
+                            <div className="mt-2">
 
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Minuscules, ".", "@"</label>}
-                            <input
-                                type="email"
-                                required
-                                placeholder="Email"
-                                className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
-                                onChange={(e) => setFormData({ ... formData, email : e.target.value })}
-                            />
-                        </div>
-
-                        {/* ---- Date de naissance ---- */}
-                        <div className="mt-2">
-
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Exemple: 12/03/1978</label>}
-
-                        <input
-                            name="email"
-                            onFocus={() => setInputDateType("date")} // simule un type = "date" lorsque l'on click dessus
-                            onBlur={() => setInputDateType("text")}
-                            type={inputDateType}
-                            required
-                            placeholder="Date de naissance"
-                            className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold text-[#aaa] font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none" 
-                            onChange={(e) => setFormData({ ... formData, dateDeNaissance : e.target.value })}
-                        />
-                        </div>
-
-                        {/* ---- Téléphone ---- */}
-
-                        <div className="mt-2">
-
-                            {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Numéro et "+"</label>}
-
-                            <input
-                                name="telephone"
-                                type="tel"
-                                required
-                                placeholder="Numéro de téléphone"
-                                className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
-                                onChange={(e) => setFormData({ ... formData, telephone : e.target.value })}
-                            />
-                        </div>
-
-                        <div className="md:flex md:gap-7 md:w-full space-y-8 md:space-y-0">
-                            {/* ---- Mot de passe ---- */}
-
-                            <div className="md:w-1/2 mt-2">
-
-                                {!isPassWordMatch && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="password">Mot de passe différent</label>}
-                                {!isInputValid && <label className=" ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">8 caractères: [Majuscules, Minuscules, Caractères spéciaux, Chiffre]</label>}
+                                {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Exemple: 12/03/1978</label>}
 
                                 <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                required
-                                placeholder="Mot de passe"
-                                className={`flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:outline-none
-                                    ${!isPassWordMatch ? "border-2 border-red-500 bg-red-50 placeholder:text-red-500" : "focus:border-gray-300"}`}
-                                onChange={(e) => setFormData({ ... formData, motDePasse : e.target.value })}
+                                    name="email"
+                                    onFocus={() => setInputDateType("date")} // simule un type = "date" lorsque l'on click dessus
+                                    onBlur={() => setInputDateType("text")}
+                                    type={inputDateType}
+                                    required
+                                    placeholder="Date de naissance"
+                                    className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold text-[#aaa] font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
+                                    onChange={(e) => setFormData({ ... formData, dateDeNaissance : e.target.value })}
                                 />
                             </div>
 
-                            {/* ---- Confirmer Mot de passe ---- */}
+                            {/* ---- Téléphone ---- */}
 
-                            <div className="md:w-1/2 mt-2">
-                            
-                                {!isPassWordMatch && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Mot de passe différent</label>}
-                                {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">8 caractères: [Majuscules, Minuscules, Caractères spéciaux, Chiffre]</label>}
+                            <div className="mt-2">
+
+                                {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Numéro et "+"</label>}
 
                                 <input
-                                id="confirmePassword"
-                                name="confirmePassword"
-                                type="password"
-                                required
-                                placeholder="Confirmer mot de passe"
-                                className={`flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:outline-none
-                                    ${!isPassWordMatch ? "border-2 border-red-500 bg-red-50 placeholder:text-red-500" : "focus:border-gray-300"}`}
-                                onChange={(e) => setFormData({ ... formData, confirmMotDePasse : e.target.value })}
+                                    name="telephone"
+                                    type="tel"
+                                    required
+                                    placeholder="Numéro de téléphone"
+                                    className="flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-300 focus:outline-none"
+                                    onChange={(e) => setFormData({ ... formData, telephone : e.target.value })}
                                 />
                             </div>
-                        </div>
 
-                        {/* Bouton s'inscrire */}
-                        <button type="submit" className="flex m-auto w-[90%] md:w-full justify-center rounded-md shadow-xs bg-[#8BB78F] px-4 py-2.5 pb-5 text-sm/6 font-semibold text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Inscription</button>
+                            <div className="md:flex md:gap-7 md:w-full space-y-8 md:space-y-0">
+                                {/* ---- Mot de passe ---- */}
 
-                    </form>
+                                <div className="md:w-1/2 mt-2">
+
+                                    {!isPassWordMatch && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="password">Mot de passe différent</label>}
+                                    {!isInputValid && <label className=" ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">8 caractères: [Majuscules, Minuscules, Caractères spéciaux, Chiffre]</label>}
+
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        required
+                                        placeholder="Mot de passe"
+                                        className={`flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:outline-none
+                                    ${!isPassWordMatch ? "border-2 border-red-500 bg-red-50 placeholder:text-red-500" : "focus:border-gray-300"}`}
+                                        onChange={(e) => setFormData({ ... formData, motDePasse : e.target.value })}
+                                    />
+                                </div>
+
+                                {/* ---- Confirmer Mot de passe ---- */}
+
+                                <div className="md:w-1/2 mt-2">
+
+                                    {!isPassWordMatch && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">Mot de passe différent</label>}
+                                    {!isInputValid && <label className="ml-5 md:ml-0 text-base text-red-600 font-semibold" htmlFor="confirmePassword">8 caractères: [Majuscules, Minuscules, Caractères spéciaux, Chiffre]</label>}
+
+                                    <input
+                                        id="confirmePassword"
+                                        name="confirmePassword"
+                                        type="password"
+                                        required
+                                        placeholder="Confirmer mot de passe"
+                                        className={`flex m-auto w-[90%] text-base p-4 rounded-md md:w-full bg-white placeholder:text-[#aaa] placeholder:font-semibold shadow-md focus:placeholder-gray-500 focus:bg-white focus:outline-none
+                                    ${!isPassWordMatch ? "border-2 border-red-500 bg-red-50 placeholder:text-red-500" : "focus:border-gray-300"}`}
+                                        onChange={(e) => setFormData({ ... formData, confirmMotDePasse : e.target.value })}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Bouton s'inscrire */}
+                            <button type="submit" className="flex m-auto w-[90%] md:w-full justify-center rounded-md shadow-xs bg-[#8BB78F] px-4 py-2.5 pb-5 text-sm/6 font-semibold text-white hover:bg-[#6b9773] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">Inscription</button>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-     );
+    );
 }
 
 export default FormulaireInscription;

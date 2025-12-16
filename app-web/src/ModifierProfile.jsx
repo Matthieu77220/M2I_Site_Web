@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router';
 
-function ModifierProfile() { 
+function ModifierProfile() {
+
+    const navigate = useNavigate()
+
+    // ---------------------------- Enregistrement Input dans le formData ----------------------------//
 
     // Création des Regex pour chaque Input
     const regexPrenom = new RegExp("^[a-zA-Z]{3,15}$")
@@ -23,10 +28,33 @@ function ModifierProfile() {
     // Indique ou non si les inputs respectent les Regex
     const [isInputValid, setIsInputValid] = useState(true)
 
+
+    // ---------------------------- Enregistrement de formData dans le formFinal => envoie vers l'api ----------------------------//
+
+    const { formFinal, setFormFinal } = useState()
+
     // Vérifie si les inputs sont conforment aux Regex ainsi que les MDP
-    function checkValidInput(event) {
+    async function checkValidInput(event) {
+        event.preventDefault()
+
         if (regexPrenom.test(formData.prenom) && regexNom.test(formData.nom) && regexEmail.test(formData.email) && regexTel.test(formData.telephone) && regexMotDePasse.test(formData.motDePasse) && regexMotDePasse.test(formData.confirmMotDePasse)) {
             setIsInputValid(true) // Attribut True si le résultat lors de la 1er condition etait dans le else
+            const formFinal = {
+                prenom: formData.prenom,
+                nom: formData.nom,
+                email: formData.email,
+                dateDeNaissance: formData.dateDeNaissance,
+                telephone: formData.telephone
+            }
+
+            try {
+                await axios.put("http://localhost:3000/api/modifProfil/modificationProfile", formFinal)
+                navigate("../profile")
+            } catch (err) {
+                console.log(err);
+                // Ajouter des useState pour afficher au front les erreurs
+            }
+            
         }else{
             setIsInputValid(false)
             event.preventDefault() // empêche la réinitilisation du form si input n'est pas conforme avec les Regex
@@ -37,8 +65,8 @@ function ModifierProfile() {
         <div className='flex flex-col justify-center lg:h-screen bg-[#5E856B]'>
             <div className="flex justify-center items-center bg-[#5E856B] w-auto">
                 <div className="md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/2 w-full">
-                    <h1 className="text-center text-xl md:text-4xl font-bold m-5 text-white">Modifier vos information</h1>
-                    <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Un problème ? <span className="text-[#7CA982] underline contrast-200 cursor-pointer" onClick={() => navigate('/connexion')} >Contactez l'administrateur !</span></h2>
+                    <h1 className="text-center text-xl md:text-4xl font-bold m-5 text-white">Modifier vos informations</h1>
+                    <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Un problème ? <span className="text-[#7CA982] underline contrast-200 cursor-pointer" onClick={() => navigate('/connexion')} >Contactez l'administrateur</span></h2>
 
                     <div className="mt-5 mx-auto w-full max-w-lg">
                     <form onSubmit={checkValidInput} className="space-y-8">

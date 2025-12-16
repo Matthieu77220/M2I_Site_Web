@@ -1,10 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import NavBar from './components/navBar'
 
 import dataMatch from '../src/data/match'
 
-function test() {
+function Statistique() {
     const [open, setOpen] = useState(true)
+
+    // ----- Préapration du code en vue de l'api -----
+
+    // const [match, setMatch] = useState([])
+    // const [messageAucunMatch , setMessageAucunMatch] = useState(true)
+
+    // useEffect(
+    //     () => {
+    //         fetch("")
+    //         .then(api => setMatch(api.results))
+    //         .catch(err => console.log(err))
+    //     }, []
+    // )
+
+    // if (match.length == 0) {
+    //    setMessageAucunMatch(!messageAucunMatch)
+    // }
 
     return (
         <>
@@ -59,28 +76,36 @@ function test() {
                                 </thead>
 
                                 {/* Exemple grace aux tableau match (à remplacer par les valeurs de la BDD) */}
-                                <tbody>
-                                    {dataMatch.map((element) => (
-                                        <tr key={element.id} className='border-b border-white/10 hover:bg-white/5 last:border-b-0'>
-                                            <td className='px-6 py-4 font-bold text-lg text-white'>{element.date}</td>
-                                            <td className='px-6 py-4 font-bold text-lg text-white'>{element.resultat}</td>
-                                            <td className='px-6 py-4 font-bold text-lg text-white'>
-                                                <div className='flex gap-2 items-center'>
-                                                    <span className={`h-3 w-3 rounded-full 
-                                                            ${element.status == "victoire"
-                                                                ? "bg-green-500"
-                                                                : element.status === "défaite"
-                                                                    ? "bg-red-500"
-                                                                : "bg-yellow-500"
-                                                            }`}
-                                                    >
-                                                    </span>
-                                                    <span>{element.status}</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
+
+                                {/* -- Préapration du code en vue de l'api -- */}
+                                {/* { match.length != 0 ? */}
+                                    <tbody>
+                                        {dataMatch.map((element) => (
+                                            <tr key={element.id} className='border-b border-white/10 hover:bg-white/5 last:border-b-0'>
+                                                <td className='px-6 py-4 font-bold text-lg text-white'>{element.date}</td>
+                                                <td className='px-6 py-4 font-bold text-lg text-white'>{element.resultat}</td>
+                                                <td className='px-6 py-4 font-bold text-lg text-white'>
+                                                    <div className='flex gap-2 items-center'>
+                                                        <span className={`h-3 w-3 rounded-full 
+                                                                ${element.status == "victoire"
+                                                                    ? "bg-green-500"
+                                                                    : element.status === "défaite"
+                                                                        ? "bg-red-500"
+                                                                    : "bg-yellow-500"
+                                                                }`}
+                                                        >
+                                                        </span>
+                                                        <span>{element.status}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                    
+                                    {/* -- Préapration du code en vue de l'api -- */}
+                                    {/* :
+                                    <h1>Aucun match n'a été trouvé.</h1>
+                                } */}
 
                             </table>
                         </div>
@@ -99,4 +124,4 @@ function test() {
     );
 }
 
-export default test;
+export default Statistique;

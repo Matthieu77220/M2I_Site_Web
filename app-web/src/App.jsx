@@ -1,5 +1,5 @@
 import './css/style.css'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route} from 'react-router'
 
 // Import des pages
 import Home from "./Home.jsx"
@@ -18,7 +18,7 @@ import AdminTerrains from './admin/AdminTerrains.jsx';
 import AdminUsers from './admin/AdminUsers.jsx';
 import ProfileAdmin from './admin/ProfileAdmin.jsx';
 import Equipements from './admin/Equipements.jsx';
-
+import AdminStats from './admin/AdminStats.jsx';
 
 function App() {
   return (
@@ -41,6 +41,7 @@ function App() {
           <Route path='/AdminUsers' element={<AdminUsers />} />
           <Route path='/ProfileAdmin' element={<ProfileAdmin />} />
           <Route path='/Equipements' element={<Equipements />} />
+          <Route path='/AdminStats' element={<AdminStats/>}/>
         </Routes>
       </Router>
     </>

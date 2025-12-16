@@ -33,9 +33,9 @@ function NavBarAdmin({open, setOpen}) {
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-700 font-semibold `}>Dashboard</p>
                   </li>
 
-                  <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li  onClick={() =>{navigate("/AdminStats")}}className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
                     <div><FaUserCircle size={30} /></div>
-                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Profile</p>
+                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Statistiques</p>
                   </li>
 
                   <li onClick={() =>{navigate('/Equipements')}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>

@@ -39,12 +39,12 @@ function FormulaireInscription() {
 
     const [formFinal, setForFinal] = useState()
 
-    // Vérifie si les inputs sont conforment aux Regex ainsi que les MDP
-
     async function checkValidInput(event) {
         event.preventDefault() // empêche la réinitilisation du form si il y a une erreur
 
-        if (regexPrenom.test(formData.prenom) && regexNom.test(formData.nom) && regexEmail.test(formData.email) && regexTel.test(formData.telephone) && regexMotDePasse.test(formData.motDePasse) && regexMotDePasse.test(formData.confirmMotDePasse)) {
+        if (regexPrenom.test(formData.prenom) && regexNom.test(formData.nom) && regexEmail.test(formData.email) 
+            && regexTel.test(formData.telephone) && regexMotDePasse.test(formData.motDePasse) 
+            && regexMotDePasse.test(formData.confirmMotDePasse)) {     // Vérifie si les inputs sont conforment aux Regex ainsi que les MDP
             setIsInputValid(true) // Attribut True si le résultat lors de la 1er condition etait dans le else
 
             if (formData.motDePasse == formData.confirmMotDePasse) {

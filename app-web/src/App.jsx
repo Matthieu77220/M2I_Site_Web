@@ -19,7 +19,9 @@ import AdminUsers from './admin/AdminUsers.jsx';
 import ProfileAdmin from './admin/ProfileAdmin.jsx';
 import Equipements from './admin/Equipements.jsx';
 import AdminStats from './admin/AdminStats.jsx';
-
+import PannelSuperAdmin from './superadmin/PannelSuperAdmin.jsx';
+import SuperAdminUsers from './superadmin/SuperAdminUsers.jsx';
+import SuperAdminClubs from './superadmin/SuperAdminClubs.jsx';
 function App() {
   return (
     <>
@@ -42,6 +44,9 @@ function App() {
           <Route path='/ProfileAdmin' element={<ProfileAdmin />} />
           <Route path='/Equipements' element={<Equipements />} />
           <Route path='/AdminStats' element={<AdminStats/>}/>
+          <Route path='/PannelSuperAdmin' element={<PannelSuperAdmin/>}/>
+          <Route path='/SuperAdminUsers' element={<SuperAdminUsers/>}/>
+          <Route path='/SuperAdminClubs' element={<SuperAdminClubs/>}/>
         </Routes>
       </Router>
     </>

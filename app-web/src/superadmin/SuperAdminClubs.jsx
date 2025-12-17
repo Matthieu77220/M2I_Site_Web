@@ -211,8 +211,8 @@ function SuperAdminClubs() {
             </div>
 
             <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
-                <h1 className="font-spartan text-[#7cca98] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Clubs</h1>
-                <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl bg-[#7cca98] mx-15 text-white">
+                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Clubs</h1>
+                <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl bg-[#7CA982] mx-15 text-white">
                     <thead className="rounded-xl font-xl">
                         <tr>
                         <th className="text-white font-roboto text-md px-4 py-2 text-left">ID</th>
@@ -259,17 +259,17 @@ function SuperAdminClubs() {
                     <button 
                         type="button"
                         onClick={() =>{prevPage()}}
-                        className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                        className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
                     >
                         &lt;
                     </button>
 
-                    <p className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl">{currentPage}</p>
+                    <p className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl">{currentPage}</p>
 
                     <button 
                         type="button"
                         onClick={() => {nextPage()}} 
-                        className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                        className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
                     >
                         &gt;
                 </button>

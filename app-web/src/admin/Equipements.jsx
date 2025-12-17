@@ -365,13 +365,13 @@ function Equipements() {
         </div>
 
         <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
-            <h1 className="text-center text-[#68bd6c] text-2xl font-extrabold underline">Equipements</h1>
+            <h1 className="text-center text-[#7CA982] text-2xl font-extrabold underline">Equipements</h1>
 
-            <section className="flex border-2 bg-[#68bd6c] border-white rounded-xl justify-center text-center w-[50vw] mx-[15vw] my-[5vh] p-4 text-xl text-white font-semibold">
+            <section className="flex border-2 bg-[#7CA982] border-white rounded-xl justify-center text-center w-[50vw] mx-[15vw] my-[5vh] p-4 text-xl text-white font-semibold">
                 <label>Sélectionner l'équipement qui vous intéresse: </label>
                 <select 
                     name="menu" 
-                    className="bg-[#68bd6c] mx-2"
+                    className="bg-[#7CA982] mx-2"
                     value={selectedEquipment}
                     onChange={handleEquipmentChange}
                 >
@@ -381,7 +381,7 @@ function Equipements() {
                 </select>
             </section>
 
-            <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7cca98]">
+            <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7CA982]">
                 <thead className="rounded-xl"> 
                     <tr>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
@@ -450,15 +450,15 @@ function Equipements() {
                         <button 
                             type="button"
                             onClick={prevPageBalloon}
-                            className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
                         >
                             &lt;
                         </button>
-                        <p className="border-2 border-white bg-[#7cca98] border-solid p-3 text-white font-bold rounded-xl">{currentPageBalloons}</p>
+                        <p className="border-2 border-white bg-[#7CA982] border-solid p-3 text-white font-bold rounded-xl">{currentPageBalloons}</p>
                         <button 
                             type="button"
                             onClick={nextPageBallon} 
-                            className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
                         >
                             &gt;
                         </button>
@@ -469,15 +469,15 @@ function Equipements() {
                         <button 
                             type="button"
                             onClick={prevPageChasuble}
-                            className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
                         >
                             &lt;
                         </button>
-                        <p className="border-2 border-white bg-[#7cca98] border-solid p-3 text-white font-bold rounded-xl">{currentPageChasubles}</p>
+                        <p className="border-2 border-white bg-[#7CA982] border-solid p-3 text-white font-bold rounded-xl">{currentPageChasubles}</p>
                         <button 
                             type="button"
                             onClick={nextPageChasuble} 
-                            className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
                         >
                             &gt;
                         </button>
@@ -488,15 +488,15 @@ function Equipements() {
                         <button 
                             type="button"
                             onClick={prevPageBoot}
-                            className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
                         >
                             &lt;
                         </button>
-                        <p className="border-2 border-white bg-[#7cca98] border-solid p-3 text-white font-bold rounded-xl">{currentPageBoots}</p>
+                        <p className="border-2 border-white bg-[#7CA982] border-solid p-3 text-white font-bold rounded-xl">{currentPageBoots}</p>
                         <button 
                             type="button"
                             onClick={nextPageBoot} 
-                            className="border-2 border-white bg-[#7cca98] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
                         >
                             &gt;
                         </button>

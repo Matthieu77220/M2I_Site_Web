@@ -30,7 +30,7 @@ function AdherentLicence() {
         
                 <section className=' min-h-screen flex items-center justify-center bg-gray-100 p-4'>
                     <div className='w-full max-w-4xl'>
-                        <div className='bg-[#7cca98] rounded-xl shadow-lg p-8'>
+                        <div className='bg-[#7CA982] rounded-xl shadow-lg p-8'>
                             
                             <h2 className='text-2xl font-bold mb-6 text-gray-100'>Licence</h2>
             

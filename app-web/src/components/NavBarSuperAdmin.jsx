@@ -18,7 +18,7 @@ function NavBarSuperAdmin({open, setOpen}) {
         <>
 
             {/*Navbar*/}
-            <nav className={`fixed left-0 top-0 h-screen p-2 flex flex-col duration-500 bg-[#7cca98] text-white ${open ? 'w-60' : 'w-18'}`}>
+            <nav className={`fixed left-0 top-0 h-screen p-2 flex flex-col duration-500 bg-[#7CA982] text-white ${open ? 'w-60' : 'w-18'}`}>
 
                 {/* Menu Burger */}
                 <div className='p-2 h-20 items-center'>

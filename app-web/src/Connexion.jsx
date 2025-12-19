@@ -42,7 +42,10 @@ function Connexion() {
             };
 
             try {
-                await axios.post("http://localhost:3000/api/auth/connexion", formFinal)
+                await axios.post("http://localhost:3000/api/auth/connexion", 
+                    formFinal,
+                    {withCredentials: true,}
+                )
                 navigate("../Profile");
             } catch (err) {
                 console.log(err);

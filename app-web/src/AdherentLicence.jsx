@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from "axios";
 import NavBar from './components/navBar'
 
 import photoTest from '../../Epreuve E6/Docs AP2/wireframes/adherent_licence.png'
@@ -6,21 +7,15 @@ import photoTest from '../../Epreuve E6/Docs AP2/wireframes/adherent_licence.png
 
 function AdherentLicence() {
     const [open, setOpen] = useState(true)
+    const [user, setUser] = useState([])
 
-    //Exemple d'un user 
-    const user = [
-        {
-            id: 1,
-            nom: "Dupont Antoine",
-            dateNaissance : "12/01/2001",
-            numeroLicence : "X2395283",
-            dateDebutLicence : "14/10/2025",
-            finDebutLicence: "14/10/2028",
-            forfait: "1 mois"
-        }
-    ]
-    
-    return ( 
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/licence/identifiantLicence")
+            .then(res => setUser(res.data))
+            .catch(err => console.error(err))
+    }, [])
+
+    return (
         <>
             <div className='flex'>
                 <NavBar open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
@@ -41,21 +36,21 @@ function AdherentLicence() {
                                     <img className='w-full h-full object-cover' src={photoTest} />
                                 </div>
 
-                                {user.map((element) => (
-                                   <div key={element.id} className='flex-1 bg-white rounded-lg p-6 shadow-md'>
-                                        <h3 className='font-bold text-xl mb-4 text-gray-800'> {element.nom}</h3>
-                                        <p className='mb-2 text-gray-700'><strong>Né le :</strong> {element.dateNaissance}</p>
-                                        <p className='mb-2 text-gray-700'><strong>Numéro :</strong> {element.numeroLicence}</p>
-                                        <p className='text-gray-700'><strong>Type de forfait :</strong> {element.forfait}</p>
+                                {user.map((element, index) => (
+                                   <div key={index} className='flex-1 bg-white rounded-lg p-6 shadow-md'>
+                                        <h3 className='font-bold text-xl mb-4 text-gray-800'> {element.nom} {element.prenom}</h3>
+                                        <p className='mb-2 text-gray-700'><strong>Né le :</strong> {new Date(element.date_naissance).toLocaleDateString("fr-FR")}</p>
+                                        <p className='mb-2 text-gray-700'><strong>Numéro :</strong> {element.numero_adherent}</p>
+                                        <p className='text-gray-700'><strong>Type de forfait :</strong> {element.type_abonnement}</p>
                                     </div>
                                     ))
                                 }
                             </div>
 
-                            {user.map((element) => (
-                                <div key={element.id} className='bg-white rounded-lg p-6 shadow-md mb-8'>
-                                    <p className='mb-2 text-gray-700'><strong>Délivrée le :</strong> {element.dateDebutLicence}</p>
-                                    <p className='text-gray-700'><strong>Date de validité :</strong> {element.finDebutLicence}</p>
+                            {user.map((element, index) => (
+                                <div key={index} className='bg-white rounded-lg p-6 shadow-md mb-8'>
+                                    <p className='mb-2 text-gray-700'><strong>Délivrée le :</strong> {new Date(element.debut_licence).toLocaleDateString("fr-FR")}</p>
+                                    <p className='text-gray-700'><strong>Date de validité :</strong> {new Date(element.debut_licence).toLocaleDateString("fr-FR")}</p>
                                 </div>
                             ))
 
@@ -71,7 +66,7 @@ function AdherentLicence() {
 
             </div>
         </>
-     );
+    );
 }
 
 export default AdherentLicence;

@@ -10,7 +10,7 @@ function AdherentLicence() {
     const [user, setUser] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/licence/identifiantLicence")
+        axios.get("http://localhost:3000/api/licence/identifiantLicence", {withCredentials: true})
             .then(res => setUser(res.data))
             .catch(err => console.error(err))
     }, [])

@@ -14,7 +14,7 @@ function Statistique() {
     const [messageAucunMatch, setMessageAucunMatch] = useState(true)
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/statistiqueAdherent/statistique", {withCredentials: true})
+        axios.get("http://localhost:3000/api/statistiqueAdherent/statistique", { withCredentials: true })
             .then(res => {
                 if (res.data[0].nombreMatch == 0) {
                     setDataUser([
@@ -29,6 +29,12 @@ function Statistique() {
                     setDataUser(res.data)
                 }
             })
+            .catch(err => console.log(err))
+    }, [])
+
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/statistiqueAdherent/visualisationMatch", { withCredentials: true })
+            .then(res => setMatch(res.data))
             .catch(err => console.log(err))
     }, [])
 
@@ -96,16 +102,16 @@ function Statistique() {
                                 {/* -- Préapration du code en vue de l'api -- */}
                                 {match.length != 0 ?
                                     <tbody>
-                                        {match.map((element) => (
-                                            <tr key={element.id} className='border-b border-white/10 hover:bg-white/5 last:border-b-0'>
-                                                <td className='px-6 py-4 font-bold text-lg text-white'>{element.date}</td>
-                                                <td className='px-6 py-4 font-bold text-lg text-white'>{element.resultat}</td>
+                                        {match.map((element, index) => (
+                                            <tr key={index} className='border-b border-white/10 hover:bg-white/5 last:border-b-0'>
+                                                <td className='px-6 py-4 font-bold text-lg text-white'>{new Date(element.date_reservation).toLocaleDateString("fr-FR")}</td>
+                                                <td className='px-6 py-4 font-bold text-lg text-white'>{element.score}</td>
                                                 <td className='px-6 py-4 font-bold text-lg text-white'>
                                                     <div className='flex gap-2 items-center'>
                                                         <span className={`h-3 w-3 rounded-full 
                                                                 ${element.status == "victoire"
                                                                 ? "bg-green-500"
-                                                                : element.status === "défaite"
+                                                                : element.status === "defaite"
                                                                     ? "bg-red-500"
                                                                     : "bg-yellow-500"
                                                             }`}

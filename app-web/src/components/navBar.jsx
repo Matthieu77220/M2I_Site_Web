@@ -7,12 +7,25 @@ import { FaIdCard } from "react-icons/fa";
 import { ImStatsBars } from "react-icons/im";
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineLogout } from "react-icons/md";
+import axios from "axios";
 
 
 
 function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
 
   const navigate = useNavigate();
+
+  async function deconexionFunction() {
+
+    try {
+      await axios.post("http://localhost:3000/api/auth/deconnexion", {}, {withCredentials: true})
+      navigate('/Connexion')
+
+    }catch (err) {
+      console.log(err)
+    }
+    
+  }
 
     return (
         <>
@@ -52,7 +65,7 @@ function NavBar({open,setOpen}) {// Récupération des useStat depuis le parent
                 </ul>
 
                 {/* footer */}
-                <div className='flex absolute bottom-0 items-center mt-5 mb-5 gap-5 w-55 p-2 cursor-pointer hover:bg-green-800 hover:[max-width:calc(100%-1rem)] hover:rounded-md' onClick={() =>{navigate('/Connexion')}}>
+                <div className='flex absolute bottom-0 items-center mt-5 mb-5 gap-5 w-55 p-2 cursor-pointer hover:bg-green-800 hover:[max-width:calc(100%-1rem)] hover:rounded-md' onClick={() => deconexionFunction()}>
                   <div className="flex gap-5"><MdOutlineLogout size={30} />
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Déconnexion</p>
                   </div>

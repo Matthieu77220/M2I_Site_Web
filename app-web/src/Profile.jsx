@@ -2,6 +2,7 @@ import { useState } from 'react'
 import NavBar from './components/navBar'
 import { FaPencil } from "react-icons/fa6";
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 function Profile() {
     const [open, setOpen] = useState(true)
@@ -14,9 +15,18 @@ function Profile() {
 
     const navigate = useNavigate()
 
-    function deleteCompte() {
+    // ---------- Suppression du compte ------------
+    async function deleteCompte() {
         setPageGestionCompte(!pageGestionCompte)
-        // rajouter l'api pour drop la table
+
+        try {
+            await axios.delete("http://localhost:3000/api/auth/suppressionCompte", {withCredentials: true})
+            
+            navigate("../inscription")
+        } catch (err) {
+            console.log(err);
+            // Ajouter des useState pour afficher au front les erreurs
+        }
     }
 
     // Adherent fictive en vue de l'api

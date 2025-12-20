@@ -60,7 +60,7 @@ function FormulaireInscription() {
                 };
 
                 try {
-                    await axios.post("http://localhost:3000/api/auth/inscription", formFinal)
+                    await axios.post("http://localhost:3000/api/auth/inscription", formFinal, {withCredentials : true})
                     navigate("../Abonnement");
                 } catch (err) {
                     console.log(err);

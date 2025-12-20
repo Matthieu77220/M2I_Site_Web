@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from "axios";
+import { useNavigate } from 'react-router';
 import NavBar from './components/navBar'
 
 import photoTest from '../../Epreuve E6/Docs AP2/wireframes/adherent_licence.png'
@@ -9,10 +10,17 @@ function AdherentLicence() {
     const [open, setOpen] = useState(true)
     const [user, setUser] = useState([])
 
+    const navigate = useNavigate()
+
+    // Catch : proctection des pages si status = 401
     useEffect(() => {
         axios.get("http://localhost:3000/api/licence/identifiantLicence", {withCredentials: true})
             .then(res => setUser(res.data))
-            .catch(err => console.error(err))
+            .catch(err => {
+                if (err.response && err.response.status == 401) { 
+                    navigate("/connexion")
+                }
+                console.error(err)})
     }, [])
 
     return (

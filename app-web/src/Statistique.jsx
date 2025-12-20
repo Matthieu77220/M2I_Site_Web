@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router';
 import NavBar from './components/navBar'
 
 // import dataMatch from '../src/data/match'
@@ -7,12 +8,15 @@ import axios from 'axios'
 function Statistique() {
     const [open, setOpen] = useState(true)
 
+    const navigate = useNavigate()
+
     // ----- Préapration du code en vue de l'api -----
 
     const [match, setMatch] = useState([])
     const [dataUser, setDataUser] = useState([])
     const [messageAucunMatch, setMessageAucunMatch] = useState(true)
 
+    // Catch : proctection des pages si status = 401
     useEffect(() => {
         axios.get("http://localhost:3000/api/statistiqueAdherent/statistique", { withCredentials: true })
             .then(res => {
@@ -29,7 +33,12 @@ function Statistique() {
                     setDataUser(res.data)
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
     }, [])
 
     useEffect(() => {

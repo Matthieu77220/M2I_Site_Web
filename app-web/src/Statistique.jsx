@@ -1,27 +1,36 @@
 import { useEffect, useState } from 'react'
 import NavBar from './components/navBar'
 
-import dataMatch from '../src/data/match'
+// import dataMatch from '../src/data/match'
+import axios from 'axios'
 
 function Statistique() {
     const [open, setOpen] = useState(true)
 
     // ----- Préapration du code en vue de l'api -----
 
-    // const [match, setMatch] = useState([])
-    // const [messageAucunMatch , setMessageAucunMatch] = useState(true)
+    const [match, setMatch] = useState([])
+    const [dataUser, setDataUser] = useState([])
+    const [messageAucunMatch, setMessageAucunMatch] = useState(true)
 
-    // useEffect(
-    //     () => {
-    //         fetch("")
-    //         .then(api => setMatch(api.results))
-    //         .catch(err => console.log(err))
-    //     }, []
-    // )
-
-    // if (match.length == 0) {
-    //    setMessageAucunMatch(!messageAucunMatch)
-    // }
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/statistiqueAdherent/statistique", {withCredentials: true})
+            .then(res => {
+                if (res.data[0].nombreMatch == 0) {
+                    setDataUser([
+                        {
+                            nombreMatch: 0,
+                            victoire: 0,
+                            defaite: 0,
+                            egalite: 0
+                        }
+                    ])
+                } else {
+                    setDataUser(res.data)
+                }
+            })
+            .catch(err => console.log(err))
+    }, [])
 
     return (
         <>
@@ -31,27 +40,34 @@ function Statistique() {
             <div className={`flex flex-col gap-y-20 justify-center m-14 duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
 
                 {/* header */}
-                <div className='flex justify-around items-center rounded-xl shadow-[0px_10px_30px_rgba(70,0,0,0.3)] w-3xl max-w-5xl m-auto h-28 bg-[#7cca98]'>
-                    <div className='flex flex-col items-center justify-center text-center h-full'>
-                        <h1 className='text-3xl font-bold text-white'>20</h1>
-                        <h2 className='text-sm font-semibold text-white'>Nombre de match</h2>
-                    </div>
+                {
+                    dataUser.map((element, index) => (
+                        <div
+                            key={index}
+                            className='flex justify-around items-center rounded-xl shadow-[0px_10px_30px_rgba(70,0,0,0.3)] w-3xl max-w-5xl m-auto h-28 bg-[#7cca98]'
+                        >
+                            <div className='flex flex-col items-center justify-center text-center h-full'>
+                                <h1 className='text-3xl font-bold text-white'>{element.nombreMatch}</h1>
+                                <h2 className='text-sm font-semibold text-white'>Nombre de match</h2>
+                            </div>
 
-                    <div className='flex flex-col items-center justify-center text-center h-full'>
-                        <h1 className='text-3xl font-bold text-white hover:text-green-500 duration-200 ease-in'>7</h1>
-                        <h2 className='text-sm font-semibold text-slate-200 hover:text-green-500 duration-200 ease-in'>Victoire</h2>
-                    </div>
+                            <div className='flex flex-col items-center justify-center text-center h-full'>
+                                <h1 className='text-3xl font-bold text-white hover:text-green-500 duration-200 ease-in'>{element.victoire}</h1>
+                                <h2 className='text-sm font-semibold text-slate-200 hover:text-green-500 duration-200 ease-in'>Victoire</h2>
+                            </div>
 
-                    <div className='flex flex-col items-center justify-center text-center h-full'>
-                        <h1 className='text-3xl font-bold text-white hover:text-red-500 duration-200 ease-in'>6</h1>
-                        <h2 className='text-sm font-semibold text-slate-200 hover:text-red-500 duration-200 ease-in'>Défaite</h2>
-                    </div>
+                            <div className='flex flex-col items-center justify-center text-center h-full'>
+                                <h1 className='text-3xl font-bold text-white hover:text-red-500 duration-200 ease-in'>{element.defaite}</h1>
+                                <h2 className='text-sm font-semibold text-slate-200 hover:text-red-500 duration-200 ease-in'>Défaite</h2>
+                            </div>
 
-                    <div className='flex flex-col items-center justify-center text-center h-full'>
-                        <h1 className='text-3xl font-bold text-white hover:text-yellow-500 duration-200 ease-in'>0</h1>
-                        <h2 className='text-sm font-semibold text-slate-200 hover:text-yellow-500 duration-200 ease-in'>Match nul</h2>
-                    </div>
-                </div>
+                            <div className='flex flex-col items-center justify-center text-center h-full'>
+                                <h1 className='text-3xl font-bold text-white hover:text-yellow-500 duration-200 ease-in'>{element.egalite}</h1>
+                                <h2 className='text-sm font-semibold text-slate-200 hover:text-yellow-500 duration-200 ease-in'>Match nul</h2>
+                            </div>
+                        </div>
+                    ))
+                }
 
                 {/* --- Dashboard --- */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -78,9 +94,9 @@ function Statistique() {
                                 {/* Exemple grace aux tableau match (à remplacer par les valeurs de la BDD) */}
 
                                 {/* -- Préapration du code en vue de l'api -- */}
-                                {/* { match.length != 0 ? */}
+                                {match.length != 0 ?
                                     <tbody>
-                                        {dataMatch.map((element) => (
+                                        {match.map((element) => (
                                             <tr key={element.id} className='border-b border-white/10 hover:bg-white/5 last:border-b-0'>
                                                 <td className='px-6 py-4 font-bold text-lg text-white'>{element.date}</td>
                                                 <td className='px-6 py-4 font-bold text-lg text-white'>{element.resultat}</td>
@@ -88,11 +104,11 @@ function Statistique() {
                                                     <div className='flex gap-2 items-center'>
                                                         <span className={`h-3 w-3 rounded-full 
                                                                 ${element.status == "victoire"
-                                                                    ? "bg-green-500"
-                                                                    : element.status === "défaite"
-                                                                        ? "bg-red-500"
+                                                                ? "bg-green-500"
+                                                                : element.status === "défaite"
+                                                                    ? "bg-red-500"
                                                                     : "bg-yellow-500"
-                                                                }`}
+                                                            }`}
                                                         >
                                                         </span>
                                                         <span>{element.status}</span>
@@ -101,11 +117,15 @@ function Statistique() {
                                             </tr>
                                         ))}
                                     </tbody>
-                                    
-                                    {/* -- Préapration du code en vue de l'api -- */}
-                                    {/* :
-                                    <h1>Aucun match n'a été trouvé.</h1>
-                                } */}
+                                    :
+                                    <tbody>
+                                        <tr>
+                                            <td><h1 className='text-xl font-black text-red-600'>Aucun match n'a été trouvé.</h1></td>
+                                        </tr>
+                                    </tbody>
+
+                                }
+                                {/* -- Préapration du code en vue de l'api -- */}
 
                             </table>
                         </div>

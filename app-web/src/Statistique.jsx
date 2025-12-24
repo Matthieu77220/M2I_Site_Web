@@ -55,7 +55,6 @@ function Statistique() {
             <div className={`flex flex-col gap-y-20 justify-center m-14 duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
 
                 {/* header */}
-<<<<<<< HEAD
                 {
                     dataUser.map((element, index) => (
                         <div
@@ -66,13 +65,6 @@ function Statistique() {
                                 <h1 className='text-3xl font-bold text-white'>{element.nombreMatch}</h1>
                                 <h2 className='text-sm font-semibold text-white'>Nombre de match</h2>
                             </div>
-=======
-                <div className='flex justify-around items-center rounded-xl shadow-[0px_10px_30px_rgba(70,0,0,0.3)] w-3xl max-w-5xl m-auto h-28 bg-[#7CA982]'>
-                    <div className='flex flex-col items-center justify-center text-center h-full'>
-                        <h1 className='text-3xl font-bold text-white'>20</h1>
-                        <h2 className='text-sm font-semibold text-white'>Nombre de match</h2>
-                    </div>
->>>>>>> origin/PannelSuperAdmin
 
                             <div className='flex flex-col items-center justify-center text-center h-full'>
                                 <h1 className='text-3xl font-bold text-white hover:text-green-500 duration-200 ease-in'>{element.victoire}</h1>

@@ -10,7 +10,7 @@ import { FaUsersCog } from "react-icons/fa";;
 import { MdOutlineLogout } from "react-icons/md";
 
 
-function NavBarAdmin({open, setOpen}) {
+function NavBarSuperAdmin({open, setOpen}) {
 
     const navigate = useNavigate();
 
@@ -28,27 +28,19 @@ function NavBarAdmin({open, setOpen}) {
                 {/* Icon */}
                 <ul className='flex flex-col'>
 
-                  <li onClick={() =>{ navigate("/PannelAdmin")}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li onClick={() =>{ navigate("/PannelSuperAdmin")}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
                     <div><MdOutlineDashboard size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-700 font-semibold `}>Dashboard</p>
                   </li>
 
-                  <li  onClick={() =>{navigate("/AdminStats")}}className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-                    <div><FaUserCircle size={30} /></div>
-                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Statistiques</p>
-                  </li>
+               
 
-                  <li onClick={() =>{navigate('/Equipements')}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-                    <div><CiDumbbell size={30} /></div>
-                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Equipements</p>
-                  </li>
-
-                  <li onClick={() =>{navigate('/AdminTerrains')}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li onClick={() =>{navigate('/SuperAdminClubs')}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
                     <div><GiSoccerField size={30} /></div>
-                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1300  font-semibold `}>Terrains</p>
+                    <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1300  font-semibold `}>Clubs</p>
                   </li>
 
-                  <li onClick={() =>{navigate("/AdminUsers")}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
+                  <li onClick={() =>{navigate("/SuperAdminUsers")}} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
                     <div><FaUsersCog size={30} /></div>
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Utilisateurs</p>
                   </li>
@@ -69,4 +61,4 @@ function NavBarAdmin({open, setOpen}) {
     );
 }
 
-export default NavBarAdmin;
+export default NavBarSuperAdmin;

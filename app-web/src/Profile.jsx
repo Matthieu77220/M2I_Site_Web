@@ -144,7 +144,7 @@ function Profile() {
                         <button
                             onClick={() => {navigate('../ModifierMotDePasse')}}
                             type="button" 
-                            className="flex min-w-[150px] w-1/5 text-center items-center justify-center rounded-md shadow-xs bg-[#68bd6c] p-5 text-sm/6 font-semibold text-white hover:bg-[#4ea052] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">
+                            className="flex min-w-[150px] w-1/5 text-center items-center justify-center rounded-md shadow-xs bg-[#7CA982] p-5 text-sm/6 font-semibold text-white hover:bg-[#4ea052] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2">
                             <p>Modifier Mot de Passe</p>
                         </button>
 

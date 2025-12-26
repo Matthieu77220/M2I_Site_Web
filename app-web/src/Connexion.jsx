@@ -42,11 +42,25 @@ function Connexion() {
             };
 
             try {
-                await axios.post("http://localhost:3000/api/auth/connexion", 
+                 const response = await axios.post("http://localhost:3000/api/auth/connexion", 
                     formFinal,
                     {withCredentials: true,}
                 )
-                navigate("../Profile");
+                 // Récupérer le rôle de l'utilisateur depuis la réponse
+                const userRole = response.data?.role;
+                
+                // Stocker le rôle dans localStorage
+                if (userRole) {
+                    localStorage.setItem('userRole', userRole);
+                    localStorage.setItem('userId', response.data?.id);
+                }
+                
+                // Rediriger selon le rôle
+                if (userRole === 'superAdmin') {
+                    navigate("../PannelSuperAdmin");
+                } else {
+                    navigate("../Profile");
+                }
             } catch (err) {
                 console.log(err);
                 // Ajouter des useState pour afficher au front les erreurs

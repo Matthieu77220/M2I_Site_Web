@@ -14,6 +14,15 @@ function SuperAdminClubs() {
     const [selectedClub, setSelectedClub] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showCreateClubModal, setShowCreateClubModal] = useState(false);
+    const [clubFormData, setClubFormData] = useState({
+        nom: '',
+        adresse: '',
+        telephone: '',
+        email: ''
+    });
+    const [clubLoading, setClubLoading] = useState(false);
+    const [clubError, setClubError] = useState(null);
     
     const clubsPerPage = 15;
 
@@ -99,6 +108,45 @@ function SuperAdminClubs() {
         setSelectedClub(prev => ({
             ...prev,
             [field]: value
+        }));
+    };
+
+    const handleCreateClub = async (e) => {
+        e.preventDefault();
+        
+        if (!clubFormData.nom.trim() || !clubFormData.adresse.trim() || !clubFormData.telephone.trim() || !clubFormData.email.trim()) {
+            setClubError('Tous les champs sont requis');
+            return;
+        }
+
+        try {
+            setClubLoading(true);
+            setClubError(null);
+            const response = await axios.post('http://localhost:3000/api/superadmin/clubs', clubFormData, {
+                withCredentials: true
+            });
+            setShowCreateClubModal(false);
+            setClubFormData({
+                nom: '',
+                adresse: '',
+                telephone: '',
+                email: ''
+            });
+            fetchClubs();
+            alert('Club créé avec succès !');
+        } catch (err) {
+            console.error('Erreur lors de la création du club:', err);
+            setClubError(err.response?.data?.message || 'Erreur lors de la création du club');
+        } finally {
+            setClubLoading(false);
+        }
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setClubFormData(prev => ({
+            ...prev,
+            [name]: value
         }));
     };
     
@@ -227,6 +275,16 @@ function SuperAdminClubs() {
 
             <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
                 <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Clubs</h1>
+                
+                <div className="flex justify-center pb-4">
+                    <button 
+                        onClick={() => setShowCreateClubModal(true)}
+                        className="bg-[#7CA982] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#6a9470] transition-all shadow-lg"
+                    >
+                        + Créer un Club
+                    </button>
+                </div>
+
                 {error && <div className="text-red-600 text-center mb-4">{error}</div>}
                 {loading && <div className="text-center py-10">Chargement des clubs...</div>}
                 {!loading && (
@@ -294,6 +352,104 @@ function SuperAdminClubs() {
     
             </section>
 
+            {/* Modale de création de club */}
+            {showCreateClubModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+                        <h2 className="text-2xl font-bold text-[#7CA982] mb-4">Créer un nouveau Club</h2>
+                        
+                        {clubError && (
+                            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                                {clubError}
+                            </div>
+                        )}
+
+                        <form onSubmit={handleCreateClub} className="space-y-4">
+                            <div>
+                                <label className="block text-gray-700 font-bold mb-2">
+                                    Nom du Club
+                                </label>
+                                <input
+                                    type="text"
+                                    name="nom"
+                                    value={clubFormData.nom}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
+                                    placeholder="Ex: AS Foot"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-700 font-bold mb-2">
+                                    Adresse
+                                </label>
+                                <input
+                                    type="text"
+                                    name="adresse"
+                                    value={clubFormData.adresse}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
+                                    placeholder="Ex: 123 Rue de la Paix"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-700 font-bold mb-2">
+                                    Téléphone
+                                </label>
+                                <input
+                                    type="tel"
+                                    name="telephone"
+                                    value={clubFormData.telephone}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
+                                    placeholder="Ex: 06 12 34 56 78"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-700 font-bold mb-2">
+                                    Email
+                                </label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={clubFormData.email}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
+                                    placeholder="Ex: contact@asfoot.fr"
+                                />
+                            </div>
+
+                            <div className="flex gap-4 pt-4">
+                                <button
+                                    type="submit"
+                                    disabled={clubLoading}
+                                    className="flex-1 bg-[#7CA982] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#6a9470] disabled:opacity-50 transition-all"
+                                >
+                                    {clubLoading ? 'Création...' : 'Créer'}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setShowCreateClubModal(false);
+                                        setClubFormData({
+                                            nom: '',
+                                            adresse: '',
+                                            telephone: '',
+                                            email: ''
+                                        });
+                                        setClubError(null);
+                                    }}
+                                    className="flex-1 bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-400 transition-all"
+                                >
+                                    Annuler
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </>
     );
 }

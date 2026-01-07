@@ -38,7 +38,7 @@ function ModifierProfile() {
     async function checkValidInput(event) {
         event.preventDefault()
 
-        if (regexPrenom.test(formData.prenom) && regexNom.test(formData.nom) && regexEmail.test(formData.email) && regexTel.test(formData.telephone) && regexMotDePasse.test(formData.motDePasse) && regexMotDePasse.test(formData.confirmMotDePasse)) {
+        if (regexPrenom.test(formData.prenom) && regexNom.test(formData.nom) && regexEmail.test(formData.email) && regexTel.test(formData.telephone) && regexTel.test(formData.telephone)) {
             setIsInputValid(true) // Attribut True si le résultat lors de la 1er condition etait dans le else
             const formFinal = {
                 prenom: formData.prenom,
@@ -49,7 +49,7 @@ function ModifierProfile() {
             }
 
             try {
-                await axios.put("http://localhost:3000/api/modifProfil/modificationProfile", formFinal)
+                await axios.put("http://localhost:3000/api/modifProfil/modificationProfile", formFinal, { withCredentials: true } )
                 navigate("../profile")
             } catch (err) {
                 console.log(err);

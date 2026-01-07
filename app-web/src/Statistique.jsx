@@ -88,7 +88,7 @@ function Statistique() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                     {/* Revu Match */}
-                    <div className="lg:col-span-2 rounded-xl bg-[#7cca98]">
+                    <div className="lg:col-span-2 rounded-xl bg-[#7CA982]">
                         <h3 className="text-3xl font-semibold text-white p-5 border-b border-white/10">Revu de vos Match</h3>
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left">

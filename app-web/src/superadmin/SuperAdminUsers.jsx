@@ -1,8 +1,7 @@
 import {useState} from 'react';
-import { useNavigate} from 'react-router';
-import NavBarAdmin from '../components/NavBarAdmin';
+import NavBarSuperAdmin from '../components/NavBarSuperAdmin';
 
-function AdminTerrains() {
+function SuperAdminUsers() {
     const [open, setOpen] = useState(true)
     const [currentPage, setCurrentPage] = useState(1);
     const [showOptions, setShowOptions] = useState(false);
@@ -11,96 +10,101 @@ function AdminTerrains() {
     const [deleteMessage, setDeleteMessage] = useState(false);
     const [deleteData, setDeleteData] = useState(false);
     const [confirmerBoutton, setConfirmerBoutton] = useState(false);
-    
-    const pitchsPerPages = 15;
-    const pitchs = [
+
+    const usersPerPages = 15;
+    const users = [
         {
-            id:1,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 0,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:2,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 1,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:3,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 2,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:4,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 4,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:5,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 5,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:6,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 6,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:7,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 7,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:8,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 8,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:9,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 9,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:10,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 10,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:11,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 11,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:12,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 12,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:13,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 13,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:14,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 14,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:15,
-            identifiant:"12345",
-            adresse:"34 cours du Danube SERRIS",
+            id: 15,
+            admin: 1,
+            "email": "...@123.com",
         },
         {
-            id:16,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
+            id: 16,
+            admin: 1,
+            "email": "...@123.com",
         },
+        {
+            id: 17,
+            admin: 1,
+            "email": "...@123.com",
+        }
     ]; //plus tard on mettra avec les users de la bdd
 
-    const indexOfLastPitch = currentPage * pitchsPerPages;
-    const indexOfFirstPitch = (currentPage - 1) * pitchsPerPages;
+    const indexOfLastUser = currentPage * usersPerPages;
+    const indexOfFirstUser = (currentPage - 1) * usersPerPages;
 
-    const currentPitchs = pitchs.slice(indexOfFirstPitch, indexOfLastPitch);
-    const totalOfPages = Math.max(1, Math.ceil(pitchs.length / pitchsPerPages));
+    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+    const totalOfPages = Math.max(1, Math.ceil(users.length / usersPerPages));
 
     function nextPage(){
         if(currentPage < totalOfPages){
@@ -111,9 +115,8 @@ function AdminTerrains() {
     function prevPage(){
         if(currentPage >= totalOfPages){
             setCurrentPage(currentPage - 1);
+            console.log("bonjout")
         }
-
-   
     }
     
     return (  
@@ -123,7 +126,7 @@ function AdminTerrains() {
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
-                        <h1 className="text-xl font-bold m-auto">Voulez-vous supprimer ou modifier ce terrain ?</h1>
+                        <h1 className="text-xl font-bold m-auto">Voulez-vous supprimer ou modifier l'utilisateur</h1>
                         <h2 className=''>double cliquez pour valider</h2>
         
                         <button
@@ -158,8 +161,8 @@ function AdminTerrains() {
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
-                        <h1 className="text-xl font-bold m-auto">Supprimer ce terrain</h1>
-                        <h2 className=''>Etes-vous sur de vouloir supprimer ce terrain ?</h2>
+                        <h1 className="text-xl font-bold m-auto">Supprimer l'utilisateur</h1>
+                        <h2 className=''>Etes-vous sur de vouloir supprimer cet utilisateur?</h2>
                         {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
                         <button
                             className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -170,9 +173,9 @@ function AdminTerrains() {
                     </div>
                     <div className='flex justify-around items-center '>
                         {confirmerBoutton ? 
-                            <button type="button" onClick={() => setDeleteData(!deleteData)} className='bg-[#7CA982] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                            <button type="button" onClick={() => setDeleteData(!deleteData)} className='bg-[#68bd6c] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
                             :
-                            <button type="button" onClick={() => {setConfirmerBoutton(!confirmerBoutton)}} className='bg-[#7CA982] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                            <button type="button" onClick={() => {setConfirmerBoutton(!confirmerBoutton)}} className='bg-[#68bd6c] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
                         }
                         <button type="button" className='bg-red-600 rounded-xl border border-[#68bd6c1a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12' onClick={() => setDeleteMessage(!deleteMessage)}>NON</button>
                     </div>
@@ -184,8 +187,8 @@ function AdminTerrains() {
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
-                        <h1 className="text-xl font-bold m-auto">Modifier ce terrain</h1>
-                        <h2 className=''>Etes-vous sur de vouloir modifier ce terrain </h2>
+                        <h1 className="text-xl font-bold m-auto">Modifier l'utilisateur</h1>
+                        <h2 className=''>Etes-vous sur de vouloir modifier cet utilisateur?</h2>
                         {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
                         <button
                             className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -207,53 +210,56 @@ function AdminTerrains() {
             }
 
             <div className='flex'>
-                <NavBarAdmin open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
+                <NavBarSuperAdmin open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>
 
             <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
-                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Terrains</h1>
-                <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl bg-[#7CA982] mx-15 text-white">
-                    <thead className="rounded-xl font-xl">
+                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Utilisateur Super Admin</h1>
+                <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7CA982]">
+                    <thead className="rounded-xl">
                         <tr>
-                        <th className="text-white font-roboto text-md px-4 py-2 text-left">ID</th>
-                        <th className="text-white font-roboto text-md px-50 py-2 text-left">Adresse Terrain</th>
-                        <th className="text-white font-roboto text-md px-4 py-2 text-left">Editer/Supprimer</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
+                        <th className="px-20 py-2 text-white font-roboto text-md text-left">est Admin ?</th>
+                        <th className="px-40 py-2 text-white font-roboto text-md text-left">Identifiant</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Editer/Supprimer</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {currentPitchs.length > 0 ? (
-                        currentPitchs.map((pitch) => (
-                        <tr key={pitch.id} className="border-b">
-                            <td className="px-4 py-2">{pitch.identifiant}</td>
-                            <td className="px-50 py-2">{pitch.adresse}</td>
-                            <td className="px-4 py-2 flex gap-3">
-                                <button
-                                type="button"
-                                onClick={() => setShowOptions(true)}
-                                className=" bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
-                                >
-                                    Editer
-                                </button>
-                                <button
-                                type="button"
-                                onClick={() => setShowOptions(true)}
-                                className=" bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
-                                >
-                                    Supprimer
-                                </button>
-                            </td>
-                        </tr>
+                        {currentUsers.length > 0 ? (
+                        currentUsers.map((currentUser) => (
+                            <tr key={currentUser.id} className="border-b">
+                                <td className="px-4 py-2">{currentUser.id}</td>
+                                <td className="px-20 py-2">{currentUser.admin ? "Oui" : "Non"}</td>
+                                <td className="px-40 py-2">{currentUser.email}</td>
+                                <td className="px-4 py-2 flex gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowOptions(true)}
+                                        className=" bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                    >
+                                        Editer
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowOptions(true)}
+                                        className=" bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                    >
+                                        Supprimer
+                                    </button>
+                                </td>
+                            </tr>
                         ))
                         ) : (
                         <tr>
-                            <td className="px-4 py-2 text-red-600" colSpan={3}>
-                                Aucun terrains à afficher.
+                            <td className="px-4 py-2 text-red-600" colSpan={4}>
+                                Aucun utilisateur à afficher.
                             </td>
                         </tr>
                         )}
                     </tbody>
                 </table>
+
 
                 <section className="flex justify-center p-2">
                     <button 
@@ -264,7 +270,7 @@ function AdminTerrains() {
                         &lt;
                     </button>
 
-                    <p className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl">{currentPage}</p>
+                    <p className="border-2 border-white bg-[#7CA982] border-solid p-3 text-white font-bold rounded-xl">{currentPage}</p>
 
                     <button 
                         type="button"
@@ -272,14 +278,13 @@ function AdminTerrains() {
                         className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
                     >
                         &gt;
-                </button>
-
+                    </button>
+                </section>        
+      
             </section>
-    
-            </section>
-
+            
         </>
     );
 }
 
-export default AdminTerrains;
+export default SuperAdminUsers;

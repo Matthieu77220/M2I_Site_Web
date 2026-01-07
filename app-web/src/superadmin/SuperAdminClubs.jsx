@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import { useNavigate} from 'react-router';
-import NavBarAdmin from '../components/NavBarAdmin';
+import NavBarSuperAdmin from '../components/NavBarSuperAdmin';
 
-function AdminTerrains() {
+function SuperAdminClubs() {
     const [open, setOpen] = useState(true)
     const [currentPage, setCurrentPage] = useState(1);
     const [showOptions, setShowOptions] = useState(false);
@@ -123,7 +123,7 @@ function AdminTerrains() {
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
-                        <h1 className="text-xl font-bold m-auto">Voulez-vous supprimer ou modifier ce terrain ?</h1>
+                        <h1 className="text-xl font-bold m-auto">Voulez-vous supprimer ou modifier ce club ?</h1>
                         <h2 className=''>double cliquez pour valider</h2>
         
                         <button
@@ -158,8 +158,8 @@ function AdminTerrains() {
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
-                        <h1 className="text-xl font-bold m-auto">Supprimer ce terrain</h1>
-                        <h2 className=''>Etes-vous sur de vouloir supprimer ce terrain ?</h2>
+                        <h1 className="text-xl font-bold m-auto">Supprimer ce club</h1>
+                        <h2 className=''>Etes-vous sur de vouloir supprimer ce club ?</h2>
                         {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
                         <button
                             className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -170,9 +170,9 @@ function AdminTerrains() {
                     </div>
                     <div className='flex justify-around items-center '>
                         {confirmerBoutton ? 
-                            <button type="button" onClick={() => setDeleteData(!deleteData)} className='bg-[#7CA982] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                            <button type="button" onClick={() => setDeleteData(!deleteData)} className='bg-[#68bd6c] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
                             :
-                            <button type="button" onClick={() => {setConfirmerBoutton(!confirmerBoutton)}} className='bg-[#7CA982] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                            <button type="button" onClick={() => {setConfirmerBoutton(!confirmerBoutton)}} className='bg-[#68bd6c] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
                         }
                         <button type="button" className='bg-red-600 rounded-xl border border-[#68bd6c1a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12' onClick={() => setDeleteMessage(!deleteMessage)}>NON</button>
                     </div>
@@ -184,8 +184,8 @@ function AdminTerrains() {
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
-                        <h1 className="text-xl font-bold m-auto">Modifier ce terrain</h1>
-                        <h2 className=''>Etes-vous sur de vouloir modifier ce terrain </h2>
+                        <h1 className="text-xl font-bold m-auto">Modifier ce club</h1>
+                        <h2 className=''>Etes-vous sur de vouloir modifier ce club </h2>
                         {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
                         <button
                             className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -207,16 +207,16 @@ function AdminTerrains() {
             }
 
             <div className='flex'>
-                <NavBarAdmin open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
+                <NavBarSuperAdmin open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>
 
             <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
-                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Terrains</h1>
+                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Clubs</h1>
                 <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl bg-[#7CA982] mx-15 text-white">
                     <thead className="rounded-xl font-xl">
                         <tr>
                         <th className="text-white font-roboto text-md px-4 py-2 text-left">ID</th>
-                        <th className="text-white font-roboto text-md px-50 py-2 text-left">Adresse Terrain</th>
+                        <th className="text-white font-roboto text-md px-50 py-2 text-left">Adresse Clubs</th>
                         <th className="text-white font-roboto text-md px-4 py-2 text-left">Editer/Supprimer</th>
                         </tr>
                     </thead>
@@ -248,7 +248,7 @@ function AdminTerrains() {
                         ) : (
                         <tr>
                             <td className="px-4 py-2 text-red-600" colSpan={3}>
-                                Aucun terrains à afficher.
+                                Aucun Clubs à afficher.
                             </td>
                         </tr>
                         )}
@@ -282,4 +282,4 @@ function AdminTerrains() {
     );
 }
 
-export default AdminTerrains;
+export default SuperAdminClubs;

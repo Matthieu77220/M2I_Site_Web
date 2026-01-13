@@ -2,6 +2,7 @@ import { useState } from 'react'
 import NavBar from './components/navBar'
 import { FaPencil } from "react-icons/fa6";
 import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 import axios from 'axios';
 
 function Profile() {
@@ -29,17 +30,18 @@ function Profile() {
         }
     }
 
-    // Adherent fictive en vue de l'api
-    const adherent = [
-        {
-            id : 3,
-            nom : "Dubois",
-            prenom : "Martin",
-            dateNaissance : "20/12/2001",
-            email : "martin.dumas@test.com",
-            telephone : "0123455678"
-        }
-    ]
+    // ---------- Visualisation des informations du compte ------------
+    const [adherent, setAdherent] = useState([])
+
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/voirProfile/voirProfile", {withCredentials: true})
+            .then(res => setAdherent(res.data))
+            .catch(err => {
+                if (err.response && err.response.status == 401) { 
+                    navigate("/connexion")
+                }
+                console.error(err)})
+    }, [])
 
     return (
         <>
@@ -108,7 +110,7 @@ function Profile() {
                             {/* ------ Section Naissance ------ */}
                             <div className='flex w-full justify-between items-center'>
                                 <h1 className='text-sm font-semibold'>Naissance</h1>
-                                <h1 className='text-sm font-semibold'>{element.dateNaissance}</h1> 
+                                <h1 className='text-sm font-semibold'>{new Date(element.date_naissance).toLocaleDateString("fr-FR")}</h1> 
                                 <label htmlFor="date" 
                                     className='p-2 h-10 items-center'>
                                     <FaPencil onClick={() => {navigate('../ModifierProfile')}} className={'cursor-pointer'} />

@@ -59,7 +59,7 @@ function Statistique() {
                     dataUser.map((element, index) => (
                         <div
                             key={index}
-                            className='flex justify-around items-center rounded-xl shadow-[0px_10px_30px_rgba(70,0,0,0.3)] w-3xl max-w-5xl m-auto h-28 bg-[#7cca98]'
+                            className='flex justify-around items-center rounded-xl shadow-[0px_10px_30px_rgba(70,0,0,0.3)] w-3xl max-w-5xl m-auto h-28 bg-[#7CA982]'
                         >
                             <div className='flex flex-col items-center justify-center text-center h-full'>
                                 <h1 className='text-3xl font-bold text-white'>{element.nombreMatch}</h1>
@@ -147,12 +147,26 @@ function Statistique() {
                     </div>
 
                     {/* Ratio */}
-                    <div className="flex rounded-xl max-h-56 p-5 bg-[#7CA982]">
-                        <h3 className="text-3xl font-semibold text-white">Ratio</h3>
-                        <div className="flex justify-center items-center">
-                            <p className='text-2xl font-bold text-white'>53% de victoire</p>
+                    {match.length !== 0 ? (
+                        <div className="flex flex-col rounded-xl max-h-56 p-5 bg-[#7CA982]">
+                            <h3 className="text-3xl font-semibold text-white">Ratio</h3>
+
+                            {dataUser.map((element, index) => (
+                                <div key={index} className="flex justify-center items-center">
+                                    <p className="text-2xl font-bold text-white">
+                                        {Math.round((element.victoire * 100) / element.nombreMatch)}% de victoire
+                                    </p>
+                                </div>
+                            ))}
                         </div>
-                    </div>
+                    ) : (
+                        <div className="flex flex-col rounded-xl max-h-56 p-5 bg-[#7CA982]">
+                            <h3 className="text-3xl font-semibold text-white">Ratio</h3>
+                            <div className="flex justify-center items-center">
+                                <p className="text-2xl font-bold text-white">0% de victoire</p>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </>

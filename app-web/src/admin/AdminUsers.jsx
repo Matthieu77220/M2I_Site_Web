@@ -29,86 +29,106 @@ function AdminUsers() {
         type_abonnement: ''
     });
 
-    const usersPerPages = 15;
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-    const api = axios.create({
-        baseURL: API_URL,
-        withCredentials: true,
-    });
-
     useEffect(() => {
-        fetchUsers();
-    }, []);
-
-    const fetchUsers = async () => {
         setLoading(true);
         setError(null);
-        try {
-            const { data } = await api.get('/api/admin/users');
-            setUsers(data);
-        } catch (err) {
-            setError(err.message);
-            console.error('Erreur:', err);
-        } finally {
-            setLoading(false);
-        }
-    };
 
-    const handleCreateUser = async () => {
-        if (!formData.email || !formData.mot_de_passe || !formData.prenom || !formData.nom || !formData.telephone || !formData.date_naissance) {
-            alert('Tous les champs obligatoires doivent être remplis');
+        axios
+            .get("http://localhost:3000/api/admin/getAllUsers", { withCredentials: true })
+            .then(res => {
+                setUsers(res.data);
+            })
+            .catch(err => {
+                if (err.response?.status === 401) {
+                    navigate("/connexion");
+                } else {
+                    setError("Erreur lors du chargement des utilisateurs");
+                }
+                console.error(err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
+
+    const handleCreateUser = () => {
+        if (
+            !formData.email ||
+            !formData.mot_de_passe ||
+            !formData.prenom ||
+            !formData.nom ||
+            !formData.telephone ||
+            !formData.date_naissance
+        ) {
+            alert("Tous les champs obligatoires doivent être remplis");
             return;
         }
 
-        try {
-            await api.post('/api/admin/users', formData);
-
-            alert('Adhérent créé avec succès');
-            setShowAddModal(false);
-            resetForm();
-            fetchUsers();
-        } catch (err) {
-            alert('Erreur: ' + err.message);
-        }
+        axios.post("http://localhost:3000/api/admin/createUser", formData, { withCredentials: true } )
+            .then(() => {
+                alert("Adhérent créé avec succès");
+                setShowAddModal(false);
+                resetForm();
+            })
+            .catch(err => {
+                if (err.response?.status === 401) {
+                    navigate("/connexion");
+                } else {
+                    alert("Erreur lors de la création de l’adhérent");
+                }
+                console.error(err);
+            });
     };
 
-    const handleUpdateUser = async () => {
+    const handleUpdateUser = () => {
         if (!selectedUser) return;
 
-        try {
-            const payload = { ...formData };
-            if (!payload.mot_de_passe) {
-                delete payload.mot_de_passe; // ne pas écraser le mot de passe si non modifié
-            }
-
-            await api.put(`/api/admin/users/${selectedUser.id}`, payload);
-
-            alert('Adhérent modifié avec succès');
-            setEditMessage(false);
-            setConfirmerBoutton(false);
-            resetForm();
-            setSelectedUser(null);
-            fetchUsers();
-        } catch (err) {
-            alert('Erreur: ' + err.message);
+        const payload = { ...formData };
+        if (!payload.mot_de_passe) {
+            delete payload.mot_de_passe; // ne pas écraser le mot de passe si non modifié
         }
+
+        axios
+            .put("http://localhost:3000/api/admin/updateUser", payload, { withCredentials: true })
+            .then(() => {
+                alert("Adhérent modifié avec succès");
+                setEditMessage(false);
+                setConfirmerBoutton(false);
+                resetForm();
+                setSelectedUser(null);
+            })
+            .catch(err => {
+                if (err.response?.status === 401) {
+                    navigate("/connexion");
+                } else {
+                    alert("Erreur lors de la modification de l’adhérent");
+                }
+                console.error(err);
+            });
     };
 
-    const handleDeleteUser = async () => {
+
+    const handleDeleteUser = () => {
         if (!selectedUser) return;
 
-        try {
-            await api.delete(`/api/admin/users/${selectedUser.id}`);
-
-            alert('Adhérent supprimé avec succès');
-            setDeleteMessage(false);
-            setConfirmerBoutton(false);
-            setSelectedUser(null);
-            fetchUsers();
-        } catch (err) {
-            alert('Erreur: ' + err.message);
-        }
+        axios
+            .delete("http://localhost:3000/api/admin/deleteUser", { withCredentials: true })
+            .then(() => {
+                alert("Adhérent supprimé avec succès");
+                setDeleteMessage(false);
+                setConfirmerBoutton(false);
+                setSelectedUser(null);
+            })
+            .catch(err => {
+                if (err.response?.status === 401) {
+                    navigate("/connexion");
+                } else {
+                    alert("Erreur lors de la suppression de l’adhérent");
+                }
+                console.error(err);
+            });
     };
+
 
     const openEditModal = (user) => {
         setSelectedUser(user);
@@ -152,6 +172,7 @@ function AdminUsers() {
     };
 
     // Pagination
+    const usersPerPages = 15
     const indexOfLastUser = currentPage * usersPerPages;
     const indexOfFirstUser = (currentPage - 1) * usersPerPages;
     const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
@@ -176,7 +197,7 @@ function AdminUsers() {
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                     <div className="relative flex flex-col bg-white rounded-lg p-8 max-w-2xl w-full space-y-4 max-h-[90vh] overflow-y-auto">
                         <h1 className="text-xl font-bold text-center">Ajouter un adhérent</h1>
-                        
+
                         <button
                             className="absolute right-5 top-3 text-gray-500 hover:text-gray-700"
                             onClick={() => {
@@ -572,34 +593,34 @@ function AdminUsers() {
                                     <td className="px-4 py-2">{currentUser.nom}</td>
                                     <td className="px-4 py-2">{currentUser.email}</td>
                                     <td className="px-4 py-2 flex gap-3">
-                            {currentUser.role === 'utilisateur' ? (
-                                <>
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            setSelectedUser(currentUser);
-                                            setShowOptions(true);
-                                        }}
-                                        className="bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
-                                    >
-                                        Editer
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            setSelectedUser(currentUser);
-                                            setShowOptions(true);
-                                        }}
-                                        className="bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
-                                    >
-                                        Supprimer
-                                    </button>
-                                </>
-                            ) : (
-                                <span className="text-xs italic text-white/80">
-                                    Gestion réservée aux utilisateurs simples
-                                </span>
-                            )}
+                                        {currentUser.role === 'utilisateur' ? (
+                                            <>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setSelectedUser(currentUser);
+                                                        setShowOptions(true);
+                                                    }}
+                                                    className="bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                                >
+                                                    Editer
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setSelectedUser(currentUser);
+                                                        setShowOptions(true);
+                                                    }}
+                                                    className="bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                                >
+                                                    Supprimer
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <span className="text-xs italic text-white/80">
+                                                Gestion réservée aux utilisateurs simples
+                                            </span>
+                                        )}
                                     </td>
                                 </tr>
                             ))

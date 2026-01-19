@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import NavBarAdmin from '../components/NavBarAdmin';
 
 function AdminUsers() {
@@ -14,32 +15,36 @@ function AdminUsers() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    
     const [formData, setFormData] = useState({
+        role: 'utilisateur',
+        prenom: '',
+        nom: '',
         email: '',
-        password: '',
-        admin: 0
+        telephone: '',
+        date_naissance: '',
+        mot_de_passe: '',
+        montant_cotisation: '',
+        debut_adhesion: '',
+        fin_adhesion: '',
+        type_abonnement: ''
     });
 
     const usersPerPages = 15;
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const api = axios.create({
+        baseURL: API_URL,
+        withCredentials: true,
+    });
 
-    // Charge les utilisateurs au montage du composant
     useEffect(() => {
         fetchUsers();
     }, []);
 
-    // Récupére tous les utilisateurs
     const fetchUsers = async () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('/api/admin/users', {
-                credentials: 'include'
-            });
-            
-            if (!response.ok) throw new Error('Erreur lors du chargement');
-            
-            const data = await response.json();
+            const { data } = await api.get('/api/admin/users');
             setUsers(data);
         } catch (err) {
             setError(err.message);
@@ -49,56 +54,39 @@ function AdminUsers() {
         }
     };
 
-  
     const handleCreateUser = async () => {
-        if (!formData.email || !formData.password) {
-            alert('Email et mot de passe requis');
+        if (!formData.email || !formData.mot_de_passe || !formData.prenom || !formData.nom || !formData.telephone || !formData.date_naissance) {
+            alert('Tous les champs obligatoires doivent être remplis');
             return;
         }
 
         try {
-            const response = await fetch('/api/admin/users', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify(formData)
-            });
+            await api.post('/api/admin/users', formData);
 
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.message);
-            }
-
-            alert('Utilisateur créé avec succès');
+            alert('Adhérent créé avec succès');
             setShowAddModal(false);
-            setFormData({ email: '', password: '', admin: 0 });
+            resetForm();
             fetchUsers();
         } catch (err) {
             alert('Erreur: ' + err.message);
         }
     };
 
- 
     const handleUpdateUser = async () => {
         if (!selectedUser) return;
 
         try {
-            const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify(formData)
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.message);
+            const payload = { ...formData };
+            if (!payload.mot_de_passe) {
+                delete payload.mot_de_passe; // ne pas écraser le mot de passe si non modifié
             }
 
-            alert('Utilisateur modifié avec succès');
+            await api.put(`/api/admin/users/${selectedUser.id}`, payload);
+
+            alert('Adhérent modifié avec succès');
             setEditMessage(false);
             setConfirmerBoutton(false);
-            setFormData({ email: '', password: '', admin: 0 });
+            resetForm();
             setSelectedUser(null);
             fetchUsers();
         } catch (err) {
@@ -106,22 +94,13 @@ function AdminUsers() {
         }
     };
 
- 
     const handleDeleteUser = async () => {
         if (!selectedUser) return;
 
         try {
-            const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
-                method: 'DELETE',
-                credentials: 'include'
-            });
+            await api.delete(`/api/admin/users/${selectedUser.id}`);
 
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.message);
-            }
-
-            alert('Utilisateur supprimé avec succès');
+            alert('Adhérent supprimé avec succès');
             setDeleteMessage(false);
             setConfirmerBoutton(false);
             setSelectedUser(null);
@@ -131,23 +110,45 @@ function AdminUsers() {
         }
     };
 
-    
     const openEditModal = (user) => {
         setSelectedUser(user);
         setFormData({
+            role: user.role,
+            prenom: user.prenom,
+            nom: user.nom,
             email: user.email,
-            password: '',
-            admin: user.admin
+            telephone: user.telephone,
+            date_naissance: user.date_naissance ? user.date_naissance.split('T')[0] : '',
+            mot_de_passe: '',
+            montant_cotisation: user.montant_cotisation || '',
+            debut_adhesion: user.debut_adhesion ? user.debut_adhesion.split('T')[0] : '',
+            fin_adhesion: user.fin_adhesion ? user.fin_adhesion.split('T')[0] : '',
+            type_abonnement: user.type_abonnement || ''
         });
         setShowOptions(false);
         setEditMessage(true);
     };
 
-  
     const openDeleteModal = (user) => {
         setSelectedUser(user);
         setShowOptions(false);
         setDeleteMessage(true);
+    };
+
+    const resetForm = () => {
+        setFormData({
+            role: 'utilisateur',
+            prenom: '',
+            nom: '',
+            email: '',
+            telephone: '',
+            date_naissance: '',
+            mot_de_passe: '',
+            montant_cotisation: '',
+            debut_adhesion: '',
+            fin_adhesion: '',
+            type_abonnement: ''
+        });
     };
 
     // Pagination
@@ -170,48 +171,115 @@ function AdminUsers() {
 
     return (
         <>
-            {/* Ajouter */}
+            {/* Modal Ajout */}
             {showAddModal && (
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="relative flex flex-col bg-white rounded-lg p-8 max-w-md w-full space-y-4">
-                        <h1 className="text-xl font-bold text-center">Ajouter un utilisateur</h1>
+                    <div className="relative flex flex-col bg-white rounded-lg p-8 max-w-2xl w-full space-y-4 max-h-[90vh] overflow-y-auto">
+                        <h1 className="text-xl font-bold text-center">Ajouter un adhérent</h1>
                         
                         <button
                             className="absolute right-5 top-3 text-gray-500 hover:text-gray-700"
                             onClick={() => {
                                 setShowAddModal(false);
-                                setFormData({ email: '', password: '', admin: 0 });
+                                resetForm();
                             }}
                         >
                             ✕
                         </button>
 
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="border p-2 rounded"
-                        />
-
-                        <input
-                            type="password"
-                            placeholder="Mot de passe"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            className="border p-2 rounded"
-                        />
-
-                        <label className="flex items-center space-x-2">
+                        <div className="grid grid-cols-2 gap-4">
                             <input
-                                type="checkbox"
-                                checked={formData.admin === 1}
-                                onChange={(e) => setFormData({ ...formData, admin: e.target.checked ? 1 : 0 })}
+                                type="text"
+                                placeholder="Prénom *"
+                                value={formData.prenom}
+                                onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
+                                className="border p-2 rounded"
                             />
-                            <span>Administrateur</span>
-                        </label>
 
-                        <div className="flex justify-around">
+                            <input
+                                type="text"
+                                placeholder="Nom *"
+                                value={formData.nom}
+                                onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="email"
+                                placeholder="Email *"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="tel"
+                                placeholder="Téléphone *"
+                                value={formData.telephone}
+                                onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="date"
+                                placeholder="Date de naissance *"
+                                value={formData.date_naissance}
+                                onChange={(e) => setFormData({ ...formData, date_naissance: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="password"
+                                placeholder="Mot de passe *"
+                                value={formData.mot_de_passe}
+                                onChange={(e) => setFormData({ ...formData, mot_de_passe: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <select
+                                value={formData.role}
+                                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                                className="border p-2 rounded"
+                            >
+                                <option value="utilisateur">Utilisateur</option>
+                                <option value="admin">Admin</option>
+                                <option value="superadmin">Super Admin</option>
+                            </select>
+
+                            <input
+                                type="text"
+                                placeholder="Type d'abonnement"
+                                value={formData.type_abonnement}
+                                onChange={(e) => setFormData({ ...formData, type_abonnement: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="number"
+                                placeholder="Montant cotisation"
+                                value={formData.montant_cotisation}
+                                onChange={(e) => setFormData({ ...formData, montant_cotisation: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="date"
+                                placeholder="Début adhésion"
+                                value={formData.debut_adhesion}
+                                onChange={(e) => setFormData({ ...formData, debut_adhesion: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="date"
+                                placeholder="Fin adhésion"
+                                value={formData.fin_adhesion}
+                                onChange={(e) => setFormData({ ...formData, fin_adhesion: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+                        </div>
+
+                        <div className="flex justify-around mt-4">
                             <button
                                 onClick={handleCreateUser}
                                 className="bg-[#7CA982] text-white px-6 py-2 rounded-xl hover:-translate-y-1 duration-300"
@@ -229,12 +297,12 @@ function AdminUsers() {
                 </div>
             )}
 
-            {/* Options */}
+            {/* Modal Options */}
             {showOptions && selectedUser && (
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                     <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                         <div className="flex flex-col justify-between items-center space-y-5">
-                            <h1 className="text-xl font-bold m-auto">Voulez-vous supprimer ou modifier l'utilisateur</h1>
+                            <h1 className="text-xl font-bold m-auto">Voulez-vous supprimer ou modifier l'adhérent</h1>
                             <h2>double cliquez pour valider</h2>
 
                             <button
@@ -267,13 +335,13 @@ function AdminUsers() {
                 </div>
             )}
 
-            {/* Suppression */}
+            {/* Modal Suppression */}
             {deleteMessage && selectedUser && (
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
                     <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                         <div className="flex flex-col justify-between items-center space-y-5">
-                            <h1 className="text-xl font-bold m-auto">Supprimer l'utilisateur</h1>
-                            <h2>Etes-vous sur de vouloir supprimer {selectedUser.email} ?</h2>
+                            <h1 className="text-xl font-bold m-auto">Supprimer l'adhérent</h1>
+                            <h2>Êtes-vous sûr de vouloir supprimer {selectedUser.prenom} {selectedUser.nom} ?</h2>
                             {confirmerBoutton && <h3 className="text-red-600 font-bold">Cette action est irréversible.</h3>}
                             <button
                                 className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -319,52 +387,119 @@ function AdminUsers() {
                 </div>
             )}
 
-            {/* Edition */}
+            {/* Modal Edition */}
             {editMessage && selectedUser && (
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="relative flex flex-col bg-white rounded-lg p-8 max-w-md w-full space-y-4">
-                        <h1 className="text-xl font-bold text-center">Modifier l'utilisateur</h1>
+                    <div className="relative flex flex-col bg-white rounded-lg p-8 max-w-2xl w-full space-y-4 max-h-[90vh] overflow-y-auto">
+                        <h1 className="text-xl font-bold text-center">Modifier l'adhérent</h1>
 
                         <button
                             className="absolute right-5 top-3 text-gray-500 hover:text-gray-700"
                             onClick={() => {
                                 setEditMessage(false);
                                 setConfirmerBoutton(false);
-                                setFormData({ email: '', password: '', admin: 0 });
+                                resetForm();
                                 setSelectedUser(null);
                             }}
                         >
                             ✕
                         </button>
 
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="border p-2 rounded"
-                        />
-
-                        <input
-                            type="password"
-                            placeholder="Nouveau mot de passe (optionnel)"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            className="border p-2 rounded"
-                        />
-
-                        <label className="flex items-center space-x-2">
+                        <div className="grid grid-cols-2 gap-4">
                             <input
-                                type="checkbox"
-                                checked={formData.admin === 1}
-                                onChange={(e) => setFormData({ ...formData, admin: e.target.checked ? 1 : 0 })}
+                                type="text"
+                                placeholder="Prénom"
+                                value={formData.prenom}
+                                onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
+                                className="border p-2 rounded"
                             />
-                            <span>Administrateur</span>
-                        </label>
+
+                            <input
+                                type="text"
+                                placeholder="Nom"
+                                value={formData.nom}
+                                onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="tel"
+                                placeholder="Téléphone"
+                                value={formData.telephone}
+                                onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="date"
+                                placeholder="Date de naissance"
+                                value={formData.date_naissance}
+                                onChange={(e) => setFormData({ ...formData, date_naissance: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="password"
+                                placeholder="Nouveau mot de passe (optionnel)"
+                                value={formData.mot_de_passe}
+                                onChange={(e) => setFormData({ ...formData, mot_de_passe: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <select
+                                value={formData.role}
+                                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                                className="border p-2 rounded"
+                            >
+                                <option value="utilisateur">Utilisateur</option>
+                                <option value="admin">Admin</option>
+                                <option value="superadmin">Super Admin</option>
+                            </select>
+
+                            <input
+                                type="text"
+                                placeholder="Type d'abonnement"
+                                value={formData.type_abonnement}
+                                onChange={(e) => setFormData({ ...formData, type_abonnement: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="number"
+                                placeholder="Montant cotisation"
+                                value={formData.montant_cotisation}
+                                onChange={(e) => setFormData({ ...formData, montant_cotisation: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="date"
+                                placeholder="Début adhésion"
+                                value={formData.debut_adhesion}
+                                onChange={(e) => setFormData({ ...formData, debut_adhesion: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="date"
+                                placeholder="Fin adhésion"
+                                value={formData.fin_adhesion}
+                                onChange={(e) => setFormData({ ...formData, fin_adhesion: e.target.value })}
+                                className="border p-2 rounded"
+                            />
+                        </div>
 
                         {confirmerBoutton && <h3 className="text-red-600 font-bold text-center">Cette action est irréversible.</h3>}
 
-                        <div className="flex justify-around">
+                        <div className="flex justify-around mt-4">
                             {confirmerBoutton ? (
                                 <button
                                     onClick={handleUpdateUser}
@@ -400,7 +535,7 @@ function AdminUsers() {
 
             <section className={`duration-500 ${open ? 'pl-60' : 'pl-[72px]'}`}>
                 <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">
-                    Gestion Utilisateur
+                    Gestion Adhérents
                 </h1>
 
                 <div className="flex justify-end mx-15 mb-4">
@@ -408,7 +543,7 @@ function AdminUsers() {
                         onClick={() => setShowAddModal(true)}
                         className="bg-[#7CA982] text-white px-6 py-2 rounded-xl hover:-translate-y-1 duration-300 font-bold"
                     >
-                        + Ajouter un utilisateur
+                        + Ajouter un adhérent
                     </button>
                 </div>
 
@@ -419,9 +554,11 @@ function AdminUsers() {
                     <thead className="rounded-xl">
                         <tr>
                             <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
-                            <th className="px-20 py-2 text-white font-roboto text-md text-left">est Admin ?</th>
-                            <th className="px-40 py-2 text-white font-roboto text-md text-left">Identifiant</th>
-                            <th className="px-4 py-2 text-white font-roboto text-md text-left">Editer/Supprimer</th>
+                            <th className="px-4 py-2 text-white font-roboto text-md text-left">Rôle</th>
+                            <th className="px-4 py-2 text-white font-roboto text-md text-left">Prénom</th>
+                            <th className="px-4 py-2 text-white font-roboto text-md text-left">Nom</th>
+                            <th className="px-4 py-2 text-white font-roboto text-md text-left">Email</th>
+                            <th className="px-4 py-2 text-white font-roboto text-md text-left">Actions</th>
                         </tr>
                     </thead>
 
@@ -430,36 +567,46 @@ function AdminUsers() {
                             currentUsers.map((currentUser) => (
                                 <tr key={currentUser.id} className="border-b">
                                     <td className="px-4 py-2">{currentUser.id}</td>
-                                    <td className="px-20 py-2">{currentUser.admin ? 'Oui' : 'Non'}</td>
-                                    <td className="px-40 py-2">{currentUser.email}</td>
+                                    <td className="px-4 py-2">{currentUser.role}</td>
+                                    <td className="px-4 py-2">{currentUser.prenom}</td>
+                                    <td className="px-4 py-2">{currentUser.nom}</td>
+                                    <td className="px-4 py-2">{currentUser.email}</td>
                                     <td className="px-4 py-2 flex gap-3">
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setSelectedUser(currentUser);
-                                                setShowOptions(true);
-                                            }}
-                                            className="bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
-                                        >
-                                            Editer
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setSelectedUser(currentUser);
-                                                setShowOptions(true);
-                                            }}
-                                            className="bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
-                                        >
-                                            Supprimer
-                                        </button>
+                            {currentUser.role === 'utilisateur' ? (
+                                <>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setSelectedUser(currentUser);
+                                            setShowOptions(true);
+                                        }}
+                                        className="bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                    >
+                                        Editer
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setSelectedUser(currentUser);
+                                            setShowOptions(true);
+                                        }}
+                                        className="bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                    >
+                                        Supprimer
+                                    </button>
+                                </>
+                            ) : (
+                                <span className="text-xs italic text-white/80">
+                                    Gestion réservée aux utilisateurs simples
+                                </span>
+                            )}
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td className="px-4 py-2 text-red-600" colSpan={4}>
-                                    Aucun utilisateur à afficher.
+                                <td className="px-4 py-2 text-red-600" colSpan={6}>
+                                    Aucun adhérent à afficher.
                                 </td>
                             </tr>
                         )}

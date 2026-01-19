@@ -44,9 +44,9 @@ function App() {
           <Route path='/ProfileAdmin' element={<ProfileAdmin />} />
           <Route path='/Equipements' element={<Equipements />} />
           <Route path='/AdminStats' element={<AdminStats/>}/>
-          <Route path='/PannelSuperAdmin' element={<ProtectedRoute element={<PannelSuperAdmin/>} requiredRole="superAdmin"/>}/>
-          <Route path='/SuperAdminUsers' element={<ProtectedRoute element={<SuperAdminUsers/>} requiredRole="superAdmin"/>}/>
-          <Route path='/SuperAdminClubs' element={<ProtectedRoute element={<SuperAdminClubs/>} requiredRole="superAdmin"/>}/>
+          <Route path='/PannelSuperAdmin' element={<PannelSuperAdmin/>}/>
+          <Route path='/SuperAdminUsers' element={<SuperAdminUsers/>}/>
+          <Route path='/SuperAdminClubs' element={<SuperAdminClubs/>}/>
         </Routes>
       </Router>
     </>

@@ -50,11 +50,12 @@ function Connexion() {
                 const userRole = response.data?.role;
                 
                 // Stocker le rôle dans localStorage
+                /*
                 if (userRole) {
                     localStorage.setItem('userRole', userRole);
                     localStorage.setItem('userId', response.data?.id);
                 }
-                
+                */
                 // Rediriger selon le rôle
                 if (userRole === 'superAdmin') {
                     navigate("../PannelSuperAdmin");
@@ -62,6 +63,10 @@ function Connexion() {
                     navigate("../Profile");
                 }
             } catch (err) {
+                  if (err.response && err.response.status == 401) { 
+                    navigate("/connexion")
+                    console.log("Erreur d'authentification : ", err.response.data.message);
+                }
                 console.log(err);
                 // Ajouter des useState pour afficher au front les erreurs
             }

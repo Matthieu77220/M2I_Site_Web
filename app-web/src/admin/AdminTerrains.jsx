@@ -232,11 +232,6 @@ function AdminTerrains() {
                 <NavBarAdmin open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>
 
-<<<<<<< HEAD
-            <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
-                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Terrains</h1>
-                <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl bg-[#7CA982] mx-15 text-white">
-=======
             <section className={`duration-500 ${open ? "pl-60" : "pl-18"}`}>
                 <h1 className="font-spartan text-[#7cca98] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Terrains</h1>
                 
@@ -251,7 +246,6 @@ function AdminTerrains() {
                 </div>
 
                 <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl bg-[#7cca98] mx-15 text-white">
->>>>>>> 20a53cd5150aae655fead6f284c5204e97cd9e4f
                     <thead className="rounded-xl font-xl">
                         <tr>
                         <th className="text-white font-roboto text-md px-4 py-2 text-left">ID</th>

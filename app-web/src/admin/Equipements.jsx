@@ -403,12 +403,9 @@ function Equipements() {
                 </select>
             </section>
 
-<<<<<<< HEAD
-            <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7CA982]">
-=======
             <div className="flex justify-end mx-22 pb-5">
                 <button
-                    type="button"
+                    type="button" 
                     onClick={() => setShowCreateModal(true)}
                     className="bg-[#7cca98] text-white font-bold px-6 py-2 rounded-lg hover:bg-[#6a9470] transition-all"
                 >
@@ -417,7 +414,6 @@ function Equipements() {
             </div>
 
             <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7cca98]">
->>>>>>> 20a53cd5150aae655fead6f284c5204e97cd9e4f
                 <thead className="rounded-xl"> 
                     <tr>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>

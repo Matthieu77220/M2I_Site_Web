@@ -60,7 +60,14 @@ function FormulaireInscription() {
                 };
 
                 try {
-                    await axios.post("http://localhost:3000/api/auth/inscription", formFinal, {withCredentials : true})
+                    const response = await axios.post("http://localhost:3000/api/auth/inscription", formFinal, {withCredentials : true})
+                    
+                    // Stocker l'ID et le rôle de l'utilisateur dans localStorage
+                    if (response.data?.id) {
+                        localStorage.setItem('userId', response.data.id);
+                        localStorage.setItem('userRole', response.data.role);
+                    }
+                    
                     navigate("../Abonnement");
                 } catch (err) {
                     console.log(err);

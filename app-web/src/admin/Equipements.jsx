@@ -11,7 +11,6 @@ function Equipements() {
     const[currentPageBoots, setCurrentPageBoots] = useState(1)
     const[currentPageBalloons, setCurrentPageBallons] = useState(1)
     const[showOptions, setShowOptions] = useState(false)
-    const[showCreateModal, setShowCreateModal] = useState(false)
     const[equipmentFormData, setEquipmentFormData] = useState({
         stock_base: ''
     })
@@ -143,16 +142,6 @@ function Equipements() {
         }));
     };
 
-    const handleCreateEquipment = (e) => {
-        e.preventDefault();
-        console.log('Équipement à créer:', selectedEquipment, equipmentFormData);
-        // La requête API 
-        setShowCreateModal(false);
-        setEquipmentFormData({
-            stock_base: ''
-        });
-    };
-
     // Fonction pour déterminer l'état du stock
     const getStockStatus = (stockCurrent, stockBase) => {
         const percentage = (stockCurrent / stockBase) * 100;
@@ -195,16 +184,6 @@ function Equipements() {
                     <option value="chasubles">Chasubles</option>
                 </select>
             </section>
-
-            <div className="flex justify-end mx-22 pb-5">
-                <button
-                    type="button" 
-                    onClick={() => setShowCreateModal(true)}
-                    className="bg-[#7cca98] text-white font-bold px-6 py-2 rounded-lg hover:bg-[#6a9470] transition-all"
-                >
-                    + Ajouter un équipement
-                </button>
-            </div>
 
             <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7cca98]">
                 <thead className="rounded-xl"> 
@@ -328,68 +307,6 @@ function Equipements() {
                     </>
                 )}
             </section>
-
-            {/* Modale de création d'équipement */}
-            {showCreateModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-                        <h2 className="text-2xl font-bold text-[#7CA982] mb-4">Ajouter un nouvel Équipement</h2>
-
-                        <form onSubmit={handleCreateEquipment} className="space-y-4">
-                            <div>
-                                <label className="block text-gray-700 font-bold mb-2">
-                                    Type d'équipement
-                                </label>
-                                <select
-                                    value={selectedEquipment}
-                                    onChange={(e) => setSelectedEquipment(e.target.value)}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
-                                >
-                                    <option value="ballons">Ballons</option>
-                                    <option value="crampons">Crampons</option>
-                                    <option value="chasubles">Chasubles</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="block text-gray-700 font-bold mb-2">
-                                    Stock de base
-                                </label>
-                                <input
-                                    type="number"
-                                    name="stock_base"
-                                    value={equipmentFormData.stock_base}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
-                                    placeholder="Ex: 20"
-                                    min="1"
-                                />
-                            </div>
-
-                            <div className="flex gap-4 pt-4">
-                                <button
-                                    type="submit"
-                                    className="flex-1 bg-[#7CA982] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#6a9470] transition-all"
-                                >
-                                    Ajouter
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setShowCreateModal(false);
-                                        setEquipmentFormData({
-                                            stock_base: ''
-                                        });
-                                    }}
-                                    className="flex-1 bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-400 transition-all"
-                                >
-                                    Annuler
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
         </section>
     </>
     );

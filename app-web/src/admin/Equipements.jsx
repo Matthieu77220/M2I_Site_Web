@@ -1,5 +1,7 @@
-import {useState} from 'react';
+import { useEffect, useState } from 'react';
 import NavBarAdmin from '../components/NavBarAdmin';
+
+import axios from 'axios'
 
 function Equipements() {
 
@@ -18,99 +20,128 @@ function Equipements() {
     const ballonsPerPages = 10
     const cramponsPerPages = 10
     
-    const chasubles = [
-        {
-            id: 0,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 1,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 2,
-            stock_base: 100,
-            stcok_current: 15
-        },
-        {
-            id: 4,
-            stock_base: 100,
-            stcok_current: 85
-        },
-        {
-            id: 5,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 6,
-            stock_base: 100,
-            stcok_current: 55
-        },
-        {
-            id: 7,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 8,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 9,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 10,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 11,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 12,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 13,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 14,
-            stock_base: 100,
-            stcok_current: 50
-        },
-        {
-            id: 15,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 16,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 17,
-            stock_base: 100,
-            stcok_current: 5
-        }
-    ]
+    // const chasubles = [
+    //     {
+    //         id: 0,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 1,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 2,
+    //         stock_base: 100,
+    //         stcok_current: 15
+    //     },
+    //     {
+    //         id: 4,
+    //         stock_base: 100,
+    //         stcok_current: 85
+    //     },
+    //     {
+    //         id: 5,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 6,
+    //         stock_base: 100,
+    //         stcok_current: 55
+    //     },
+    //     {
+    //         id: 7,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 8,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 9,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 10,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 11,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 12,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 13,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 14,
+    //         stock_base: 100,
+    //         stcok_current: 50
+    //     },
+    //     {
+    //         id: 15,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 16,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     },
+    //     {
+    //         id: 17,
+    //         stock_base: 100,
+    //         stcok_current: 5
+    //     }
+    // ]
+
+    const [equipement, setEquipement] = useState([])
+
+        // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/equipement/visualitionStock", { withCredentials: true })
+            .then(res => setEquipement([res.data]) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const indexOfLastChasuble = currentPageChasubles * chasublesPerPages;
     const indexOfFirstChasuble = (currentPageChasubles - 1) * chasublesPerPages;
 
-    const currentChasuble = chasubles.slice(indexOfFirstChasuble, indexOfLastChasuble);
-    const totalOfPagesChasuble = Math.max(1, Math.ceil(chasubles.length / chasublesPerPages));
+    const currentChasuble = equipement.slice(indexOfFirstChasuble, indexOfLastChasuble);
+    const totalOfPagesChasuble = Math.max(1, Math.ceil(equipement.length / chasublesPerPages));
 
     function nextPageChasuble(){
         if(currentPageChasubles < totalOfPagesChasuble){
@@ -426,12 +457,12 @@ function Equipements() {
                 <tbody> 
                     {selectedEquipment === 'ballons' && currentBalloon.length > 0 ? (
                         currentBalloon.map((item) => {
-                            const stockStatus = getStockStatus(item.stcok_current, item.stock_base);
+                            const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={item.id} className="border-b">
                                     <td className="px-4 py-2">{item.id}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
-                                    <td className="px-40 py-2">{item.stcok_current}</td>
+                                    <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
                                     </td>
@@ -440,12 +471,12 @@ function Equipements() {
                         })
                     ) : selectedEquipment === 'chasubles' && currentChasuble.length > 0 ? (
                         currentChasuble.map((item) => {
-                            const stockStatus = getStockStatus(item.stcok_current, item.stock_base);
+                            const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={item.id} className="border-b">
                                     <td className="px-4 py-2">{item.id}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
-                                    <td className="px-40 py-2">{item.stcok_current}</td>
+                                    <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
                                     </td>
@@ -454,12 +485,12 @@ function Equipements() {
                         })
                     ) : selectedEquipment === 'crampons' && currentBoot.length > 0 ? (
                         currentBoot.map((item) => {
-                            const stockStatus = getStockStatus(item.stcok_current, item.stock_base);
+                            const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={item.id} className="border-b">
                                     <td className="px-4 py-2">{item.id}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
-                                    <td className="px-40 py-2">{item.stcok_current}</td>
+                                    <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
                                     </td>

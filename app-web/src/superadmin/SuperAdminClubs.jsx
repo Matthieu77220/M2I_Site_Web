@@ -4,6 +4,7 @@ import NavBarSuperAdmin from '../components/NavBarSuperAdmin';
 import axios from 'axios';
 
 function SuperAdminClubs() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(true)
     const [clubs, setClubs] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
@@ -42,6 +43,14 @@ function SuperAdminClubs() {
         } catch (err) {
             console.error('Erreur lors du chargement des clubs:', err);
             setError('Erreur lors du chargement des clubs');
+             if (err.response && err.response.status == 401) { 
+                    navigate("/connexion");
+                    console.log("Erreur d'authentification : ", err.response.data.message);
+            }
+            if(err.response && err.response.status == 403) {
+                navigate("/connexion");
+                console.log("Accès refusé : ", err.response.data.message);
+            }
         } finally {
             setLoading(false);
         }

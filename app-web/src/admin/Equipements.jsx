@@ -19,101 +19,17 @@ function Equipements() {
     const chasublesPerPages = 10
     const ballonsPerPages = 10
     const cramponsPerPages = 10
-    
-    // const chasubles = [
-    //     {
-    //         id: 0,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 1,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 2,
-    //         stock_base: 100,
-    //         stcok_current: 15
-    //     },
-    //     {
-    //         id: 4,
-    //         stock_base: 100,
-    //         stcok_current: 85
-    //     },
-    //     {
-    //         id: 5,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 6,
-    //         stock_base: 100,
-    //         stcok_current: 55
-    //     },
-    //     {
-    //         id: 7,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 8,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 9,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 10,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 11,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 12,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 13,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 14,
-    //         stock_base: 100,
-    //         stcok_current: 50
-    //     },
-    //     {
-    //         id: 15,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 16,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     },
-    //     {
-    //         id: 17,
-    //         stock_base: 100,
-    //         stcok_current: 5
-    //     }
-    // ]
 
-    const [equipement, setEquipement] = useState([])
+    // ------------------------------------ //
+    // ----------- API CHASUBLE ----------- //
+    // ------------------------------------ //
 
-        // Catch : proctection des pages si status = 401
+    const [chasubles, setChasubles] = useState([])
+
+    // Catch : proctection des pages si status = 401
     useEffect(() => {
-        axios.get("http://localhost:3000/api/equipement/visualitionStock", { withCredentials: true })
-            .then(res => setEquipement(res.data) )
+        axios.get("http://localhost:3000/api/equipement/stockChasuble", { withCredentials: true })
+            .then(res => setChasubles(res.data) )
             .catch(err => {
                 if (err.response && err.response.status == 401) {
                     navigate("/connexion")
@@ -122,26 +38,11 @@ function Equipements() {
             })
     }, [])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     const indexOfLastChasuble = currentPageChasubles * chasublesPerPages;
     const indexOfFirstChasuble = (currentPageChasubles - 1) * chasublesPerPages;
 
-    const currentChasuble = equipement.slice(indexOfFirstChasuble, indexOfLastChasuble);
-    const totalOfPagesChasuble = Math.max(1, Math.ceil(equipement.length / chasublesPerPages));
+    const currentChasuble = chasubles.slice(indexOfFirstChasuble, indexOfLastChasuble);
+    const totalOfPagesChasuble = Math.max(1, Math.ceil(chasubles.length / chasublesPerPages));
 
     function nextPageChasuble(){
         if(currentPageChasubles < totalOfPagesChasuble){
@@ -156,93 +57,23 @@ function Equipements() {
     }
 
 
-    const ballons = [
-         {
-            id: 0,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 1,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 2,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 4,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 5,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 6,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 7,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 8,
-           stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 9,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 10,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 11,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 12,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 13,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 14,
-            stock_base: 20,
-            stcok_current: 10
-        },
-        {
-            id: 15,
-            stock_base: 20,
-            stcok_current: 20
-        },
-        {
-            id: 16,
-            stock_base: 20,
-            stcok_current: 15
-        },
-        {
-            id: 17,
-            stock_base: 20,
-            stcok_current: 5
-        }
-    ]
+    // ------------------------------------ //
+    // ----------- API BALLON ------------- //
+    // ------------------------------------ //
+
+    const [ballons, setBallons] = useState([])
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/equipement/stockBallon", { withCredentials: true })
+            .then(res => setBallons(res.data) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
 
     const indexOfLastBalloon = currentPageBalloons * ballonsPerPages;
     const indexOfFirstBalloon = (currentPageBalloons- 1) * ballonsPerPages;
@@ -262,93 +93,24 @@ function Equipements() {
         }
     }
 
-    const crampons = [
-         {
-            id: 0,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 1,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 2,
-            stock_base: 100,
-            stcok_current: 15
-        },
-        {
-            id: 4,
-            stock_base: 100,
-            stcok_current: 85
-        },
-        {
-            id: 5,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 6,
-            stock_base: 100,
-            stcok_current: 55
-        },
-        {
-            id: 7,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 8,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 9,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 10,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 11,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 12,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 13,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 14,
-            stock_base: 100,
-            stcok_current: 50
-        },
-        {
-            id: 15,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 16,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 17,
-            stock_base: 100,
-            stcok_current: 5
-        }
-    ]
+    
+    // ------------------------------------ //
+    // ----------- API CRAMPON ------------ //
+    // ------------------------------------ //
+
+    const [crampons, setCrampons] = useState([])
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/equipement/stockCrampon", { withCredentials: true })
+            .then(res => setCrampons(res.data) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
 
     const indexOfLastBoots = currentPageBoots* cramponsPerPages;
     const indexOfFirstBoots = (currentPageBoots- 1) * cramponsPerPages;
@@ -456,11 +218,11 @@ function Equipements() {
     
                 <tbody> 
                     {selectedEquipment === 'ballons' && currentBalloon.length > 0 ? (
-                        currentBalloon.map((item) => {
+                        currentBalloon.map((item, index) => {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
-                                <tr key={item.id} className="border-b">
-                                    <td className="px-4 py-2">{item.id}</td>
+                                <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_ballon}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
                                     <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
@@ -484,11 +246,11 @@ function Equipements() {
                             );
                         })
                     ) : selectedEquipment === 'crampons' && currentBoot.length > 0 ? (
-                        currentBoot.map((item) => {
+                        currentBoot.map((item, index) => {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
-                                <tr key={item.id} className="border-b">
-                                    <td className="px-4 py-2">{item.id}</td>
+                                <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_crampon}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
                                     <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>

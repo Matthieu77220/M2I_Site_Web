@@ -16,11 +16,14 @@ function SuperAdminUsers() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [editRole, setEditRole] = useState('');
+    const [clubs, setClubs] = useState([]);
+    const [editClub, setEditClub] = useState('');
 
     const usersPerPage = 15;
 
     useEffect(() => {
         fetchUsers();
+        fetchClubs();
     }, []);
 
     const fetchUsers = async () => {
@@ -48,6 +51,17 @@ function SuperAdminUsers() {
         }
     };
 
+    const fetchClubs = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/api/superadmin/clubs', {
+                withCredentials: true
+            });
+            setClubs(response.data);
+        } catch (err) {
+            console.error('Erreur lors du chargement des clubs:', err);
+        }
+    };
+
     const handleDeleteUser = async () => {
         if (!selectedUser) return;
         try {
@@ -68,7 +82,7 @@ function SuperAdminUsers() {
     const handleUpdateUser = async () => {
         if (!selectedUser) return;
         try {
-            const updatedUser = { ...selectedUser, role: editRole };
+            const updatedUser = { ...selectedUser, role: editRole, id_club: editClub || null };
             await axios.put(`http://localhost:3000/api/superadmin/users/${selectedUser.id_adherent}`, updatedUser, {
                 withCredentials: true
             });
@@ -104,6 +118,7 @@ function SuperAdminUsers() {
     const openOptions = (user) => {
         setSelectedUser(user);
         setEditRole(user.role);
+        setEditClub(user.id_club || '');
         setShowOptions(true);
         setConfirmerBoutton(false);
     };
@@ -174,20 +189,37 @@ function SuperAdminUsers() {
     
             {editMessage &&
                 <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
-                <div className="relative flex flex-col justify-evenly h-3/5 bg-white rounded-lg p-8 max-w-md w-full">
+                <div className="relative flex flex-col justify-evenly h-3/5 bg-white rounded-lg p-8 max-w-md w-full overflow-y-auto">
                     <div className="flex flex-col justify-between items-center space-y-5">
-                        <h1 className="text-xl font-bold m-auto">Modifier le rôle de l'utilisateur</h1>
-                        <div className="w-full">
-                            <label className="block text-gray-700 font-bold mb-2">Sélectionner un rôle :</label>
-                            <select 
-                                value={editRole} 
-                                onChange={(e) => setEditRole(e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
-                            >
-                                <option value="utilisateur">Utilisateur</option>
-                                <option value="admin">Admin</option>
-                                <option value="superAdmin">Super Admin</option>
-                            </select>
+                        <h1 className="text-xl font-bold m-auto">Modifier l'utilisateur</h1>
+                        <div className="w-full space-y-4">
+                            <div>
+                                <label className="block text-gray-700 font-bold mb-2">Sélectionner un rôle :</label>
+                                <select 
+                                    value={editRole} 
+                                    onChange={(e) => setEditRole(e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
+                                >
+                                    <option value="utilisateur">Utilisateur</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="superAdmin">Super Admin</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-gray-700 font-bold mb-2">Sélectionner un club :</label>
+                                <select 
+                                    value={editClub} 
+                                    onChange={(e) => setEditClub(e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
+                                >
+                                    <option value="">Aucun club</option>
+                                    {clubs.map((club) => (
+                                        <option key={club.id_club} value={club.id_club}>
+                                            {club.nom}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
                         <button
                             className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"

@@ -1,6 +1,8 @@
-import {useState} from 'react';
+import { useState, useEffect} from 'react';
 import { useNavigate} from 'react-router';
 import NavBarAdmin from '../components/NavBarAdmin';
+
+import axios from 'axios'
 
 function AdminTerrains() {
     const [open, setOpen] = useState(true)
@@ -17,88 +19,106 @@ function AdminTerrains() {
     });
     
     const pitchsPerPages = 15;
-    const pitchs = [
-        {
-            id:1,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:2,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:3,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:4,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:5,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:6,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:7,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:8,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:9,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:10,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:11,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:12,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:13,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:14,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:15,
-            identifiant:"12345",
-            adresse:"34 cours du Danube SERRIS",
-        },
-        {
-            id:16,
-            identifiant:"1234",
-            adresse:"34 cours du Danube SERRIS",
-        },
-    ]; //plus tard on mettra avec les users de la bdd
+    // const pitchs = [
+    //     {
+    //         id:1,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:2,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:3,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:4,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:5,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:6,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:7,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:8,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:9,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:10,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:11,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:12,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:13,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:14,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:15,
+    //         identifiant:"12345",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    //     {
+    //         id:16,
+    //         identifiant:"1234",
+    //         adresse:"34 cours du Danube SERRIS",
+    //     },
+    // ]; //plus tard on mettra avec les users de la bdd
+
+        // ------------------------------------ //
+    // ----------- API CRAMPON ------------ //
+    // ------------------------------------ //
+
+    const [pitchs, setPitchs] = useState([])
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/admin/voirTerrain", { withCredentials: true })
+            .then(res => setPitchs(res.data) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
 
     const indexOfLastPitch = currentPage * pitchsPerPages;
     const indexOfFirstPitch = (currentPage - 1) * pitchsPerPages;
@@ -256,9 +276,9 @@ function AdminTerrains() {
 
                     <tbody>
                         {currentPitchs.length > 0 ? (
-                        currentPitchs.map((pitch) => (
-                        <tr key={pitch.id} className="border-b">
-                            <td className="px-4 py-2">{pitch.identifiant}</td>
+                        currentPitchs.map((pitch, index) => (
+                        <tr key={index} className="border-b">
+                            <td className="px-4 py-2">{pitch.id_terrain}</td>
                             <td className="px-50 py-2">{pitch.adresse}</td>
                             <td className="px-4 py-2 flex gap-3">
                                 <button

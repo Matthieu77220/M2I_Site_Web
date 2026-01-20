@@ -25,6 +25,14 @@ function PannelSuperAdmin() {
         } catch (err) {
             console.error('Erreur lors du chargement des stats:', err);
             setError('Erreur lors du chargement des statistiques');
+            if (err.response && err.response.status == 401) { 
+                    navigate("/connexion");
+                    console.log("Erreur d'authentification : ", err.response.data.message);
+            }
+            if(err.response && err.response.status == 403) {
+                navigate("/connexion");
+                console.log("Accès refusé : ", err.response.data.message);
+            }
         } finally {
             setLoading(false);
         }

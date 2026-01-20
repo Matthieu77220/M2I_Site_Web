@@ -1,8 +1,10 @@
 import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router';
 import NavBarSuperAdmin from '../components/NavBarSuperAdmin';
 import axios from 'axios';
 
 function SuperAdminUsers() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(true)
     const [users, setUsers] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +34,15 @@ function SuperAdminUsers() {
         } catch (err) {
             console.error('Erreur lors du chargement des utilisateurs:', err);
             setError('Erreur lors du chargement des utilisateurs');
+
+                  if (err.response && err.response.status == 401) { 
+                    navigate("/connexion");
+                    console.log("Erreur d'authentification : ", err.response.data.message);
+            }
+            if(err.response && err.response.status == 403) {
+                navigate("/connexion");
+                console.log("Accès refusé : ", err.response.data.message);
+            }
         } finally {
             setLoading(false);
         }
@@ -69,6 +80,7 @@ function SuperAdminUsers() {
         } catch (err) {
             console.error('Erreur lors de la mise à jour:', err);
             setError('Erreur lors de la mise à jour de l\'utilisateur');
+       
         }
     };
 

@@ -113,7 +113,7 @@ function Equipements() {
         // Catch : proctection des pages si status = 401
     useEffect(() => {
         axios.get("http://localhost:3000/api/equipement/visualitionStock", { withCredentials: true })
-            .then(res => setEquipement([res.data]) )
+            .then(res => setEquipement(res.data) )
             .catch(err => {
                 if (err.response && err.response.status == 401) {
                     navigate("/connexion")
@@ -470,11 +470,11 @@ function Equipements() {
                             );
                         })
                     ) : selectedEquipment === 'chasubles' && currentChasuble.length > 0 ? (
-                        currentChasuble.map((item) => {
+                        currentChasuble.map((item, index) => {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
-                                <tr key={item.id} className="border-b">
-                                    <td className="px-4 py-2">{item.id}</td>
+                                <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_chasuble}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
                                     <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>

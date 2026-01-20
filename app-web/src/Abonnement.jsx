@@ -48,17 +48,9 @@ function Abonnement() {
     async function onClick(card) {
         console.log(`Abonnement choisi : ${card.title}`);
 
-       
-        const id_adherent = localStorage.getItem('userId');
-
-        if (!id_adherent) {
-            alert("Utilisateur non connecté : impossible d'acheter un abonnement.");
-            return;
-        }
-
         try {
+            // L'id_adherent est récupéré automatiquement depuis le JWT cookie côté serveur
             const response = await api.post('/abonnements/acheter', {
-                id_adherent: Number(id_adherent),
                 id_abonnement: card.id,
             });
 
@@ -67,6 +59,14 @@ function Abonnement() {
             navigate('/Dashboard');
         } catch (err) {
             console.error("Erreur lors de l'achat :", err.response?.data || err);
+            
+            // Si l'utilisateur n'est pas connecté (401), rediriger vers la connexion
+            if (err.response?.status === 401) {
+                alert("Vous devez être connecté pour acheter un abonnement.");
+                navigate('/Connexion');
+                return;
+            }
+            
             alert(err.response?.data?.message || "Erreur lors de l'achat de l'abonnement.");
         }
     }

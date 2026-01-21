@@ -42,7 +42,7 @@ function AdminUsers() {
                 if (err.response?.status === 401) {
                     navigate("/connexion");
                 } else {
-                    setError("Erreur lors du chargement des utilisateurs");
+                    setError("Erreur lors du chargement des utilisateurs12345");
                 }
                 console.error(err);
             })
@@ -69,6 +69,7 @@ function AdminUsers() {
                 alert("Adhérent créé avec succès");
                 setShowAddModal(false);
                 resetForm();
+                window.location.reload()
             })
             .catch(err => {
                 if (err.response?.status === 401) {
@@ -89,7 +90,7 @@ function AdminUsers() {
         }
 
         axios
-            .put("http://localhost:3000/api/admin/updateUser", payload, { withCredentials: true })
+            .put(`http://localhost:3000/api/admin/updateUser/${selectedUser.id}`, payload, { withCredentials: true })
             .then(() => {
                 alert("Adhérent modifié avec succès");
                 setEditMessage(false);
@@ -109,25 +110,29 @@ function AdminUsers() {
 
 
     const handleDeleteUser = () => {
-        if (!selectedUser) return;
+    console.log('selectedUser:', selectedUser);     
+    if (!selectedUser) return;
 
-        axios
-            .delete("http://localhost:3000/api/admin/deleteUser", { withCredentials: true })
-            .then(() => {
-                alert("Adhérent supprimé avec succès");
-                setDeleteMessage(false);
-                setConfirmerBoutton(false);
-                setSelectedUser(null);
-            })
-            .catch(err => {
-                if (err.response?.status === 401) {
-                    navigate("/connexion");
-                } else {
-                    alert("Erreur lors de la suppression de l’adhérent");
-                }
-                console.error(err);
-            });
-    };
+    console.log('ID à supprimer:', selectedUser.id);
+
+    axios
+        .delete(`http://localhost:3000/api/admin/deleteUser/${selectedUser.id}`, { withCredentials: true })
+        .then(() => {
+            alert("Adhérent supprimé avec succès");
+            setDeleteMessage(false);
+            setConfirmerBoutton(false);
+            setSelectedUser(null);
+            window.location.reload();
+        })
+        .catch(err => {
+            console.error('Erreur complète:', err); 
+            if (err.response?.status === 401) {
+                window.location.href = "/connexion";
+            } else {
+                alert("Erreur lors de la suppression de l'adhérent");
+            }
+        });
+};
 
 
     const openEditModal = (user) => {
@@ -263,8 +268,6 @@ function AdminUsers() {
                                 className="border p-2 rounded"
                             >
                                 <option value="utilisateur">Utilisateur</option>
-                                <option value="admin">Admin</option>
-                                <option value="superadmin">Super Admin</option>
                             </select>
 
                             <input

@@ -1,6 +1,9 @@
 import './css/style.css'
 import {BrowserRouter as Router, Routes, Route} from 'react-router'
 
+// Ajout de l'import
+import TerrainPage from "./admin/TerrainPage.jsx";
+
 // Import des pages
 import Home from "./Home.jsx"
 import FormulaireInscription from "./FormulaireInscription.jsx"
@@ -47,6 +50,9 @@ function App() {
           <Route path='/PannelSuperAdmin' element={<PannelSuperAdmin/>}/>
           <Route path='/SuperAdminUsers' element={<SuperAdminUsers/>}/>
           <Route path='/SuperAdminClubs' element={<SuperAdminClubs/>}/>
+
+          {/* Ajoute route des pages Terrains */}
+          <Route path="/AdminTerrains/:id" element={<TerrainPage />} />
         </Routes>
       </Router>
     </>

@@ -11,7 +11,7 @@ function AdminTerrains() {
     const [open, setOpen] = useState(true)
     const [currentPage, setCurrentPage] = useState(1);
     const [editData, setEditData] = useState(null);
-    const [deleteData, setDeleteData] = useState(null);
+    const [id_terrain, setId_terrain] = useState(null);
     const [showCreateTerrainModal, setShowCreateTerrainModal] = useState(false);
     const [terrainFormData, setTerrainFormData] = useState({
         adresse: ''
@@ -43,18 +43,25 @@ function AdminTerrains() {
     // ------------------------------------ //
 
     useEffect(() => {
-        if (!deleteData) {
-            return
-        }
+        if (!id_terrain) return;
 
-        axios.delete("http://localhost:3000/api/admin/supprimerTerrain", deleteData, { withCredentials: true } )
-            .catch(err => {
-                if (err.response && err.response.status == 401) {
-                    navigate("/connexion")
+        axios.delete("http://localhost:3000/api/admin/supprimerTerrain", {
+            withCredentials: true,
+            data: { id_terrain }
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    alert("Terrain supprimé avec succès");
+                    window.location.reload();
                 }
-                console.error(err)
             })
-    }, [deleteData])
+            .catch(err => {
+                if (err.response?.status === 401) {
+                    navigate("/connexion");
+                }
+                console.error(err);
+            });
+    }, [id_terrain]);
 
     const indexOfLastPitch = currentPage * pitchsPerPages;
     const indexOfFirstPitch = (currentPage - 1) * pitchsPerPages;
@@ -96,7 +103,7 @@ function AdminTerrains() {
                 terrainFormData,
                 { withCredentials: true, }
             )
-            .then(res => setPitchs(res.data))
+                .then(res => setPitchs(res.data))
         } catch (err) {
             console.log(err);
             // Ajouter des useState pour afficher au front les erreurs
@@ -150,7 +157,7 @@ function AdminTerrains() {
                                         </button>
                                         <button
                                             type="button"
-                                            onClick={() => setDeleteData(pitch.id_terrain)}
+                                            onClick={() => setId_terrain(pitch.id_terrain)}
                                             className=" bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
                                         >
                                             Supprimer

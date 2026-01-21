@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import NavBarAdmin from '../components/NavBarAdmin';
 
 import axios from 'axios'
 
 function Equipements() {
+
+    const navigate = useNavigate()
 
     const[open, setOpen] = useState(true)
     const[selectedEquipment, setSelectedEquipment] = useState('ballons') // État pour gérer la sélection

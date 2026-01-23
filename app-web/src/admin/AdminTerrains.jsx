@@ -241,11 +241,11 @@ function AdminTerrains() {
 
             </section>
 
-            {/* Modale de création de terrain */}
+            {/* Modale de Edit de terrain */}
             {showEditTerrainModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-                        <h2 className="text-2xl font-bold text-[#7CA982] mb-4">Créer un nouveau Terrain</h2>
+                        <h2 className="text-2xl font-bold text-[#7CA982] mb-4">Modifier un Terrain</h2>
 
                         <form onSubmit={handleEditTerrain} className="space-y-4">
                             <div>
@@ -267,7 +267,7 @@ function AdminTerrains() {
                                     type="submit"
                                     className="flex-1 bg-[#7CA982] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#6a9470] transition-all"
                                 >
-                                    Créer
+                                    Modifier
                                 </button>
                                 <button
                                     type="button"

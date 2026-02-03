@@ -37,7 +37,7 @@ function FormulaireInscription() {
 
     // ---------------------------- Enregistrement de formData dans le formFinal => envoie vers l'api ----------------------------//
 
-    const [formFinal, setForFinal] = useState()
+    const [formFinal, setFormFinal] = useState()
 
     async function checkValidInput(event) {
         event.preventDefault() // empêche la réinitilisation du form si il y a une erreur

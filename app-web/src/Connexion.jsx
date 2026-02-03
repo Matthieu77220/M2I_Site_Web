@@ -23,7 +23,7 @@ function Connexion() {
     // Indique ou non si les inputs respectent les Regex
     const [isInputValid, setIsInputValid] = useState(true)
 
-    const [formFinal, setForFinal] = useState()
+    const [formFinal, setFormFinal] = useState()
 
     // Vérifie si les inputs sont conforment aux Regex ainsi que les MDP
     async function checkValidInput(event) {
@@ -49,13 +49,6 @@ function Connexion() {
                  // Récupérer le rôle de l'utilisateur depuis la réponse
                 const userRole = response.data?.role;
                 
-                // Stocker le rôle dans localStorage
-                /*
-                if (userRole) {
-                    localStorage.setItem('userRole', userRole);
-                    localStorage.setItem('userId', response.data?.id);
-                }
-                */
                 // Rediriger selon le rôle
                 if (userRole === 'superAdmin') {
                     navigate("../PannelSuperAdmin");

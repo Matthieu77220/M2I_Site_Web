@@ -11,8 +11,9 @@ function AdminTerrains() {
     const [open, setOpen] = useState(true)
     const [currentPage, setCurrentPage] = useState(1);
     const [editData, setEditData] = useState(null);
-    const [deleteData, setDeleteData] = useState(null);
+    const [id_terrain, setId_terrain] = useState(null);
     const [showCreateTerrainModal, setShowCreateTerrainModal] = useState(false);
+    const [showEditTerrainModal, setShowEditTerrainModal] = useState(false)
     const [terrainFormData, setTerrainFormData] = useState({
         adresse: ''
     });
@@ -42,19 +43,26 @@ function AdminTerrains() {
     // --------- API Supprimer ------------ //
     // ------------------------------------ //
 
-    useEffect(() => {
-        if (!deleteData) {
-            return
-        }
+    const handleDeleteTerrain = async (id) => {
+        if (!window.confirm("Voulez-vous vraiment supprimer ce terrain ?")) return;
 
-        axios.delete("http://localhost:3000/api/admin/supprimerTerrain", deleteData, { withCredentials: true } )
-            .catch(err => {
-                if (err.response && err.response.status == 401) {
-                    navigate("/connexion")
+        try {
+            await axios.delete(
+                "http://localhost:3000/api/admin/supprimerTerrain",
+                {
+                    withCredentials: true,
+                    data: { id_terrain: id }
                 }
-                console.error(err)
-            })
-    }, [deleteData])
+            );
+
+            setPitchs(prev => prev.filter(p => p.id_terrain !== id));
+            alert("Terrain supprimé avec succès");
+        } catch (err) {
+            if (err.response?.status === 401) navigate("/connexion");
+            console.error(err);
+        }
+    };
+
 
     const indexOfLastPitch = currentPage * pitchsPerPages;
     const indexOfFirstPitch = (currentPage - 1) * pitchsPerPages;
@@ -82,6 +90,10 @@ function AdminTerrains() {
         }));
     };
 
+    // ------------------------------------ //
+    // ------ API AJouter Terrain -------- //
+    // ------------------------------------ //
+
     const handleCreateTerrain = async (e) => {
         e.preventDefault();
         console.log('Terrain à créer:', terrainFormData);
@@ -96,7 +108,36 @@ function AdminTerrains() {
                 terrainFormData,
                 { withCredentials: true, }
             )
-            .then(res => setPitchs(res.data))
+                .then(res => setPitchs(res.data))
+        } catch (err) {
+            console.log(err);
+            // Ajouter des useState pour afficher au front les erreurs
+        }
+    };
+
+    // ------------------------------------ //
+    // ------- API Edit Terrain ----------- //
+    // ------------------------------------ //
+
+    const handleEditTerrain = async (e) => {
+        e.preventDefault();
+
+        setShowEditTerrainModal(false);
+        setTerrainFormData({
+            adresse: ''
+        });
+
+        console.log(pitchs.id_terrain);
+        console.log(pitchs);
+
+
+
+        try {
+            await axios.put("http://localhost:3000/api/admin/modifierTerrain",
+                { id_terrain: id_terrain, adresse: terrainFormData.adresse },
+                { withCredentials: true }
+            )
+            window.location.reload()
         } catch (err) {
             console.log(err);
             // Ajouter des useState pour afficher au front les erreurs
@@ -143,14 +184,23 @@ function AdminTerrains() {
                                     <td className="px-4 py-2 flex gap-3">
                                         <button
                                             type="button"
-                                            onClick={() => setEditData(pitch.id_terrain)}
-                                            className=" bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
+                                            onClick={() => {
+                                                setEditData(pitch);
+                                                setTerrainFormData({
+                                                    adresse: pitch.adresse
+                                                });
+                                                setShowEditTerrainModal(true);
+                                                setId_terrain(pitch.id_terrain)
+
+
+                                            }}
+                                            className="bg-yellow-300 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
                                         >
                                             Editer
                                         </button>
                                         <button
                                             type="button"
-                                            onClick={() => setDeleteData(pitch.id_terrain)}
+                                            onClick={() => handleDeleteTerrain(pitch.id_terrain)}
                                             className=" bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:opacity-70"
                                         >
                                             Supprimer
@@ -190,6 +240,52 @@ function AdminTerrains() {
                 </section>
 
             </section>
+
+            {/* Modale de Edit de terrain */}
+            {showEditTerrainModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+                        <h2 className="text-2xl font-bold text-[#7CA982] mb-4">Modifier un Terrain</h2>
+
+                        <form onSubmit={handleEditTerrain} className="space-y-4">
+                            <div>
+                                <label className="block text-gray-700 font-bold mb-2">
+                                    Adresse
+                                </label>
+                                <input
+                                    type="text"
+                                    name="adresse"
+                                    value={terrainFormData.adresse}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
+                                    placeholder="Ex: 34 cours du Danube SERRIS"
+                                />
+                            </div>
+
+                            <div className="flex gap-4 pt-4">
+                                <button
+                                    type="submit"
+                                    className="flex-1 bg-[#7CA982] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#6a9470] transition-all"
+                                >
+                                    Modifier
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setShowEditTerrainModal(false)
+                                        setTerrainFormData({
+                                            adresse: ''
+                                        });
+                                    }}
+                                    className="flex-1 bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-400 transition-all"
+                                >
+                                    Annuler
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             {/* Modale de création de terrain */}
             {showCreateTerrainModal && (

@@ -7,7 +7,7 @@ function Connexion() {
     const navigate = useNavigate()
 
     // ---------------------------- Enregistrement Input dans le formData ----------------------------//
-
+ 
     // Création des Regex pour chaque Input
     const regexEmail = new RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+")
     const regexMotDePasse = new RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[é'(-è^_ç#./+=?!@$%^&*-]).{8,}$")

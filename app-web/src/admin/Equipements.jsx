@@ -1,7 +1,12 @@
-import {useState} from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import NavBarAdmin from '../components/NavBarAdmin';
 
+import axios from 'axios'
+
 function Equipements() {
+
+    const navigate = useNavigate()
 
     const[open, setOpen] = useState(true)
     const[selectedEquipment, setSelectedEquipment] = useState('ballons') // État pour gérer la sélection
@@ -9,98 +14,31 @@ function Equipements() {
     const[currentPageBoots, setCurrentPageBoots] = useState(1)
     const[currentPageBalloons, setCurrentPageBallons] = useState(1)
     const[showOptions, setShowOptions] = useState(false)
+    const[equipmentFormData, setEquipmentFormData] = useState({
+        stock_base: ''
+    })
 
     const chasublesPerPages = 10
     const ballonsPerPages = 10
     const cramponsPerPages = 10
-    
-    const chasubles = [
-        {
-            id: 0,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 1,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 2,
-            stock_base: 100,
-            stcok_current: 15
-        },
-        {
-            id: 4,
-            stock_base: 100,
-            stcok_current: 85
-        },
-        {
-            id: 5,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 6,
-            stock_base: 100,
-            stcok_current: 55
-        },
-        {
-            id: 7,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 8,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 9,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 10,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 11,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 12,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 13,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 14,
-            stock_base: 100,
-            stcok_current: 50
-        },
-        {
-            id: 15,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 16,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 17,
-            stock_base: 100,
-            stcok_current: 5
-        }
-    ]
+
+    // ------------------------------------ //
+    // ----------- API CHASUBLE ----------- //
+    // ------------------------------------ //
+
+    const [chasubles, setChasubles] = useState([])
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/equipement/stockChasuble", { withCredentials: true })
+            .then(res => setChasubles(res.data) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
 
     const indexOfLastChasuble = currentPageChasubles * chasublesPerPages;
     const indexOfFirstChasuble = (currentPageChasubles - 1) * chasublesPerPages;
@@ -121,93 +59,23 @@ function Equipements() {
     }
 
 
-    const ballons = [
-         {
-            id: 0,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 1,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 2,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 4,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 5,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 6,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 7,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 8,
-           stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 9,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 10,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 11,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 12,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 13,
-            stock_base: 20,
-            stcok_current: 5
-        },
-        {
-            id: 14,
-            stock_base: 20,
-            stcok_current: 10
-        },
-        {
-            id: 15,
-            stock_base: 20,
-            stcok_current: 20
-        },
-        {
-            id: 16,
-            stock_base: 20,
-            stcok_current: 15
-        },
-        {
-            id: 17,
-            stock_base: 20,
-            stcok_current: 5
-        }
-    ]
+    // ------------------------------------ //
+    // ----------- API BALLON ------------- //
+    // ------------------------------------ //
+
+    const [ballons, setBallons] = useState([])
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/equipement/stockBallon", { withCredentials: true })
+            .then(res => setBallons(res.data) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
 
     const indexOfLastBalloon = currentPageBalloons * ballonsPerPages;
     const indexOfFirstBalloon = (currentPageBalloons- 1) * ballonsPerPages;
@@ -227,93 +95,24 @@ function Equipements() {
         }
     }
 
-    const crampons = [
-         {
-            id: 0,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 1,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 2,
-            stock_base: 100,
-            stcok_current: 15
-        },
-        {
-            id: 4,
-            stock_base: 100,
-            stcok_current: 85
-        },
-        {
-            id: 5,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 6,
-            stock_base: 100,
-            stcok_current: 55
-        },
-        {
-            id: 7,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 8,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 9,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 10,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 11,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 12,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 13,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 14,
-            stock_base: 100,
-            stcok_current: 50
-        },
-        {
-            id: 15,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 16,
-            stock_base: 100,
-            stcok_current: 5
-        },
-        {
-            id: 17,
-            stock_base: 100,
-            stcok_current: 5
-        }
-    ]
+    
+    // ------------------------------------ //
+    // ----------- API CRAMPON ------------ //
+    // ------------------------------------ //
+
+    const [crampons, setCrampons] = useState([])
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/equipement/stockCrampon", { withCredentials: true })
+            .then(res => setCrampons(res.data) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
 
     const indexOfLastBoots = currentPageBoots* cramponsPerPages;
     const indexOfFirstBoots = (currentPageBoots- 1) * cramponsPerPages;
@@ -337,6 +136,14 @@ function Equipements() {
     const handleEquipmentChange = (e) => {
         setSelectedEquipment(e.target.value);
     }
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEquipmentFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
 
     // Fonction pour déterminer l'état du stock
     const getStockStatus = (stockCurrent, stockBase) => {
@@ -381,7 +188,7 @@ function Equipements() {
                 </select>
             </section>
 
-            <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7CA982]">
+            <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7cca98]">
                 <thead className="rounded-xl"> 
                     <tr>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
@@ -393,13 +200,13 @@ function Equipements() {
     
                 <tbody> 
                     {selectedEquipment === 'ballons' && currentBalloon.length > 0 ? (
-                        currentBalloon.map((item) => {
-                            const stockStatus = getStockStatus(item.stcok_current, item.stock_base);
+                        currentBalloon.map((item, index) => {
+                            const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
-                                <tr key={item.id} className="border-b">
-                                    <td className="px-4 py-2">{item.id}</td>
+                                <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_ballon}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
-                                    <td className="px-40 py-2">{item.stcok_current}</td>
+                                    <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
                                     </td>
@@ -407,13 +214,13 @@ function Equipements() {
                             );
                         })
                     ) : selectedEquipment === 'chasubles' && currentChasuble.length > 0 ? (
-                        currentChasuble.map((item) => {
-                            const stockStatus = getStockStatus(item.stcok_current, item.stock_base);
+                        currentChasuble.map((item, index) => {
+                            const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
-                                <tr key={item.id} className="border-b">
-                                    <td className="px-4 py-2">{item.id}</td>
+                                <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_chasuble}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
-                                    <td className="px-40 py-2">{item.stcok_current}</td>
+                                    <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
                                     </td>
@@ -421,13 +228,13 @@ function Equipements() {
                             );
                         })
                     ) : selectedEquipment === 'crampons' && currentBoot.length > 0 ? (
-                        currentBoot.map((item) => {
-                            const stockStatus = getStockStatus(item.stcok_current, item.stock_base);
+                        currentBoot.map((item, index) => {
+                            const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
-                                <tr key={item.id} className="border-b">
-                                    <td className="px-4 py-2">{item.id}</td>
+                                <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_crampon}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
-                                    <td className="px-40 py-2">{item.stcok_current}</td>
+                                    <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
                                     </td>

@@ -23,6 +23,9 @@ function ModifierProfile() {
         telephone : ""
     })
 
+    console.log(formData);
+    
+
     // Initialise le type l'input dateNaissance à "text"
     const [inputDateType, setInputDateType] = useState("text")
 

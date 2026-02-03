@@ -9,10 +9,24 @@ import { GiSoccerField } from "react-icons/gi";
 import { FaUsersCog } from "react-icons/fa";;
 import { MdOutlineLogout } from "react-icons/md";
 
+import axios from "axios";
+
 
 function NavBarAdmin({open, setOpen}) {
 
     const navigate = useNavigate();
+
+    async function deconnexionFunction() {
+
+      try {
+        await axios.post("http://localhost:3000/api/auth/deconnexion", {}, {withCredentials: true})
+        navigate('/Connexion')
+
+      }catch (err) {
+        console.log(err)
+      }
+    
+  }
 
     return (  
         <>
@@ -55,7 +69,7 @@ function NavBarAdmin({open, setOpen}) {
                 </ul>
 
                 {/* footer */}
-                <div className='flex absolute bottom-0 items-center mt-5 mb-5 gap-5 w-55 p-2 cursor-pointer hover:bg-green-800 hover:[max-width:calc(100%-1rem)] hover:rounded-md' onClick={() =>{navigate('/Connexion')}}>
+                <div className='flex absolute bottom-0 items-center mt-5 mb-5 gap-5 w-55 p-2 cursor-pointer hover:bg-green-800 hover:[max-width:calc(100%-1rem)] hover:rounded-md' onClick={() => deconnexionFunction()}>
                   <div className="flex gap-5"><MdOutlineLogout size={30} />
                     <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Déconnexion</p>
                   </div>

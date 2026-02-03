@@ -52,7 +52,9 @@ function Connexion() {
                 // Rediriger selon le rôle
                 if (userRole === 'superAdmin') {
                     navigate("../PannelSuperAdmin");
-                } else {
+                } else if (userRole === 'admin') {
+                    navigate("../PannelAdmin")
+                }else {
                     navigate("../Profile");
                 }
             } catch (err) {

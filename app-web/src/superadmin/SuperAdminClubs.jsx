@@ -316,7 +316,7 @@ function SuperAdminClubs() {
                             <td className="px-50 py-2">{club.nom}</td>
                             <td className="px-50 py-2">{club.adresse}</td>
                             <td className="px-4 py-2">{club.telephone}</td>
-                            <td className="px-4 py-2 flex gap-3">
+                            <td className="px-4 py-2 gap-3">
                                 <button
                                 type="button"
                                 onClick={() => openOptions(club)}

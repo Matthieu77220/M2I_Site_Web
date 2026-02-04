@@ -1,6 +1,7 @@
 import './css/style.css'
 import {BrowserRouter as Router, Routes, Route} from 'react-router'
-import ProtectedRoute from './components/ProtectedRoute.jsx'
+
+
 // Import des pages
 import Home from "./Home.jsx"
 import FormulaireInscription from "./FormulaireInscription.jsx"

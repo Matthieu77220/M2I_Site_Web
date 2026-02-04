@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import NavBarAdmin from '../components/NavBarAdmin';
-import StatsChart from '../components/StatsChart';
 import axios from 'axios';
 function AdminStats() {
     const [open, setOpen] = useState(true);

@@ -78,6 +78,3 @@ function AdherentLicence() {
 }
 
 export default AdherentLicence;
-<>
-
-</>

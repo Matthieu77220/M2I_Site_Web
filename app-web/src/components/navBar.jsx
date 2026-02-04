@@ -7,6 +7,7 @@ import { FaIdCard } from "react-icons/fa";
 import { ImStatsBars } from "react-icons/im";
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineLogout } from "react-icons/md";
+import { GiSoccerField } from "react-icons/gi";
 
 import axios from "axios";
 
@@ -56,6 +57,12 @@ function NavBar({ open, setOpen }) {// Récupération des useStat depuis le pare
             onClick={() => navigate('/Statistique')}>
             <div><ImStatsBars size={30} /></div>
             <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Statistique</p>
+          </li>
+
+          <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'
+            onClick={() => navigate('/Terrain')}>
+            <div><GiSoccerField size={30} /></div>
+            <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Terrain</p>
           </li>
 
           <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'

@@ -23,6 +23,7 @@ import AdminStats from './admin/AdminStats.jsx';
 import PannelSuperAdmin from './superadmin/PannelSuperAdmin.jsx';
 import SuperAdminUsers from './superadmin/SuperAdminUsers.jsx';
 import SuperAdminClubs from './superadmin/SuperAdminClubs.jsx';
+import Terrain from './Terrain.jsx';
 function App() {
   return (
     <>
@@ -48,6 +49,7 @@ function App() {
           <Route path='/PannelSuperAdmin' element={<PannelSuperAdmin/>}/>
           <Route path='/SuperAdminUsers' element={<SuperAdminUsers/>}/>
           <Route path='/SuperAdminClubs' element={<SuperAdminClubs/>}/>
+          <Route path='/Terrain' element={<Terrain />} />
         </Routes>
       </Router>
     </>

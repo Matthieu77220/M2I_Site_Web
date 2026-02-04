@@ -199,7 +199,7 @@ function AdminUsers() {
     return (
         <>
             {showOptions && (
-                <div className="fixed inset-0 bg-[#7CA982] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-xl shadow-lg w-80">
                         <h3 className="text-center font-bold text-xl mb-4">
                             Options pour {selectedUser?.prenom} {selectedUser?.nom}
@@ -237,7 +237,7 @@ function AdminUsers() {
 
             {/* Modal Suppression */}
             {deleteMessage && (
-                <div className="fixed inset-0 bg-[#7CA982] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-xl shadow-lg w-96">
                         <h3 className="text-center font-bold text-xl mb-4">
                             Supprimer l'adhérent
@@ -271,7 +271,7 @@ function AdminUsers() {
 
             {/* Modal Ajout */}
             {showAddModal && (
-                <div className="fixed inset-0 bg-[#7CA982] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-xl shadow-lg w-[500px] max-h-[90vh] overflow-y-auto">
                         <h3 className="text-center font-bold text-2xl mb-4">Ajouter un adhérent</h3>
 
@@ -330,8 +330,6 @@ function AdminUsers() {
                                 className="border p-2 rounded"
                             >
                                 <option value="utilisateur">Utilisateur</option>
-                                <option value="admin">Admin</option>
-                                <option value="superadmin">Super Admin</option>
                             </select>
 
                             <input
@@ -390,7 +388,7 @@ function AdminUsers() {
 
             {/* Modal Modification */}
             {editMessage && (
-                <div className="fixed inset-0 bg-[#7CA982] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-xl shadow-lg w-[500px] max-h-[90vh] overflow-y-auto">
                         <h3 className="text-center font-bold text-2xl mb-4">
                             Modifier l'adhérent
@@ -451,8 +449,6 @@ function AdminUsers() {
                                 className="border p-2 rounded"
                             >
                                 <option value="utilisateur">Utilisateur</option>
-                                <option value="admin">Admin</option>
-                                <option value="superadmin">Super Admin</option>
                             </select>
 
                             <input

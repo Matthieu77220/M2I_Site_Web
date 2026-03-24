@@ -25,7 +25,6 @@ import SuperAdminUsers from './superadmin/SuperAdminUsers.jsx';
 import SuperAdminClubs from './superadmin/SuperAdminClubs.jsx';
 import Terrain from './Terrain.jsx';
 import Contact from './Contact.jsx';
-import Commentaire from './Commentaire.jsx';
 
 function App() {
   return (
@@ -54,7 +53,6 @@ function App() {
           <Route path='/SuperAdminClubs' element={<SuperAdminClubs/>}/>
           <Route path='/Terrain' element={<Terrain />} />
           <Route path='/Contact' element={<Contact />} />
-          <Route path='/Commentaire' element={<Commentaire />} />
         </Routes>
       </Router>
     </>

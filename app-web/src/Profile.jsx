@@ -13,13 +13,24 @@ function Profile() {
 
     //Confirme la supprésion du compte
     const [confirmerBoutton,setConfirmerBoutton] = useState(false)
-
+     
     const navigate = useNavigate()
+
+    // ---------- Vérification du mot pour suppression du compte ------------
+    function verifierPrenom() {
+        const prenomInput = document.getElementById("confrime").value;
+        if(prenomInput === "Confirmer") {
+            setConfirmerBoutton(true);
+        } else {
+            setConfirmerBoutton(false);
+            alert("le mot de confirmation est incorrect, veuillez entrer 'Confirmer' pour supprimer votre compte.");
+        }
+    }
 
     // ---------- Suppression du compte ------------
     async function deleteCompte() {
         setPageGestionCompte(!pageGestionCompte)
-
+      
         try {
             await axios.delete("http://localhost:3000/api/auth/suppressionCompte", {withCredentials: true})
             
@@ -59,6 +70,9 @@ function Profile() {
                         <div className="flex flex-col justify-between items-center space-y-5">
                             <h1 className="text-xl font-bold m-auto">Supprimer le compte</h1>
                             <h2 className=''>Êtes-vous sur de vouloir supprimer votre compte ?</h2>
+                            <h2 className=''>Veuillez entrer "Confirmer" </h2>
+                            <input type="text" id="confrime" required placeholder='Confirmer' className='border border-gray-300 rounded-md p-2 w-full' />
+
                             {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
                             <button
                                 className="absolute right-5 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -71,7 +85,7 @@ function Profile() {
                             {confirmerBoutton ? 
                                 <button type="button" onClick={() => deleteCompte()} className='bg-[#bd6868] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
                                 :
-                                <button type="button" onClick={() => {setConfirmerBoutton(!confirmerBoutton)}} className='bg-[#bd6868] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
+                                <button type="button" onClick={() => verifierPrenom()} className='bg-[#bd6868] rounded-xl border border-[#bd68681a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12 backdrop-blur-md'>OUI</button>
                             }
                             <button type="button" className='bg-[#68bd6c] rounded-xl border border-[#68bd6c1a] hover:-translate-y-1.5 duration-700 cursor-pointer p-4 pl-12 pr-12' onClick={() => setPageGestionCompte(!pageGestionCompte)}>NON</button>
                         </div>

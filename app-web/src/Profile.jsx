@@ -66,11 +66,11 @@ function Profile() {
                 {/* Page pour supprimer le compte */}
                 {!pageGestionCompte &&
                     <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
+                    <div className="relative flex flex-col justify-evenly bg-white rounded-lg p-8 max-w-md w-full">
                         <div className="flex flex-col justify-between items-center space-y-5">
                             <h1 className="text-xl font-bold m-auto">Supprimer le compte</h1>
                             <h2 className=''>Êtes-vous sur de vouloir supprimer votre compte ?</h2>
-                            <h2 className=''>Veuillez entrer "Confirmer" </h2>
+                            <h2 className=''>Veuillez entrer <strong>"Confirmer"</strong> </h2>
                             <input type="text" id="confrime" required placeholder='Confirmer' className='border border-gray-300 rounded-md p-2 w-full' />
 
                             {confirmerBoutton &&  <h3 className='text-red-600 font-bold'>Cette action est irréversible.</h3>}
@@ -95,7 +95,6 @@ function Profile() {
 
                 <h1 className='m-5 text-black text-2xl lg:text-4xl font-bold'>Mon compte</h1>
 
-                {/* Faire le map ici  */}
                 {adherent.map((element, index) => (
                 <div key={index} className='flex flex-col md:p-[25px] p-[40px] gap-10 rounded-md overflow-hidden bg-white min-w-11/12 max-md:h-5/6'>
                 

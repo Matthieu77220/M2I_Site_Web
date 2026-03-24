@@ -39,21 +39,12 @@ function AdherentLicence() {
             
                            
                             <div className='flex gap-6 mb-6'>
-                            
-                                {/* <div className='w-48 h-64 bg-sky-100 rounded-lg overflow-hidden flex flex-col shadow-md'>
-                                    <img className='w-full h-full object-cover' src={photoTest} />
-                                </div> */}
 
                                 {user.map((element, index) => (
                                    <div key={index} className='flex-1 bg-white rounded-lg p-6 shadow-md'>
                                         <h3 className='font-bold text-xl mb-4 text-gray-800'> {element.nom} {element.prenom}</h3>
                                         <p className='mb-2 text-gray-700'><strong>Né le :</strong> {new Date(element.date_naissance).toLocaleDateString("fr-FR")}</p>
-                                        {
-                                            element.numero_adherent != null ?
                                             <p className='mb-2 text-gray-700'><strong>Numéro :</strong> {element.numero_adherent}</p>
-                                            :
-                                            <p>Numéro :Aucun numéro</p>
-                                        }
                                         <p className='text-gray-700'><strong>Type de forfait :</strong> {element.type_abonnement}</p>
                                     </div>
                                     ))
@@ -63,7 +54,7 @@ function AdherentLicence() {
                             {user.map((element, index) => (
                                 <div key={index} className='bg-white rounded-lg p-6 shadow-md mb-8'>
                                     <p className='mb-2 text-gray-700'><strong>Délivrée le :</strong> {new Date(element.debut_licence).toLocaleDateString("fr-FR")}</p>
-                                    <p className='text-gray-700'><strong>Date de validité :</strong> {new Date(element.debut_licence).toLocaleDateString("fr-FR")}</p>
+                                    <p className='text-gray-700'><strong>Date de validité :</strong> {new Date(element.fin_licence).toLocaleDateString("fr-FR")}</p>
                                 </div>
                             ))
 

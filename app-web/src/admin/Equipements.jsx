@@ -15,8 +15,13 @@ function Equipements() {
     const[currentPageBalloons, setCurrentPageBallons] = useState(1)
     const[showOptions, setShowOptions] = useState(false)
     const[equipmentFormData, setEquipmentFormData] = useState({
-        stock_base: ''
+        nom: '',
+        type: 'ballon',
+        quantite: '',
+        id_terrain: ''
     })
+    const [formMessage, setFormMessage] = useState("")
+    const [terrains, setTerrains] = useState([])
 
     const chasublesPerPages = 10
     const ballonsPerPages = 10
@@ -28,16 +33,23 @@ function Equipements() {
 
     const [chasubles, setChasubles] = useState([])
 
-    // Catch : proctection des pages si status = 401
-    useEffect(() => {
+    const fetchChasubles = () => {
         axios.get("http://localhost:3000/api/equipement/stockChasuble", { withCredentials: true })
-            .then(res => setChasubles(res.data) )
+            .then(res => {
+                console.log("Chasubles récupérés:", res.data)
+                setChasubles(res.data) 
+            })
             .catch(err => {
                 if (err.response && err.response.status == 401) {
                     navigate("/connexion")
                 }
                 console.error(err)
             })
+    }
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        fetchChasubles()
     }, [])
 
     const indexOfLastChasuble = currentPageChasubles * chasublesPerPages;
@@ -65,16 +77,23 @@ function Equipements() {
 
     const [ballons, setBallons] = useState([])
 
-    // Catch : proctection des pages si status = 401
-    useEffect(() => {
+    const fetchBallons = () => {
         axios.get("http://localhost:3000/api/equipement/stockBallon", { withCredentials: true })
-            .then(res => setBallons(res.data) )
+            .then(res => {
+                console.log("Ballons récupérés:", res.data)
+                setBallons(res.data) 
+            })
             .catch(err => {
                 if (err.response && err.response.status == 401) {
                     navigate("/connexion")
                 }
                 console.error(err)
             })
+    }
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        fetchBallons()
     }, [])
 
     const indexOfLastBalloon = currentPageBalloons * ballonsPerPages;
@@ -102,12 +121,33 @@ function Equipements() {
 
     const [crampons, setCrampons] = useState([])
 
-    // Catch : proctection des pages si status = 401
-    useEffect(() => {
+    const fetchCrampons = () => {
         axios.get("http://localhost:3000/api/equipement/stockCrampon", { withCredentials: true })
-            .then(res => setCrampons(res.data) )
+            .then(res => {
+                console.log("Crampons récupérés:", res.data)
+                setCrampons(res.data) 
+            })
             .catch(err => {
                 if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        fetchCrampons()
+    }, [])
+
+    //
+    useEffect(() => {
+            // Appel API pour récupérer la liste des terrains
+        axios.get("http://localhost:3000/api/admin/voirTerrain", { withCredentials: true })
+            .then(res => setTerrains(res.data || []))
+            .catch(err => {
+                //
+                if (err.response && err.response.status == 401)  {
                     navigate("/connexion")
                 }
                 console.error(err)
@@ -144,6 +184,73 @@ function Equipements() {
             [name]: value
         }));
     };
+
+    const handleSubmitEquipment = (e) => {
+        e.preventDefault() // Empêche le rechargement de la page au submit
+        setFormMessage("") // Réinitialise le message du formulaire
+    
+        const quantite = Number(equipmentFormData.quantite)
+        const idTerrain = Number(equipmentFormData.id_terrain)
+    
+        // Vérification de la quantité
+        if (!Number.isFinite(quantite) || quantite <= 0) {
+            setFormMessage("Quantité invalide.")
+            return
+        }
+    
+        // Vérification de l'ID du terrain
+        if (!Number.isInteger(idTerrain) || idTerrain <= 0) {
+            setFormMessage("Sélectionnez un terrain.")
+            return
+        }
+    
+        // Envoi de la requête POST pour ajouter l'équipement
+        axios.post(
+            "http://localhost:3000/api/equipement",
+            { type: equipmentFormData.type, quantite, id_terrain: idTerrain },
+            { withCredentials: true }
+        )
+            .then(() => {
+                setFormMessage("Équipement ajouté.") // Message succès
+                // Réinitialise le formulaire
+                setEquipmentFormData(prev => ({ ...prev, nom: "", quantite: "", id_terrain: "" }))
+                // Rafraîchit les listes d'équipements
+                fetchChasubles()
+                fetchBallons()
+                fetchCrampons()
+            })
+            .catch((err) => {
+                // Si non authentifié, redirige vers la page de connexion
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                    return
+                }
+                // Affiche le message d'erreur
+                setFormMessage(err.response?.data?.message || "Erreur lors de l'ajout.")
+            })
+    }
+
+    const deleteEquipement = (id) => {
+        console.log("Tentative de suppression de l'équipement ID:", id)
+        if (!window.confirm("Voulez-vous vraiment supprimer cet équipement ?")) return
+
+        axios.delete(`http://localhost:3000/api/equipement/${id}`, { withCredentials: true })
+            .then((response) => {
+                console.log("Suppression réussie:", response.data)
+                setFormMessage("Équipement supprimé.")
+                fetchChasubles()
+                fetchBallons()
+                fetchCrampons()
+            })
+            .catch((err) => {
+                console.error("Erreur lors de la suppression:", err.response?.data || err)
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                    return
+                }
+                setFormMessage(err.response?.data?.message || "Erreur lors de la suppression.")
+            })
+    }
 
     // Fonction pour déterminer l'état du stock
     const getStockStatus = (stockCurrent, stockBase) => {
@@ -188,6 +295,53 @@ function Equipements() {
                 </select>
             </section>
 
+            <form
+                onSubmit={handleSubmitEquipment}
+                className="flex flex-wrap items-center gap-3 border-2 bg-[#7CA982] border-white rounded-xl w-[70vw] mx-[5vw] my-[2vh] p-4 text-white"
+            >
+{/*Sélectionner un équipement*/}
+
+                <select
+                    name="type"
+                    value={equipmentFormData.type}
+                    onChange={handleInputChange}
+                    className="bg-white text-black px-3 py-2 rounded-md"
+                >
+                    <option value="ballon">ballon</option>
+                    <option value="chasuble">chasuble</option>
+                    <option value="crampon">crampon</option>
+                </select>
+                <input
+                    type="number"
+                    min="1"
+                    name="quantite"
+                    value={equipmentFormData.quantite}
+                    onChange={handleInputChange}
+                    placeholder="Quantité"
+                    className="bg-white text-black px-3 py-2 rounded-md"
+                />
+                <select
+                    name="id_terrain"
+                    value={equipmentFormData.id_terrain}
+                    onChange={handleInputChange}
+                    className="bg-white text-black px-3 py-2 rounded-md"
+                >
+                    <option value="">Choisir un terrain</option>
+                    {terrains.map((terrain) => (
+                        <option key={terrain.id_terrain} value={terrain.id_terrain}>
+                            Terrain {terrain.id_terrain} - {terrain.adresse}
+                        </option>
+                    ))}
+                </select>
+                <button
+                    type="submit"
+                    className="border-2 border-white px-4 py-2 rounded-md font-bold"
+                >
+                    Ajouter
+                </button>
+                {formMessage && <p className="font-semibold">{formMessage}</p>}
+            </form>
+
             <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7cca98]">
                 <thead className="rounded-xl"> 
                     <tr>
@@ -195,6 +349,7 @@ function Equipements() {
                         <th className="px-20 py-2 text-white font-roboto text-md text-left">Stock d'origine</th>
                         <th className="px-40 py-2 text-white font-roboto text-md text-left">Stock actuel</th>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">État du stock</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Actions</th>
                     </tr>
                 </thead>
     
@@ -204,11 +359,23 @@ function Equipements() {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={index} className="border-b">
-                                    <td className="px-4 py-2">{item.id_ballon}</td>
+                                    <td className="px-4 py-2">{item.id_equipement || item.id_ballon}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
                                     <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
+                                    </td>
+                                    <td className="px-4 py-2">
+                                        <button
+                                            type="button"
+                                            className="bg-red-600  text-white px-2 py-1 rounded"
+                                            onClick={() => {
+                                                console.log("Bouton cliqué pour item:", item)
+                                                deleteEquipement(item.id_equipement || item.id_ballon)
+                                            }}
+                                        >
+                                            Supprimer
+                                        </button>
                                     </td>
                                 </tr>
                             );
@@ -218,11 +385,23 @@ function Equipements() {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={index} className="border-b">
-                                    <td className="px-4 py-2">{item.id_chasuble}</td>
+                                    <td className="px-4 py-2">{item.id_equipement || item.id_chasuble}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
                                     <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
+                                    </td>
+                                    <td className="px-4 py-2">
+                                        <button
+                                            type="button"
+                                            className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
+                                            onClick={() => {
+                                                console.log("Bouton cliqué pour item:", item)
+                                                deleteEquipement(item.id_equipement || item.id_chasuble)
+                                            }}
+                                        >
+                                            Supprimer
+                                        </button>
                                     </td>
                                 </tr>
                             );
@@ -232,11 +411,23 @@ function Equipements() {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={index} className="border-b">
-                                    <td className="px-4 py-2">{item.id_crampon}</td>
+                                    <td className="px-4 py-2">{item.id_equipement || item.id_crampon}</td>
                                     <td className="px-20 py-2">{item.stock_base}</td>
                                     <td className="px-40 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
+                                    </td>
+                                    <td className="px-4 py-2">
+                                        <button
+                                            type="button"
+                                            className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
+                                            onClick={() => {
+                                                console.log("Bouton cliqué pour item:", item)
+                                                deleteEquipement(item.id_equipement || item.id_crampon)
+                                            }}
+                                        >
+                                            Supprimer
+                                        </button>
                                     </td>
                                 </tr>
                             );

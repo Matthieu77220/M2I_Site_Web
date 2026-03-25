@@ -127,7 +127,7 @@ function SuperAdminUsers() {
         <>
             
             {showOptions &&
-                <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50 p-4">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
                         <h1 className="text-xl font-bold m-auto">Voulez-vous supprimer ou modifier l'utilisateur</h1>
@@ -162,7 +162,7 @@ function SuperAdminUsers() {
             }        
             
             {deleteMessage &&
-                <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50 p-4">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
                         <h1 className="text-xl font-bold m-auto">Supprimer l'utilisateur</h1>
@@ -188,8 +188,8 @@ function SuperAdminUsers() {
             }
     
             {editMessage &&
-                <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
-                <div className="relative flex flex-col justify-evenly h-3/5 bg-white rounded-lg p-8 max-w-md w-full overflow-y-auto">
+                <div className="fixed inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="relative flex flex-col justify-evenly h-auto max-h-[90vh] bg-white rounded-lg p-8 max-w-md w-full overflow-y-auto">
                     <div className="flex flex-col justify-between items-center space-y-5">
                         <h1 className="text-xl font-bold m-auto">Modifier l'utilisateur</h1>
                         <div className="w-full space-y-4">
@@ -244,8 +244,8 @@ function SuperAdminUsers() {
                 <NavBarSuperAdmin open={open} setOpen={setOpen} />
             </div>
 
-            <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
-                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Utilisateurs</h1>
+            <section className= {`duration-500 ${open ? "md:pl-60" : "md:pl-[72px]"} p-4`}>
+                <h1 className="font-spartan text-[#7CA982] font-bold text-3xl md:text-5xl text-center underline mt-15 pb-5">Gestion Utilisateurs</h1>
                 {error && <div className="text-red-600 text-center mb-4">{error}</div>}
                 {loading && <div className="text-center py-10">Chargement des utilisateurs...</div>}
                 {!loading && (
@@ -253,9 +253,9 @@ function SuperAdminUsers() {
                     <thead className="rounded-xl">
                         <tr>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
-                        <th className="px-20 py-2 text-white font-roboto text-md text-left">Prénom</th>
-                        <th className="px-20 py-2 text-white font-roboto text-md text-left">Nom</th>
-                        <th className="px-40 py-2 text-white font-roboto text-md text-left">Email</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Prénom</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Nom</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Email</th>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">Rôle</th>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">Actions</th>
                         </tr>
@@ -266,9 +266,9 @@ function SuperAdminUsers() {
                         currentUsers.map((user) => (
                             <tr key={user.id_adherent} className="border-b">
                                 <td className="px-4 py-2">{user.id_adherent}</td>
-                                <td className="px-20 py-2">{user.prenom}</td>
-                                <td className="px-20 py-2">{user.nom}</td>
-                                <td className="px-40 py-2">{user.email}</td>
+                                <td className="px-4 py-2">{user.prenom}</td>
+                                <td className="px-4 py-2">{user.nom}</td>
+                                <td className="px-4 py-2">{user.email}</td>
                                 <td className="px-4 py-2">{user.role}</td>
                                 <td className="px-4 py-2 flex gap-3">
                                     <button

@@ -163,7 +163,7 @@ function SuperAdminClubs() {
         <>
             
             {showOptions &&
-                <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50 p-4">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
                         <h1 className="text-xl font-bold m-auto">Voulez-vous supprimer ou modifier ce club ?</h1>
@@ -198,7 +198,7 @@ function SuperAdminClubs() {
             }        
             
             {deleteMessage &&
-                <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50 p-4">
                 <div className="relative flex flex-col justify-evenly h-2/5 bg-white rounded-lg p-8 max-w-md w-full">
                     <div className="flex flex-col justify-between items-center space-y-5">
                         <h1 className="text-xl font-bold m-auto">Supprimer ce club</h1>
@@ -224,8 +224,8 @@ function SuperAdminClubs() {
             }
     
             {editMessage &&
-                <div className="absolute inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50">
-                <div className="relative flex flex-col justify-evenly h-auto bg-white rounded-lg p-8 max-w-md w-full max-h-96 overflow-y-auto">
+                <div className="fixed inset-0 bg-[#00000166] bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="relative flex flex-col justify-evenly h-auto max-h-[90vh] bg-white rounded-lg p-8 max-w-md w-full overflow-y-auto">
                     <div className="flex flex-col justify-between items-center space-y-4">
                         <h1 className="text-xl font-bold m-auto">Modifier le club</h1>
                         
@@ -282,8 +282,8 @@ function SuperAdminClubs() {
                 <NavBarSuperAdmin open={open} setOpen={setOpen} />
             </div>
 
-            <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
-                <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Clubs</h1>
+            <section className= {`duration-500 ${open ? "md:pl-60" : "md:pl-[72px]"} p-4`}>
+                <h1 className="font-spartan text-[#7CA982] font-bold text-3xl md:text-5xl text-center underline mt-15 pb-5">Gestion Clubs</h1>
                 
                 <div className="flex justify-center pb-4">
                     <button 
@@ -301,9 +301,9 @@ function SuperAdminClubs() {
                     <thead className="rounded-xl font-xl">
                         <tr>
                         <th className="text-white font-roboto text-md px-4 py-2 text-left">ID</th>
-                        <th className="text-white font-roboto text-md px-50 py-2 text-left">Nom</th>
-                        <th className="text-white font-roboto text-md px-50 py-2 text-left">Adresse</th>
-                        <th className="text-white font-roboto text-md px-4 py-2 text-left">Téléphone</th>
+                        <th className="text-white font-roboto text-md px-4 py-2 text-left">Nom</th>
+                        <th className="text-white font-roboto text-md px-4 py-2 text-left">Adresse</th>
+                        <th className="text-white font-roboto text-md px-4 py-2 text-left whitespace-nowrap">Téléphone</th>
                         <th className="text-white font-roboto text-md px-4 py-2 text-left">Actions</th>
                         </tr>
                     </thead>
@@ -313,8 +313,8 @@ function SuperAdminClubs() {
                         currentClubs.map((club) => (
                         <tr key={club.id_club} className="border-b">
                             <td className="px-4 py-2">{club.id_club}</td>
-                            <td className="px-50 py-2">{club.nom}</td>
-                            <td className="px-50 py-2">{club.adresse}</td>
+                            <td className="px-4 py-2">{club.nom}</td>
+                            <td className="px-4 py-2">{club.adresse}</td>
                             <td className="px-4 py-2">{club.telephone}</td>
                             <td className="px-4 py-2 gap-3">
                                 <button

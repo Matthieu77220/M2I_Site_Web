@@ -174,8 +174,8 @@ function Equipements() {
         <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
             <h1 className="text-center text-[#7CA982] text-2xl font-extrabold underline">Equipements</h1>
 
-            <section className="flex border-2 bg-[#7CA982] border-white rounded-xl justify-center text-center w-[50vw] mx-[15vw] my-[5vh] p-4 text-xl text-white font-semibold">
-                <label>Sélectionner l'équipement qui vous intéresse: </label>
+            <section className="flex flex-col md:flex-row border-2 bg-[#7CA982] border-white rounded-xl justify-center items-center text-center w-full max-w-2xl mx-auto my-[5vh] p-4 text-xl text-white font-semibold">
+                <label className="mb-2 md:mb-0">Sélectionner l'équipement qui vous intéresse: </label>
                 <select 
                     name="menu" 
                     className="bg-[#7CA982] mx-2"
@@ -188,12 +188,12 @@ function Equipements() {
                 </select>
             </section>
 
-            <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7cca98]">
+            <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7CA982]">
                 <thead className="rounded-xl"> 
                     <tr>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
-                        <th className="px-20 py-2 text-white font-roboto text-md text-left">Stock d'origine</th>
-                        <th className="px-40 py-2 text-white font-roboto text-md text-left">Stock actuel</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Stock d'origine</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Stock actuel</th>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">État du stock</th>
                     </tr>
                 </thead>
@@ -204,9 +204,10 @@ function Equipements() {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_equipement}</td>
                                     <td className="px-4 py-2">{item.id_ballon}</td>
-                                    <td className="px-20 py-2">{item.stock_base}</td>
-                                    <td className="px-40 py-2">{item.stock_current}</td>
+                                    <td className="px-4 py-2">{item.stock_base}</td>
+                                    <td className="px-4 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
                                     </td>
@@ -218,9 +219,10 @@ function Equipements() {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_equipement}</td>
                                     <td className="px-4 py-2">{item.id_chasuble}</td>
-                                    <td className="px-20 py-2">{item.stock_base}</td>
-                                    <td className="px-40 py-2">{item.stock_current}</td>
+                                    <td className="px-4 py-2">{item.stock_base}</td>
+                                    <td className="px-4 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
                                     </td>
@@ -232,9 +234,10 @@ function Equipements() {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_equipement}</td>
                                     <td className="px-4 py-2">{item.id_crampon}</td>
-                                    <td className="px-20 py-2">{item.stock_base}</td>
-                                    <td className="px-40 py-2">{item.stock_current}</td>
+                                    <td className="px-4 py-2">{item.stock_base}</td>
+                                    <td className="px-4 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
                                         {stockStatus.text}
                                     </td>

@@ -1,0 +1,321 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import NavBarAdmin from '../components/NavBarAdmin';
+
+import axios from 'axios'
+
+function SuperAdminEquipements() {
+
+    const navigate = useNavigate()
+
+    const[open, setOpen] = useState(true)
+    const[selectedEquipment, setSelectedEquipment] = useState('ballons') // État pour gérer la sélection
+    const[currentPageChasubles, setCurrentPageChasubles] = useState(1)
+    const[currentPageBoots, setCurrentPageBoots] = useState(1)
+    const[currentPageBalloons, setCurrentPageBallons] = useState(1)
+    const[showOptions, setShowOptions] = useState(false)
+    const[equipmentFormData, setEquipmentFormData] = useState({
+        stock_base: ''
+    })
+
+    const chasublesPerPages = 10
+    const ballonsPerPages = 10
+    const cramponsPerPages = 10
+
+    // ------------------------------------ //
+    // ----------- API CHASUBLE ----------- //
+    // ------------------------------------ //
+
+    const [chasubles, setChasubles] = useState([])
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/equipement/stockChasuble", { withCredentials: true })
+            .then(res => setChasubles(res.data) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
+
+    const indexOfLastChasuble = currentPageChasubles * chasublesPerPages;
+    const indexOfFirstChasuble = (currentPageChasubles - 1) * chasublesPerPages;
+
+    const currentChasuble = chasubles.slice(indexOfFirstChasuble, indexOfLastChasuble);
+    const totalOfPagesChasuble = Math.max(1, Math.ceil(chasubles.length / chasublesPerPages));
+
+    function nextPageChasuble(){
+        if(currentPageChasubles < totalOfPagesChasuble){
+            setCurrentPageChasubles(currentPageChasubles + 1);
+        }
+    }
+
+    function prevPageChasuble(){
+        if(currentPageChasubles > 1){
+            setCurrentPageChasubles(currentPageChasubles - 1);
+        }
+    }
+
+
+    // ------------------------------------ //
+    // ----------- API BALLON ------------- //
+    // ------------------------------------ //
+
+    const [ballons, setBallons] = useState([])
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/equipement/stockBallon", { withCredentials: true })
+            .then(res => setBallons(res.data) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
+
+    const indexOfLastBalloon = currentPageBalloons * ballonsPerPages;
+    const indexOfFirstBalloon = (currentPageBalloons- 1) * ballonsPerPages;
+
+    const currentBalloon = ballons.slice(indexOfFirstBalloon, indexOfLastBalloon);
+    const totalOfPagesBalloon = Math.max(1, Math.ceil(ballons.length / ballonsPerPages));
+
+    function nextPageBallon(){
+        if(currentPageBalloons < totalOfPagesBalloon){
+            setCurrentPageBallons(currentPageBalloons + 1);
+        }
+    }
+
+    function prevPageBalloon(){
+        if(currentPageBalloons > 1){
+            setCurrentPageBallons(currentPageBalloons - 1);
+        }
+    }
+
+    
+    // ------------------------------------ //
+    // ----------- API CRAMPON ------------ //
+    // ------------------------------------ //
+
+    const [crampons, setCrampons] = useState([])
+
+    // Catch : proctection des pages si status = 401
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/equipement/stockCrampon", { withCredentials: true })
+            .then(res => setCrampons(res.data) )
+            .catch(err => {
+                if (err.response && err.response.status == 401) {
+                    navigate("/connexion")
+                }
+                console.error(err)
+            })
+    }, [])
+
+    const indexOfLastBoots = currentPageBoots* cramponsPerPages;
+    const indexOfFirstBoots = (currentPageBoots- 1) * cramponsPerPages;
+
+    const currentBoot = crampons.slice(indexOfFirstBoots, indexOfLastBoots);
+    const totalOfPagesBoots = Math.max(1, Math.ceil(crampons.length / cramponsPerPages));
+
+    function nextPageBoot(){
+        if(currentPageBoots < totalOfPagesBoots){
+            setCurrentPageBoots(currentPageBoots + 1);
+        }
+    }
+
+    function prevPageBoot(){
+        if(currentPageBoots > 1){
+            setCurrentPageBoots(currentPageBoots - 1);
+        }
+    }
+
+    // Fonction pour gérer le changement de sélection
+    const handleEquipmentChange = (e) => {
+        setSelectedEquipment(e.target.value);
+    }
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEquipmentFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    // Fonction pour déterminer l'état du stock
+    const getStockStatus = (stockCurrent, stockBase) => {
+        const percentage = (stockCurrent / stockBase) * 100;
+        
+        if (percentage === 100) {
+            return { text: "Complet", color: "text-green-600 font-bold" };
+        } else if (percentage > 75) {
+            return { text: "Bon", color: "text-green-500 font-semibold" };
+        } else if (percentage >= 50) {
+            return { text: "Moyen", color: "text-yellow-500 font-semibold" };
+        } else if (percentage >= 25) {
+            return { text: "Faible", color: "text-orange-500 font-semibold" };
+        } else if (percentage > 0) {
+            return { text: "Critique", color: "text-red-500 font-bold" };
+        } else {
+            return { text: "Rupture", color: "text-red-700 font-bold" };
+        }
+    }
+    
+    
+    return(
+    <>
+        <div className='flex'>
+            <NavBarAdmin open={open} setOpen={setOpen} />
+        </div>
+
+        <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
+            <h1 className="text-center text-[#7CA982] text-2xl font-extrabold underline">Equipements</h1>
+
+            <section className="flex flex-col md:flex-row border-2 bg-[#7CA982] border-white rounded-xl justify-center items-center text-center w-full max-w-2xl mx-auto my-[5vh] p-4 text-xl text-white font-semibold">
+                <label className="mb-2 md:mb-0">Sélectionner l'équipement qui vous intéresse: </label>
+                <select 
+                    name="menu" 
+                    className="bg-[#7CA982] mx-2"
+                    value={selectedEquipment}
+                    onChange={handleEquipmentChange}
+                >
+                    <option value="ballons">Ballons</option>
+                    <option value="crampons">Crampons</option>
+                    <option value="chasubles">Chasubles</option>
+                </select>
+            </section>
+
+            <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7CA982]">
+                <thead className="rounded-xl"> 
+                    <tr>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Stock d'origine</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Stock actuel</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">État du stock</th>
+                    </tr>
+                </thead>
+    
+                <tbody> 
+                    {selectedEquipment === 'ballons' && currentBalloon.length > 0 ? (
+                        currentBalloon.map((item, index) => {
+                            const stockStatus = getStockStatus(item.stock_current, item.stock_base);
+                            return (
+                                <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_equipement}</td>
+                                    <td className="px-4 py-2">{item.id_ballon}</td>
+                                    <td className="px-4 py-2">{item.stock_base}</td>
+                                    <td className="px-4 py-2">{item.stock_current}</td>
+                                    <td className={`px-4 py-2 ${stockStatus.color}`}>
+                                        {stockStatus.text}
+                                    </td>
+                                </tr>
+                            );
+                        })
+                    ) : selectedEquipment === 'chasubles' && currentChasuble.length > 0 ? (
+                        currentChasuble.map((item, index) => {
+                            const stockStatus = getStockStatus(item.stock_current, item.stock_base);
+                            return (
+                                <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_equipement}</td>
+                                    <td className="px-4 py-2">{item.id_chasuble}</td>
+                                    <td className="px-4 py-2">{item.stock_base}</td>
+                                    <td className="px-4 py-2">{item.stock_current}</td>
+                                    <td className={`px-4 py-2 ${stockStatus.color}`}>
+                                        {stockStatus.text}
+                                    </td>
+                                </tr>
+                            );
+                        })
+                    ) : selectedEquipment === 'crampons' && currentBoot.length > 0 ? (
+                        currentBoot.map((item, index) => {
+                            const stockStatus = getStockStatus(item.stock_current, item.stock_base);
+                            return (
+                                <tr key={index} className="border-b">
+                                    <td className="px-4 py-2">{item.id_equipement}</td>
+                                    <td className="px-4 py-2">{item.id_crampon}</td>
+                                    <td className="px-4 py-2">{item.stock_base}</td>
+                                    <td className="px-4 py-2">{item.stock_current}</td>
+                                    <td className={`px-4 py-2 ${stockStatus.color}`}>
+                                        {stockStatus.text}
+                                    </td>
+                                </tr>
+                            );
+                        })
+                    ) : (
+                        <tr>
+                            <td className="px-4 py-2 text-red-600" colSpan={4}>
+                                Rien à afficher
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+
+            <section className="flex justify-center p-2">
+                {selectedEquipment === 'ballons' && (
+                    <>
+                        <button 
+                            type="button"
+                            onClick={prevPageBalloon}
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                        >
+                            &lt;
+                        </button>
+                        <p className="border-2 border-white bg-[#7CA982] border-solid p-3 text-white font-bold rounded-xl">{currentPageBalloons}</p>
+                        <button 
+                            type="button"
+                            onClick={nextPageBallon} 
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                        >
+                            &gt;
+                        </button>
+                    </>
+                )}
+                {selectedEquipment === 'chasubles' && (
+                    <>
+                        <button 
+                            type="button"
+                            onClick={prevPageChasuble}
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                        >
+                            &lt;
+                        </button>
+                        <p className="border-2 border-white bg-[#7CA982] border-solid p-3 text-white font-bold rounded-xl">{currentPageChasubles}</p>
+                        <button 
+                            type="button"
+                            onClick={nextPageChasuble} 
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                        >
+                            &gt;
+                        </button>
+                    </>
+                )}
+                {selectedEquipment === 'crampons' && (
+                    <>
+                        <button 
+                            type="button"
+                            onClick={prevPageBoot}
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                        >
+                            &lt;
+                        </button>
+                        <p className="border-2 border-white bg-[#7CA982] border-solid p-3 text-white font-bold rounded-xl">{currentPageBoots}</p>
+                        <button 
+                            type="button"
+                            onClick={nextPageBoot} 
+                            className="border-2 border-white bg-[#7CA982] border-solid cursor-pointer p-3 text-white font-bold rounded-xl"
+                        >
+                            &gt;
+                        </button>
+                    </>
+                )}
+            </section>
+        </section>
+    </>
+    );
+}
+
+export default SuperAdminEquipements;

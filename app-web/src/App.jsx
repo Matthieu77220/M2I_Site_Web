@@ -22,6 +22,7 @@ import AdminStats from './admin/AdminStats.jsx';
 import PannelSuperAdmin from './superadmin/PannelSuperAdmin.jsx';
 import SuperAdminUsers from './superadmin/SuperAdminUsers.jsx';
 import SuperAdminClubs from './superadmin/SuperAdminClubs.jsx';
+import SuperAdminEquipements from './superadmin/SuperAdminEquipements.jsx';
 import Terrain from './Terrain.jsx';
 import Contact from './Contact.jsx';
 import Inscription from './Inscription.jsx';
@@ -51,6 +52,7 @@ function App() {
           <Route path='/PannelSuperAdmin' element={<PannelSuperAdmin/>}/>
           <Route path='/SuperAdminUsers' element={<SuperAdminUsers/>}/>
           <Route path='/SuperAdminClubs' element={<SuperAdminClubs/>}/>
+          <Route path='/SuperAdminEquipements' element={<SuperAdminEquipements/>}/>
           <Route path='/Terrain' element={<Terrain />} />
           <Route path='/Contact' element={<Contact />} />
         </Routes>

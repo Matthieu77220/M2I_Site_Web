@@ -60,7 +60,7 @@ function Profile() {
             <div className='flex'>
                 <NavBar open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>
-            <div className= {`duration-500 ${open ? "pl-60 w-[calc(100vw_-_15rem)]" : "pl-[72px] [calc(100vw_-_4.5rem)]"}
+            <div className= {`duration-500 ${open ? "pl-60 w-[calc(100vw-15rem)]" : "pl-18 [calc(100vw_-_4.5rem)]"}
                             overflow-hidden flex flex-col justify-center items-center bg-[#f8f9fa] h-screen w-full`}>
 
                 {/* Page pour supprimer le compte */}

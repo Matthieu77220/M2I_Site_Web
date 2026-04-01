@@ -17,7 +17,7 @@ function SuperAdminStats() {
     const fetchStats = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:3000/api/admin/stats', {
+            const response = await axios.get('http://localhost:3000/api/superadmin/dashboard/stats', {
                 withCredentials: true
             });
             setStats(response.data);
@@ -58,22 +58,42 @@ function SuperAdminStats() {
 
 
                      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl  mx-auto">
+                        
+                        {/* Donnée Utilisateurs */}
                             <div className="bg-[#7CA982] border-2 border-gray-300 p-6 rounded-2xl shadow-lg text-white text-center">
                                 <h3 className="text-lg font-bold mb-2">Total Utilisateurs</h3>
                                 <p className="text-4xl font-bold">{stats.total_users}</p>
-                            </div> 
-                            <div className="bg-white border-2 border-gray-300 p-6 rounded-2xl shadow-lg text-center">
-                                <h3 className="text-lg font-bold mb-2 text-[#7CA982]">Total Clubs</h3>
-                                <p className="text-4xl font-bold text-[#7CA982]">{stats.total_clubs}</p>
                             </div>
                             <div className="bg-[#7CA982] border-2 border-gray-300 p-6 rounded-2xl shadow-lg text-white text-center">
-                                <h3 className="text-lg font-bold mb-2">Licences Actives</h3>
-                                <p className="text-4xl font-bold">{stats.active_licenses}</p>
+                                <h3 className="text-lg font-bold mb-2">Super Administrateur total</h3>
+                                <p className="text-4xl font-bold">{stats.total_super_admin}</p>
+                            </div>
+                            <div className="bg-[#7CA982] border-2 border-gray-300 p-6 rounded-2xl shadow-lg text-white text-center">
+                                <h3 className="text-lg font-bold mb-2">Administrateurs total</h3>
+                                <p className="text-4xl font-bold">{stats.total_admin}</p>
+                            </div>
+                    
+                        {/* Donnée Club */}
+                            <div className="bg-[#7CA982] border-2 border-gray-300 p-6 rounded-2xl shadow-lg text-white text-center">
+                                <h3 className="text-lg font-bold mb-2">Total Club</h3>
+                                <p className="text-4xl font-bold">{stats.total_club}</p>
+                            </div>
+
+                        {/* Donnée Licence */}
+                            <div className="bg-[#7CA982] border-2 border-gray-300 p-6 rounded-2xl shadow-lg text-white text-center">
+                                <h3 className="text-lg font-bold mb-2">Licences non valides</h3>
+                                <p className="text-4xl font-bold">{stats.licence_non_valides}</p>
+                            </div>
+                            <div className="bg-[#7CA982] border-2 border-gray-300 p-6 rounded-2xl shadow-lg text-white text-center">
+                                <h3 className="text-lg font-bold mb-2">Licences valides</h3>
+                                <p className="text-4xl font-bold">{stats.licence_valides}</p>
                             </div>
                             <div className="bg-white border-2 border-gray-300 p-6 rounded-2xl shadow-lg text-center">
                                 <h3 className="text-lg font-bold mb-2 text-[#7CA982]">Total Licences</h3>
                                 <p className="text-4xl font-bold text-[#7CA982]">{stats.total_licenses}</p>
                             </div>
+                        
+                        {/* Donnée Matchs */}
                             <div className="bg-[#7CA982] border-2 border-gray-300 p-6 rounded-2xl shadow-lg text-white text-center">
                                 <h3 className="text-lg font-bold mb-2">Réservations</h3>
                                 <p className="text-4xl font-bold">{stats.total_reservations}</p>

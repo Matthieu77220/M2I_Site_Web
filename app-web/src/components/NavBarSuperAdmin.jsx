@@ -2,9 +2,8 @@ import { useNavigate } from 'react-router';
 
 
 import { MdMenuOpen } from "react-icons/md";
-import { MdOutlineDashboard } from "react-icons/md";
 import { GiSoccerField } from "react-icons/gi";
-import { FaUsersCog } from "react-icons/fa";;
+import { FaUsersCog } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { CiDumbbell } from "react-icons/ci";
 import { FaUserCircle } from "react-icons/fa";
@@ -43,11 +42,6 @@ function NavBarSuperAdmin({ open, setOpen }) {
 
         {/* Icon */}
         <ul className='flex flex-col'>
-
-          <li onClick={() => { navigate("/PannelSuperAdmin") }} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-            <div><MdOutlineDashboard size={30} /></div>
-            <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-700 font-semibold `}>Dashboard</p>
-          </li>
 
           <li onClick={() => { navigate("/SuperAdminStats") }} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
             <div><FaUserCircle size={30} /></div>

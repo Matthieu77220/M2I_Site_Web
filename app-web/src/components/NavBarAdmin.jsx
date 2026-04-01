@@ -44,11 +44,6 @@ function NavBarAdmin({ open, setOpen }) {
         {/* Icon */}
         <ul className='flex flex-col'>
 
-          <li onClick={() => { navigate("/PannelAdmin") }} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-            <div><MdOutlineDashboard size={30} /></div>
-            <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-700 font-semibold `}>Dashboard</p>
-          </li>
-
           <li onClick={() => { navigate("/AdminStats") }} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
             <div><FaUserCircle size={30} /></div>
             <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Statistiques</p>

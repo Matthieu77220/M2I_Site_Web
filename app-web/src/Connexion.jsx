@@ -51,9 +51,9 @@ function Connexion() {
                 
                 // Rediriger selon le rôle
                 if (userRole === 'superAdmin') {
-                    navigate("../PannelSuperAdmin");
+                    navigate("../SuperAdminStats");
                 } else if (userRole === 'admin') {
-                    navigate("../PannelAdmin")
+                    navigate("../AdminStats")
                 }else {
                     navigate("../Profile");
                 }

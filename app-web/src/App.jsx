@@ -6,7 +6,6 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router'
 import Home from "./Home.jsx"
 import Connexion from "./Connexion.jsx";
 import TestPage from "./TestPage.jsx"
-import PannelAdmin from './admin/PannelAdmin.jsx';
 import Profile from "./Profile.jsx";
 import ModifierProfile from "./ModifierProfile.jsx";
 import ModifierMotDePasse from "./ModifierMotDePasse.jsx";
@@ -19,7 +18,6 @@ import AdminUsers from './admin/AdminUsers.jsx';
 import Equipements from './admin/Equipements.jsx';
 import AdminStats from './admin/AdminStats.jsx';
 import AdminProfile from './admin/AdminProfile.jsx';
-import PannelSuperAdmin from './superadmin/PannelSuperAdmin.jsx';
 import SuperAdminUsers from './superadmin/SuperAdminUsers.jsx';
 import SuperAdminClubs from './superadmin/SuperAdminClubs.jsx';
 import SuperAdminEquipements from './superadmin/SuperAdminEquipements.jsx';
@@ -39,7 +37,6 @@ function App() {
           <Route path="/Inscription" element={<Inscription />} />
           <Route path="/Connexion" element={<Connexion />} />
           <Route path="/TestPage" element={<TestPage />} />
-          <Route path='/PannelAdmin'element={<PannelAdmin />} />
           <Route path='/Profile'element={<Profile />} />
           <Route path='/ModifierProfile'element={<ModifierProfile />} />
           <Route path='/ModifierMotDePasse'element={<ModifierMotDePasse />} />
@@ -52,7 +49,6 @@ function App() {
           <Route path='/AdminProfile' element={<AdminProfile />} />
           <Route path='/Equipements' element={<Equipements />} />
           <Route path='/AdminStats' element={<AdminStats/>}/>
-          <Route path='/PannelSuperAdmin' element={<PannelSuperAdmin/>}/>
           <Route path='/SuperAdminUsers' element={<SuperAdminUsers/>}/>
           <Route path='/SuperAdminClubs' element={<SuperAdminClubs/>}/>
           <Route path='/SuperAdminEquipements' element={<SuperAdminEquipements/>}/>

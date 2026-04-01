@@ -12,7 +12,6 @@ function SuperAdminTerrains() {
     const [currentPage, setCurrentPage] = useState(1);
     const [editData, setEditData] = useState(null);
     const [id_terrain, setId_terrain] = useState(null);
-    const [showCreateTerrainModal, setShowCreateTerrainModal] = useState(false);
     const [showEditTerrainModal, setShowEditTerrainModal] = useState(false)
     const [terrainFormData, setTerrainFormData] = useState({
         adresse: ''
@@ -91,31 +90,6 @@ function SuperAdminTerrains() {
     };
 
     // ------------------------------------ //
-    // ------ API AJouter Terrain -------- //
-    // ------------------------------------ //
-
-    const handleCreateTerrain = async (e) => {
-        e.preventDefault();
-        console.log('Terrain à créer:', terrainFormData);
-
-        setShowCreateTerrainModal(false);
-        setTerrainFormData({
-            adresse: ''
-        });
-
-        try {
-            await axios.post("http://localhost:3000/api/admin/ajouterTerrain",
-                terrainFormData,
-                { withCredentials: true, }
-            )
-                .then(res => setPitchs(res.data))
-        } catch (err) {
-            console.log(err);
-            // Ajouter des useState pour afficher au front les erreurs
-        }
-    };
-
-    // ------------------------------------ //
     // ------- API Edit Terrain ----------- //
     // ------------------------------------ //
 
@@ -155,16 +129,6 @@ function SuperAdminTerrains() {
 
             <section className={`duration-500 ${open ? "pl-60" : "pl-18"}`}>
                 <h1 className="font-spartan text-[#7CA982] font-bold text-5xl text-center underline mt-15 pb-5">Gestion Terrains</h1>
-
-                <div className="flex justify-end mx-22 pb-5">
-                    <button
-                        type="button"
-                        onClick={() => setShowCreateTerrainModal(true)}
-                        className="bg-[#7CA982] text-white font-bold px-6 py-2 rounded-lg hover:bg-[#6a9470] transition-all"
-                    >
-                        + Ajouter un terrain
-                    </button>
-                </div>
 
                 <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl bg-[#7CA982] mx-15 text-white">
                     <thead className="rounded-xl font-xl">
@@ -273,52 +237,6 @@ function SuperAdminTerrains() {
                                     type="button"
                                     onClick={() => {
                                         setShowEditTerrainModal(false)
-                                        setTerrainFormData({
-                                            adresse: ''
-                                        });
-                                    }}
-                                    className="flex-1 bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-400 transition-all"
-                                >
-                                    Annuler
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            {/* Modale de création de terrain */}
-            {showCreateTerrainModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-                        <h2 className="text-2xl font-bold text-[#7CA982] mb-4">Créer un nouveau Terrain</h2>
-
-                        <form onSubmit={handleCreateTerrain} className="space-y-4">
-                            <div>
-                                <label className="block text-gray-700 font-bold mb-2">
-                                    Adresse
-                                </label>
-                                <input
-                                    type="text"
-                                    name="adresse"
-                                    value={terrainFormData.adresse}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7CA982]"
-                                    placeholder="Ex: 34 cours du Danube SERRIS"
-                                />
-                            </div>
-
-                            <div className="flex gap-4 pt-4">
-                                <button
-                                    type="submit"
-                                    className="flex-1 bg-[#7CA982] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#6a9470] transition-all"
-                                >
-                                    Créer
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setShowCreateTerrainModal(false);
                                         setTerrainFormData({
                                             adresse: ''
                                         });

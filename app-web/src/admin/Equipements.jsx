@@ -171,7 +171,7 @@ function Equipements() {
             <NavBarAdmin open={open} setOpen={setOpen} />
         </div>
 
-        <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>
+        <section className= {`duration-500 ${open ? "pl-60" : "pl-18"}`}>
             <h1 className="text-center text-[#7CA982] text-2xl font-extrabold underline">Equipements</h1>
 
             <section className="flex flex-col md:flex-row border-2 bg-[#7CA982] border-white rounded-xl justify-center items-center text-center w-full max-w-2xl mx-auto my-[5vh] p-4 text-xl text-white font-semibold">
@@ -191,7 +191,7 @@ function Equipements() {
             <table className="table-auto w-9/10 border-collapse border-2 border-white rounded-xl mx-15 text-white bg-[#7CA982]">
                 <thead className="rounded-xl"> 
                     <tr>
-                        <th className="px-4 py-2 text-white font-roboto text-md text-left">ID</th>
+                        <th className="px-4 py-2 text-white font-roboto text-md text-left">Adresse</th>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">Stock d'origine</th>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">Stock actuel</th>
                         <th className="px-4 py-2 text-white font-roboto text-md text-left">État du stock</th>
@@ -204,8 +204,7 @@ function Equipements() {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={index} className="border-b">
-                                    <td className="px-4 py-2">{item.id_equipement}</td>
-                                    <td className="px-4 py-2">{item.id_ballon}</td>
+                                    <td className="px-4 py-2">{item.adresse}</td>
                                     <td className="px-4 py-2">{item.stock_base}</td>
                                     <td className="px-4 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
@@ -219,8 +218,7 @@ function Equipements() {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={index} className="border-b">
-                                    <td className="px-4 py-2">{item.id_equipement}</td>
-                                    <td className="px-4 py-2">{item.id_chasuble}</td>
+                                    <td className="px-4 py-2">{item.adresse}</td>
                                     <td className="px-4 py-2">{item.stock_base}</td>
                                     <td className="px-4 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>
@@ -234,8 +232,7 @@ function Equipements() {
                             const stockStatus = getStockStatus(item.stock_current, item.stock_base);
                             return (
                                 <tr key={index} className="border-b">
-                                    <td className="px-4 py-2">{item.id_equipement}</td>
-                                    <td className="px-4 py-2">{item.id_crampon}</td>
+                                    <td className="px-4 py-2">{item.adresse}</td>
                                     <td className="px-4 py-2">{item.stock_base}</td>
                                     <td className="px-4 py-2">{item.stock_current}</td>
                                     <td className={`px-4 py-2 ${stockStatus.color}`}>

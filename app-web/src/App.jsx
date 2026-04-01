@@ -16,13 +16,16 @@ import AdherentLicence from './AdherentLicence.jsx'
 import Statistique from './Statistique.jsx'
 import AdminTerrains from './admin/AdminTerrains.jsx';
 import AdminUsers from './admin/AdminUsers.jsx';
-import ProfileAdmin from './admin/ProfileAdmin.jsx';
 import Equipements from './admin/Equipements.jsx';
 import AdminStats from './admin/AdminStats.jsx';
+import AdminProfile from './admin/AdminProfile.jsx';
 import PannelSuperAdmin from './superadmin/PannelSuperAdmin.jsx';
 import SuperAdminUsers from './superadmin/SuperAdminUsers.jsx';
 import SuperAdminClubs from './superadmin/SuperAdminClubs.jsx';
 import SuperAdminEquipements from './superadmin/SuperAdminEquipements.jsx';
+import SuperAdminTerrains from './superadmin/SuperAdminTerrains.jsx';
+import SuperAdminStats from './superadmin/SuperAdminStats.jsx';
+import SuperAdminProfile from './superadmin/SuperAdminProfile.jsx';
 import Terrain from './Terrain.jsx';
 import Contact from './Contact.jsx';
 import Inscription from './Inscription.jsx';
@@ -46,13 +49,16 @@ function App() {
           <Route path='/Statistique'element={<Statistique />} />
           <Route path='/AdminTerrains' element={<AdminTerrains />} />
           <Route path='/AdminUsers' element={<AdminUsers />} />
-          <Route path='/ProfileAdmin' element={<ProfileAdmin />} />
+          <Route path='/AdminProfile' element={<AdminProfile />} />
           <Route path='/Equipements' element={<Equipements />} />
           <Route path='/AdminStats' element={<AdminStats/>}/>
           <Route path='/PannelSuperAdmin' element={<PannelSuperAdmin/>}/>
           <Route path='/SuperAdminUsers' element={<SuperAdminUsers/>}/>
           <Route path='/SuperAdminClubs' element={<SuperAdminClubs/>}/>
           <Route path='/SuperAdminEquipements' element={<SuperAdminEquipements/>}/>
+          <Route path='/SuperAdminTerrains' element={<SuperAdminTerrains/>}/>
+          <Route path='/SuperAdminStats' element={<SuperAdminStats/>}/>
+          <Route path='/SuperAdminProfile' element={<SuperAdminProfile/>}/>
           <Route path='/Terrain' element={<Terrain />} />
           <Route path='/Contact' element={<Contact />} />
         </Routes>

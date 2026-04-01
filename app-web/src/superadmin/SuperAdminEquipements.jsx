@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import NavBarAdmin from '../components/NavBarAdmin';
+import NavBarSuperAdmin from '../components/NavBarSuperAdmin';
+
 
 import axios from 'axios'
 
@@ -168,7 +169,7 @@ function SuperAdminEquipements() {
     return(
     <>
         <div className='flex'>
-            <NavBarAdmin open={open} setOpen={setOpen} />
+            <NavBarSuperAdmin open={open} setOpen={setOpen} />
         </div>
 
         <section className= {`duration-500 ${open ? "pl-60" : "pl-[72px]"}`}>

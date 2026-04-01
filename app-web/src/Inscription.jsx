@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router';
 import axios from "axios";
 
-function FormulaireInscription() {
+function Inscription() {
 
     const navigate = useNavigate()
 
@@ -86,7 +86,7 @@ function FormulaireInscription() {
         <div className='flex flex-col justify-center lg:h-screen bg-[#5E856B]'>
             <div className="flex justify-center items-center bg-[#5E856B] w-auto">
                 <div className="md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/2 w-full">
-                    <h1 className="text-center text-xl md:text-4xl font-bold m-5 text-white">Créer un nouveau compte</h1>
+                    <h1 className="text-center text-xl md:text-4xl font-bold text-white">Créer un nouveau compte</h1>
                     <h2 className="text-center text-sm md:text-xl mt-3 font-bold text-white">Déja inscrit ? <span className="text-[#7CA982] underline contrast-200 cursor-pointer" onClick={() => navigate('/connexion')} >Connectez-vous</span></h2>
 
                     <div className="mt-5 mx-auto w-full max-w-lg">
@@ -220,4 +220,4 @@ function FormulaireInscription() {
     );
 }
 
-export default FormulaireInscription;
+export default Inscription;

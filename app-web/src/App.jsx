@@ -4,7 +4,6 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router'
 
 // Import des pages
 import Home from "./Home.jsx"
-import FormulaireInscription from "./FormulaireInscription.jsx"
 import Connexion from "./Connexion.jsx";
 import TestPage from "./TestPage.jsx"
 import PannelAdmin from './admin/PannelAdmin.jsx';
@@ -25,6 +24,7 @@ import SuperAdminUsers from './superadmin/SuperAdminUsers.jsx';
 import SuperAdminClubs from './superadmin/SuperAdminClubs.jsx';
 import Terrain from './Terrain.jsx';
 import Contact from './Contact.jsx';
+import Inscription from './Inscription.jsx';
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Inscription" element={<FormulaireInscription />} />
+          <Route path="/Inscription" element={<Inscription />} />
           <Route path="/Connexion" element={<Connexion />} />
           <Route path="/TestPage" element={<TestPage />} />
           <Route path='/PannelAdmin'element={<PannelAdmin />} />

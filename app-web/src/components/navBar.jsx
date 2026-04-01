@@ -8,6 +8,7 @@ import { ImStatsBars } from "react-icons/im";
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineLogout } from "react-icons/md";
 import { GiSoccerField } from "react-icons/gi";
+import { RiMoneyEuroCircleFill } from "react-icons/ri";
 
 import axios from "axios";
 
@@ -45,6 +46,12 @@ function NavBar({ open, setOpen }) {// Récupération des useStat depuis le pare
             onClick={() => navigate('/Dashboard')}>
             <div><MdOutlineDashboard size={30} /></div>
             <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-700 font-semibold `}>Dashboard</p>
+          </li>
+
+          <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'
+            onClick={() => navigate('/Abonnement')}>
+            <div><RiMoneyEuroCircleFill size={30} /></div>
+            <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Abonnement</p>
           </li>
 
           <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'

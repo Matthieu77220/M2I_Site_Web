@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import NavBarAdmin from '../components/NavBarAdmin';
+import NavBarSuperAdmin from '../components/NavBarSuperAdmin';
+
 
 import axios from 'axios'
 
-function Equipements() {
+function SuperAdminEquipements() {
 
     const navigate = useNavigate()
 
@@ -30,7 +31,7 @@ function Equipements() {
 
     // Catch : proctection des pages si status = 401
     useEffect(() => {
-        axios.get("http://localhost:3000/api/equipement/stockChasuble", { withCredentials: true })
+        axios.get("http://localhost:3000/api/superAdminEquipement/stockChasuble", { withCredentials: true })
             .then(res => setChasubles(res.data) )
             .catch(err => {
                 if (err.response && err.response.status == 401) {
@@ -67,7 +68,7 @@ function Equipements() {
 
     // Catch : proctection des pages si status = 401
     useEffect(() => {
-        axios.get("http://localhost:3000/api/equipement/stockBallon", { withCredentials: true })
+        axios.get("http://localhost:3000/api/superAdminEquipement/stockBallon", { withCredentials: true })
             .then(res => setBallons(res.data) )
             .catch(err => {
                 if (err.response && err.response.status == 401) {
@@ -104,7 +105,7 @@ function Equipements() {
 
     // Catch : proctection des pages si status = 401
     useEffect(() => {
-        axios.get("http://localhost:3000/api/equipement/stockCrampon", { withCredentials: true })
+        axios.get("http://localhost:3000/api/superAdminEquipement/stockCrampon", { withCredentials: true })
             .then(res => setCrampons(res.data) )
             .catch(err => {
                 if (err.response && err.response.status == 401) {
@@ -168,7 +169,7 @@ function Equipements() {
     return(
     <>
         <div className='flex'>
-            <NavBarAdmin open={open} setOpen={setOpen} />
+            <NavBarSuperAdmin open={open} setOpen={setOpen} />
         </div>
 
         <section className= {`duration-500 ${open ? "pl-60" : "pl-18"}`}>
@@ -315,4 +316,4 @@ function Equipements() {
     );
 }
 
-export default Equipements;
+export default SuperAdminEquipements;

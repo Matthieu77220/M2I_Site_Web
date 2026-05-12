@@ -4,10 +4,8 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router'
 
 // Import des pages
 import Home from "./Home.jsx"
-import FormulaireInscription from "./FormulaireInscription.jsx"
 import Connexion from "./Connexion.jsx";
 import TestPage from "./TestPage.jsx"
-import PannelAdmin from './admin/PannelAdmin.jsx';
 import Profile from "./Profile.jsx";
 import ModifierProfile from "./ModifierProfile.jsx";
 import ModifierMotDePasse from "./ModifierMotDePasse.jsx";
@@ -17,14 +15,18 @@ import AdherentLicence from './AdherentLicence.jsx'
 import Statistique from './Statistique.jsx'
 import AdminTerrains from './admin/AdminTerrains.jsx';
 import AdminUsers from './admin/AdminUsers.jsx';
-import ProfileAdmin from './admin/ProfileAdmin.jsx';
 import Equipements from './admin/Equipements.jsx';
 import AdminStats from './admin/AdminStats.jsx';
-import PannelSuperAdmin from './superadmin/PannelSuperAdmin.jsx';
+import AdminProfile from './admin/AdminProfile.jsx';
 import SuperAdminUsers from './superadmin/SuperAdminUsers.jsx';
 import SuperAdminClubs from './superadmin/SuperAdminClubs.jsx';
+import SuperAdminEquipements from './superadmin/SuperAdminEquipements.jsx';
+import SuperAdminTerrains from './superadmin/SuperAdminTerrains.jsx';
+import SuperAdminStats from './superadmin/SuperAdminStats.jsx';
+import SuperAdminProfile from './superadmin/SuperAdminProfile.jsx';
 import Terrain from './Terrain.jsx';
 import Contact from './Contact.jsx';
+import Inscription from './Inscription.jsx';
 
 function App() {
   return (
@@ -32,10 +34,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Inscription" element={<FormulaireInscription />} />
+          <Route path="/Inscription" element={<Inscription />} />
           <Route path="/Connexion" element={<Connexion />} />
           <Route path="/TestPage" element={<TestPage />} />
-          <Route path='/PannelAdmin'element={<PannelAdmin />} />
           <Route path='/Profile'element={<Profile />} />
           <Route path='/ModifierProfile'element={<ModifierProfile />} />
           <Route path='/ModifierMotDePasse'element={<ModifierMotDePasse />} />
@@ -45,12 +46,15 @@ function App() {
           <Route path='/Statistique'element={<Statistique />} />
           <Route path='/AdminTerrains' element={<AdminTerrains />} />
           <Route path='/AdminUsers' element={<AdminUsers />} />
-          <Route path='/ProfileAdmin' element={<ProfileAdmin />} />
+          <Route path='/AdminProfile' element={<AdminProfile />} />
           <Route path='/Equipements' element={<Equipements />} />
           <Route path='/AdminStats' element={<AdminStats/>}/>
-          <Route path='/PannelSuperAdmin' element={<PannelSuperAdmin/>}/>
           <Route path='/SuperAdminUsers' element={<SuperAdminUsers/>}/>
           <Route path='/SuperAdminClubs' element={<SuperAdminClubs/>}/>
+          <Route path='/SuperAdminEquipements' element={<SuperAdminEquipements/>}/>
+          <Route path='/SuperAdminTerrains' element={<SuperAdminTerrains/>}/>
+          <Route path='/SuperAdminStats' element={<SuperAdminStats/>}/>
+          <Route path='/SuperAdminProfile' element={<SuperAdminProfile/>}/>
           <Route path='/Terrain' element={<Terrain />} />
           <Route path='/Contact' element={<Contact />} />
         </Routes>

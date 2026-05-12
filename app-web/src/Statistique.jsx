@@ -154,7 +154,7 @@ function Statistique() {
                             {dataUser.map((element, index) => (
                                 <div key={index} className="flex justify-center items-center">
                                     <p className="text-2xl font-bold text-white">
-                                        {Math.round((element.victoire * 100) / element.nombreMatch)}% de victoire
+                                        {Math.round(Number((element.victoire) / (Number(element.victoire) + Number(element.defaite))) * 100)}% de victoire
                                     </p>
                                 </div>
                             ))}

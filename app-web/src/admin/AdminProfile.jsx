@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import NavBar from './components/navBar'
+import NavBarAdmin from '../components/NavBarAdmin';
 import { FaPencil } from "react-icons/fa6";
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-function Profile() {
+function AdminProfile() {
     const [open, setOpen] = useState(true)
 
     //Affiche la page pour supprimer son compte
@@ -58,7 +58,7 @@ function Profile() {
         <>
         <section className='min-h-screen flex flex-col'>
             <div className='flex'>
-                <NavBar open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
+                <NavBarAdmin open={open} setOpen={setOpen} /> {/* Passe en props les éléments du UseStat (open,setOpen) */}
             </div>
             <div className= {`duration-500 ${open ? "pl-60 w-[calc(100vw-15rem)]" : "pl-18 [calc(100vw_-_4.5rem)]"}
                             overflow-hidden flex flex-col justify-center items-center bg-[#f8f9fa] h-screen w-full`}>
@@ -180,4 +180,4 @@ function Profile() {
      );
 }
 
-export default Profile;
+export default AdminProfile;

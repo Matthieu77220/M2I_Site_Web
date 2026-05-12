@@ -8,6 +8,8 @@ import { CiDumbbell } from "react-icons/ci";
 import { GiSoccerField } from "react-icons/gi";
 import { FaUsersCog } from "react-icons/fa";;
 import { MdOutlineLogout } from "react-icons/md";
+import { CiSettings } from "react-icons/ci";
+
 
 import axios from "axios";
 
@@ -42,11 +44,6 @@ function NavBarAdmin({ open, setOpen }) {
         {/* Icon */}
         <ul className='flex flex-col'>
 
-          <li onClick={() => { navigate("/PannelAdmin") }} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
-            <div><MdOutlineDashboard size={30} /></div>
-            <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-700 font-semibold `}>Dashboard</p>
-          </li>
-
           <li onClick={() => { navigate("/AdminStats") }} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
             <div><FaUserCircle size={30} /></div>
             <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-900 font-semibold `}>Statistiques</p>
@@ -65,6 +62,12 @@ function NavBarAdmin({ open, setOpen }) {
           <li onClick={() => { navigate("/AdminUsers") }} className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'>
             <div><FaUsersCog size={30} /></div>
             <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Utilisateurs</p>
+          </li>
+
+          <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'
+            onClick={() => navigate('/AdminProfile')}>
+            <div><CiSettings size={30} /></div>
+            <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1500 font-semibold`}>Paramètre</p>
           </li>
         </ul>
 

@@ -52,9 +52,9 @@ function Connexion() {
                 
                 // Rediriger selon le rôle
                 if (userRole === 'superAdmin') {
-                    navigate("../PannelSuperAdmin");
+                    navigate("../SuperAdminStats");
                 } else if (userRole === 'admin') {
-                    navigate("../PannelAdmin")
+                    navigate("../AdminStats")
                 }else {
                     navigate("../Profile");
                 }
@@ -81,7 +81,7 @@ function Connexion() {
                 <div className="mt-5 mx-auto w-full max-w-lg">
                     <form onSubmit={checkValidInput} className="space-y-8">
 
-                        <div className="absolute -left-2499.75 top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                        <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
                             <label htmlFor="connexion-website">Site web</label>
                             <input
                                 id="connexion-website"

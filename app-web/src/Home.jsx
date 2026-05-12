@@ -15,7 +15,7 @@ function Home() {
 
       <section className="
       flex flex-col
-      md:w-[50vw] md:mt-[25vh]
+      md:w-[50vw] md:mt-[25vh] 
       ">
         
         <section className="flex justify-center text-center">

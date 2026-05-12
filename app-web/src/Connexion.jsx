@@ -18,12 +18,16 @@ function Connexion() {
         motDePasse : ""
     })
 
+    const [honeypotFields, setHoneypotFields] = useState({
+        website: "",
+        company: "",
+        url: ""
+    })
+
     // ---------------------------- Enregistrement de formData dans le formFinal => envoie vers l'api ----------------------------//
 
     // Indique ou non si les inputs respectent les Regex
     const [isInputValid, setIsInputValid] = useState(true)
-
-    const [formFinal, setFormFinal] = useState()
 
     // Vérifie si les inputs sont conforment aux Regex ainsi que les MDP
     async function checkValidInput(event) {
@@ -33,12 +37,9 @@ function Connexion() {
             setIsInputValid(true)
 
             const formFinal = {
-                prenom: formData.prenom,
-                nom: formData.nom,
                 email: formData.email,
-                dateDeNaissance: formData.dateDeNaissance,
-                telephone: formData.telephone,
-                motDePasse: formData.motDePasse
+                motDePasse: formData.motDePasse,
+                ...honeypotFields
             };
 
             try {
@@ -79,6 +80,39 @@ function Connexion() {
 
                 <div className="mt-5 mx-auto w-full max-w-lg">
                     <form onSubmit={checkValidInput} className="space-y-8">
+
+                        <div className="absolute -left-2499.75 top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                            <label htmlFor="connexion-website">Site web</label>
+                            <input
+                                id="connexion-website"
+                                name="website"
+                                type="text"
+                                tabIndex="-1"
+                                autoComplete="off"
+                                value={honeypotFields.website}
+                                onChange={(e) => setHoneypotFields({ ...honeypotFields, website: e.target.value })}
+                            />
+                            <label htmlFor="connexion-company">Entreprise</label>
+                            <input
+                                id="connexion-company"
+                                name="company"
+                                type="text"
+                                tabIndex="-1"
+                                autoComplete="off"
+                                value={honeypotFields.company}
+                                onChange={(e) => setHoneypotFields({ ...honeypotFields, company: e.target.value })}
+                            />
+                            <label htmlFor="connexion-url">URL</label>
+                            <input
+                                id="connexion-url"
+                                name="url"
+                                type="text"
+                                tabIndex="-1"
+                                autoComplete="off"
+                                value={honeypotFields.url}
+                                onChange={(e) => setHoneypotFields({ ...honeypotFields, url: e.target.value })}
+                            />
+                        </div>
 
                         {!isInputValid && <p className="ml-5 md:ml-0 text-center md:text-lg text-base text-red-600 font-semibold">Caractère invalide</p>}
 

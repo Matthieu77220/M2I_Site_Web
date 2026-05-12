@@ -26,6 +26,12 @@ function FormulaireInscription() {
         confirmMotDePasse : ""
     })
 
+    const [honeypotFields, setHoneypotFields] = useState({
+        website: "",
+        company: "",
+        url: ""
+    })
+
     // Initialise le type l'input dateNaissance à "text"
     const [inputDateType, setInputDateType] = useState("text")
 
@@ -36,8 +42,6 @@ function FormulaireInscription() {
 
 
     // ---------------------------- Enregistrement de formData dans le formFinal => envoie vers l'api ----------------------------//
-
-    const [formFinal, setFormFinal] = useState()
 
     async function checkValidInput(event) {
         event.preventDefault() // empêche la réinitilisation du form si il y a une erreur
@@ -56,7 +60,8 @@ function FormulaireInscription() {
                     email: formData.email,
                     dateDeNaissance: formData.dateDeNaissance,
                     telephone: formData.telephone,
-                    motDePasse: formData.motDePasse
+                    motDePasse: formData.motDePasse,
+                    ...honeypotFields
                 };
 
                 try {
@@ -91,6 +96,39 @@ function FormulaireInscription() {
 
                     <div className="mt-5 mx-auto w-full max-w-lg">
                         <form onSubmit={checkValidInput} className="space-y-8">
+
+                            <div className="absolute -left-2499.75 top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                                <label htmlFor="inscription-website">Site web</label>
+                                <input
+                                    id="inscription-website"
+                                    name="website"
+                                    type="text"
+                                    tabIndex="-1"
+                                    autoComplete="off"
+                                    value={honeypotFields.website}
+                                    onChange={(e) => setHoneypotFields({ ...honeypotFields, website: e.target.value })}
+                                />
+                                <label htmlFor="inscription-company">Entreprise</label>
+                                <input
+                                    id="inscription-company"
+                                    name="company"
+                                    type="text"
+                                    tabIndex="-1"
+                                    autoComplete="off"
+                                    value={honeypotFields.company}
+                                    onChange={(e) => setHoneypotFields({ ...honeypotFields, company: e.target.value })}
+                                />
+                                <label htmlFor="inscription-url">URL</label>
+                                <input
+                                    id="inscription-url"
+                                    name="url"
+                                    type="text"
+                                    tabIndex="-1"
+                                    autoComplete="off"
+                                    value={honeypotFields.url}
+                                    onChange={(e) => setHoneypotFields({ ...honeypotFields, url: e.target.value })}
+                                />
+                            </div>
 
                             {!isInputValid && <p className="ml-5 md:ml-0 text-center md:text-lg text-base text-red-600 font-semibold">Caractère invalide</p>}
 

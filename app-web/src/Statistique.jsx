@@ -18,7 +18,7 @@ function Statistique() {
 
     // Catch : proctection des pages si status = 401
     useEffect(() => {
-        axios.get("http://localhost:3000/api/statistiqueAdherent/statistique", { withCredentials: true })
+        axios.get("/api/statistiqueAdherent/statistique", { withCredentials: true })
             .then(res => {
                 if (res.data[0].nombreMatch == 0) {
                     setDataUser([
@@ -42,7 +42,7 @@ function Statistique() {
     }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/statistiqueAdherent/visualisationMatch", { withCredentials: true })
+        axios.get("/api/statistiqueAdherent/visualisationMatch", { withCredentials: true })
             .then(res => setMatch(res.data))
             .catch(err => console.log(err))
     }, [])

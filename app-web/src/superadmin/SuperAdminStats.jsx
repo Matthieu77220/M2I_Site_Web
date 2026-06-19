@@ -17,7 +17,7 @@ function SuperAdminStats() {
     const fetchStats = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:3000/api/superadmin/dashboard/stats', {
+            const response = await axios.get('/api/superadmin/dashboard/stats', {
                 withCredentials: true
             });
             setStats(response.data);

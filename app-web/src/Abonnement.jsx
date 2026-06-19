@@ -5,12 +5,6 @@ import axios from 'axios';
 // Import des icons
 import { HiCheckBadge } from "react-icons/hi2";
 
-// Configuration de l'instance axios
-const api = axios.create({
-    baseURL: 'http://localhost:3000/api',
-    withCredentials: true
-});
-
 function Abonnement() {
 
     const navigate = useNavigate()
@@ -21,7 +15,7 @@ function Abonnement() {
     useEffect(() => {
         const fetchAbonnements = async () => {
             try {
-                const response = await api.get('/abonnements');
+                const response = await axios.get('/api/abonnements');
                 const data = response.data;
 
                 const mapped = data.map((abo) => ({
@@ -50,7 +44,7 @@ function Abonnement() {
 
         try {
             // L'id_adherent est récupéré automatiquement depuis le JWT cookie côté serveur
-            const response = await api.post('/abonnements/acheter', {
+            await axios.post('/api/abonnements/acheter', {
                 id_abonnement: card.id,
             });
 

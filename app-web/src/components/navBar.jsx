@@ -21,7 +21,7 @@ function NavBar({ open, setOpen }) {// Récupération des useStat depuis le pare
   async function deconnexionFunction() {
 
     try {
-      await axios.post("http://localhost:3000/api/auth/deconnexion", {}, { withCredentials: true })
+      await axios.post("/api/auth/deconnexion", {}, { withCredentials: true })
       navigate('/Connexion')
 
     } catch (err) {

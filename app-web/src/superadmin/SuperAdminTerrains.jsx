@@ -27,7 +27,7 @@ function SuperAdminTerrains() {
 
     // Catch : proctection des pages si status = 401
     useEffect(() => {
-        axios.get("http://localhost:3000/api/admin/voirTerrain", { withCredentials: true })
+        axios.get("/api/admin/voirTerrain", { withCredentials: true })
             .then(res => setPitchs(res.data))
             .catch(err => {
                 if (err.response && err.response.status == 401) {
@@ -47,7 +47,7 @@ function SuperAdminTerrains() {
 
         try {
             await axios.delete(
-                "http://localhost:3000/api/admin/supprimerTerrain",
+                "/api/admin/supprimerTerrain",
                 {
                     withCredentials: true,
                     data: { id_terrain: id }
@@ -107,7 +107,7 @@ function SuperAdminTerrains() {
 
 
         try {
-            await axios.put("http://localhost:3000/api/admin/modifierTerrain",
+            await axios.put("/api/admin/modifierTerrain",
                 { id_terrain: id_terrain, adresse: terrainFormData.adresse },
                 { withCredentials: true }
             )

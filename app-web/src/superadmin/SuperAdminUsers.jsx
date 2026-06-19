@@ -29,7 +29,7 @@ function SuperAdminUsers() {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:3000/api/superadmin/users', {
+            const response = await axios.get('/api/superadmin/users', {
                 withCredentials: true
             });
             setUsers(response.data);
@@ -53,7 +53,7 @@ function SuperAdminUsers() {
 
     const fetchClubs = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/superadmin/clubs', {
+            const response = await axios.get('/api/superadmin/clubs', {
                 withCredentials: true
             });
             setClubs(response.data);
@@ -65,7 +65,7 @@ function SuperAdminUsers() {
     const handleDeleteUser = async () => {
         if (!selectedUser) return;
         try {
-            await axios.delete(`http://localhost:3000/api/superadmin/users/${selectedUser.id_adherent}`, {
+            await axios.delete(`/api/superadmin/users/${selectedUser.id_adherent}`, {
                 withCredentials: true
             });
             setUsers(users.filter(u => u.id_adherent !== selectedUser.id_adherent));
@@ -83,7 +83,7 @@ function SuperAdminUsers() {
         if (!selectedUser) return;
         try {
             const updatedUser = { ...selectedUser, role: editRole, id_club: editClub || null };
-            await axios.put(`http://localhost:3000/api/superadmin/users/${selectedUser.id_adherent}`, updatedUser, {
+            await axios.put(`/api/superadmin/users/${selectedUser.id_adherent}`, updatedUser, {
                 withCredentials: true
             });
             setUsers(users.map(u => u.id_adherent === selectedUser.id_adherent ? updatedUser : u));

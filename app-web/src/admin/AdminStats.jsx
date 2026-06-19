@@ -15,7 +15,7 @@ function AdminStats() {
     const fetchStats = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:3000/api/admin/stats', {
+            const response = await axios.get('/api/admin/stats', {
                 withCredentials: true
             });
             setStats(response.data);

@@ -52,7 +52,7 @@ function ModifierProfile() {
             }
 
             try {
-                await axios.put("http://localhost:3000/api/modifProfil/modificationProfile", formFinal, { withCredentials: true } )
+                await axios.put("/api/modifProfil/modificationProfile", formFinal, { withCredentials: true } )
                 navigate("../profile")
             } catch (err) {
                 console.log(err);

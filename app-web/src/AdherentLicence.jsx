@@ -14,7 +14,7 @@ function AdherentLicence() {
 
     // Catch : proctection des pages si status = 401
     useEffect(() => {
-        axios.get("http://localhost:3000/api/licence/identifiantLicence", {withCredentials: true})
+        axios.get("/api/licence/identifiantLicence", {withCredentials: true})
             .then(res => setUser(res.data))
             .catch(err => {
                 if (err.response && err.response.status == 401) { 

@@ -32,7 +32,7 @@ function Profile() {
         setPageGestionCompte(!pageGestionCompte)
       
         try {
-            await axios.delete("http://localhost:3000/api/auth/suppressionCompte", {withCredentials: true})
+            await axios.delete("/api/auth/suppressionCompte", {withCredentials: true})
             
             navigate("../inscription")
         } catch (err) {
@@ -45,7 +45,7 @@ function Profile() {
     const [adherent, setAdherent] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/voirProfile/voirProfile", {withCredentials: true})
+        axios.get("/api/voirProfile/voirProfile", {withCredentials: true})
             .then(res => setAdherent(res.data))
             .catch(err => {
                 if (err.response && err.response.status == 401) { 

@@ -38,7 +38,7 @@ function AdminUsers() {
         setError(null);
 
         axios
-            .get("http://localhost:3000/api/admin/getAllUsers", { withCredentials: true })
+            .get("/api/admin/getAllUsers", { withCredentials: true })
             .then(res => {
                 setUsers(res.data);
             })
@@ -68,7 +68,7 @@ function AdminUsers() {
             return;
         }
 
-        axios.post("http://localhost:3000/api/admin/createUser", formData, { withCredentials: true } )
+        axios.post("/api/admin/createUser", formData, { withCredentials: true } )
             .then(() => {
                 alert("Adhérent créé avec succès");
                 setShowAddModal(false);
@@ -94,7 +94,7 @@ function AdminUsers() {
         }
 
         axios
-            .put(`http://localhost:3000/api/admin/updateUser/${selectedUser.id}`, payload, { withCredentials: true })
+            .put(`/api/admin/updateUser/${selectedUser.id}`, payload, { withCredentials: true })
             .then(() => {
                 alert("Adhérent modifié avec succès");
                 setEditMessage(false);
@@ -118,7 +118,7 @@ function AdminUsers() {
         if (!selectedUser) return;
 
         axios
-            .delete(`http://localhost:3000/api/admin/deleteUser/${selectedUser.id}`, { withCredentials: true })
+            .delete(`/api/admin/deleteUser/${selectedUser.id}`, { withCredentials: true })
             .then(() => {
                 alert("Adhérent supprimé avec succès");
                 setDeleteMessage(false);

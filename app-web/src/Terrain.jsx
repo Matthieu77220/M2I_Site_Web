@@ -11,7 +11,7 @@ function Terrain() {
      const navigate = useNavigate()
 
      useEffect(() => {
-        axios.get("http://localhost:3000/api/terrain/voirTerrain", { withCredentials: true })
+        axios.get("/api/terrain/voirTerrain", { withCredentials: true })
             .then(res => setPitchs(res.data))
             .catch(err => {
                 if (err.response && err.response.status == 401) {

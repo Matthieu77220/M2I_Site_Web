@@ -65,7 +65,7 @@ function Inscription() {
                 };
 
                 try {
-                    const response = await axios.post("http://localhost:3000/api/auth/inscription", formFinal, {withCredentials : true})
+                    const response = await axios.post("/api/auth/inscription", formFinal, {withCredentials : true})
                     
                     // Stocker l'ID et le rôle de l'utilisateur dans localStorage
                     if (response.data?.id) {

@@ -35,7 +35,7 @@ function SuperAdminClubs() {
     const fetchClubs = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:3000/api/superadmin/clubs', {
+            const response = await axios.get('/api/superadmin/clubs', {
                 withCredentials: true
             });
             setClubs(response.data);
@@ -59,7 +59,7 @@ function SuperAdminClubs() {
     const handleDeleteClub = async () => {
         if (!selectedClub) return;
         try {
-            await axios.delete(`http://localhost:3000/api/superadmin/clubs/${selectedClub.id_club}`, {
+            await axios.delete(`/api/superadmin/clubs/${selectedClub.id_club}`, {
                 withCredentials: true
             });
             setClubs(clubs.filter(c => c.id_club !== selectedClub.id_club));
@@ -76,7 +76,7 @@ function SuperAdminClubs() {
     const handleUpdateClub = async () => {
         if (!selectedClub) return;
         try {
-            await axios.put(`http://localhost:3000/api/superadmin/clubs/${selectedClub.id_club}`, selectedClub, {
+            await axios.put(`/api/superadmin/clubs/${selectedClub.id_club}`, selectedClub, {
                 withCredentials: true
             });
             setClubs(clubs.map(c => c.id_club === selectedClub.id_club ? selectedClub : c));
@@ -131,7 +131,7 @@ function SuperAdminClubs() {
         try {
             setClubLoading(true);
             setClubError(null);
-            const response = await axios.post('http://localhost:3000/api/superadmin/clubs', clubFormData, {
+            const response = await axios.post('/api/superadmin/clubs', clubFormData, {
                 withCredentials: true
             });
             setShowCreateClubModal(false);

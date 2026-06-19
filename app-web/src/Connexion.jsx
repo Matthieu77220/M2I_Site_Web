@@ -43,7 +43,7 @@ function Connexion() {
             };
 
             try {
-                 const response = await axios.post("http://localhost:3000/api/auth/connexion", 
+                 const response = await axios.post("/api/auth/connexion",
                     formFinal,
                     {withCredentials: true,}
                 )

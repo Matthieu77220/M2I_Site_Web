@@ -41,7 +41,7 @@ function ModifierMotDePasse() {
             }
 
             try {
-                await axios.put("http://localhost:3000/api/auth/modifierMotDePasse", formFinal, {withCredentials : true})
+                await axios.put("/api/auth/modifierMotDePasse", formFinal, {withCredentials : true})
                 navigate("../profile");
             } catch (err) {
                 console.log(err);

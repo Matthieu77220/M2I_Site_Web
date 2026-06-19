@@ -1,5 +1,6 @@
 import './css/style.css'
 import { useNavigate } from 'react-router';
+import landingImage from './img/landing-img.png';
 
 function Home() {
     
@@ -63,7 +64,7 @@ function Home() {
         <section className="flex">
 
           <img 
-          src="./src/img/landing-img.png" 
+          src={landingImage}
           alt="football is life" 
           className="
           mb-5 object-cover w-full h-[66vh]

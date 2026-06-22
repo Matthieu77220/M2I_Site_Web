@@ -26,7 +26,7 @@ function Home() {
         lg:text-6xl
         xl:text-7xl
         ">
-            M2I Le five entre amis !
+            M2L Le five entre amis !
           </h1>
         </section>
 

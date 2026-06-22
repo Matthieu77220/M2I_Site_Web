@@ -27,6 +27,7 @@ import SuperAdminProfile from './superadmin/SuperAdminProfile.jsx';
 import Terrain from './Terrain.jsx';
 import Contact from './Contact.jsx';
 import Inscription from './Inscription.jsx';
+import MesMatchs from './MesMatchs.jsx';
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
           <Route path='/SuperAdminProfile' element={<SuperAdminProfile/>}/>
           <Route path='/Terrain' element={<Terrain />} />
           <Route path='/Contact' element={<Contact />} />
+          <Route path='/MesMatchs' element={<MesMatchs />} />
         </Routes>
       </Router>
     </>

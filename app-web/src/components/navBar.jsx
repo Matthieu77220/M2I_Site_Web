@@ -66,6 +66,11 @@ function NavBar({ open, setOpen }) {// Récupération des useStat depuis le pare
             <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold `}>Statistique</p>
           </li>
 
+          <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex items-center relative'
+            onClick={() => navigate('/MesMatchs')}>
+            <p className={`${!open && 'w-0 translate-x-24'} overflow-hidden duration-1100 font-semibold whitespace-nowrap`}>Mes matchs</p>
+          </li>
+
           <li className='px-3 py-2 my-2 hover:bg-green-800 hover:rounded-md cursor-pointer flex gap-5 items-center relative'
             onClick={() => navigate('/Terrain')}>
             <div><GiSoccerField size={30} /></div>
